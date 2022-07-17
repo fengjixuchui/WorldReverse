@@ -1,0 +1,2864 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FullInspector-Editor</name>
+    </assembly>
+    <members>
+        <member name="F:FullInspector.BehaviorEditor._editorTypes">
+             <summary>
+             A list of all types that have a CustomBehaviorEditorAttribute
+             attribute.
+             </summary>
+            </member>
+        <member name="F:FullInspector.BehaviorEditor._cachedBehaviorEditors">
+             <summary>
+             Cached property editors.
+             </summary>
+            </member>
+        <member name="M:FullInspector.BehaviorEditor.SortByPropertyTypeRelevance(System.Collections.Generic.List{FullInspector.IBehaviorEditor})">
+             <summary>
+             If there are multiple user-defined property editors that report that
+             they can edit a specific type, we sort the applicability of the
+             property editor based on how close it's reported edited type is to
+             the actual property type. This allows for, say, the
+             IListPropertyEditor to override the ICollectionPropertyEditor.
+             </summary>
+            </member>
+        <member name="M:FullInspector.BehaviorEditor.CreateEditor(System.Type)">
+             <summary>
+             Returns a set of property editors that can be used to edit the given
+             property type.
+             </summary>
+            </member>
+        <member name="M:FullInspector.BehaviorEditor.Get(System.Type)">
+             <summary>
+             Returns a behavior editor that can be used to edit the given behavior
+             type.
+             </summary>
+             <param name="behaviorType">
+             The type of behavior to edit. This should derive from BaseBehavior.
+             </param>
+            </member>
+        <member name="M:FullInspector.Internal.BehaviorEditorTools.CanEdit(System.Type,FullInspector.CustomBehaviorEditorAttribute)">
+             <summary>
+             Returns true if the given dataType matches the given behaviorType. If
+             the dataType is generic and the behaviorType is a generic definition,
+             then the behaviorType will be instantiated with the same generic
+             arguments as dataType.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.BehaviorEditorTools.TryCreateInstance(System.Type,System.Type,System.Type,FullInspector.IBehaviorEditor@)">
+             <summary>
+             Creates a new instance of the given editorType. It is assumed that
+             editorType extends IBehaviorEditor.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.BehaviorEditorTools.TryCreateSpecificEditor(System.Type,System.Type,System.Type)">
+             <summary>
+             Attempt to create a new IBehaviorEditor instance.
+             </summary>
+             <param name="usedEditedType">
+             The data type that is used for comparison with the behavior editor.
+             </param>
+             <param name="actualEditedType">
+             The actual data type that that usedEditedType was derived from.
+             </param>
+             <param name="editorType">
+             The type of editor we are trying to create.
+             </param>
+             <returns></returns>
+            </member>
+        <member name="M:FullInspector.Internal.BehaviorEditorTools.TryCreateEditor(System.Type,System.Type)">
+             <summary>
+             Attempts to create a behavior editor for the given edited data type
+             from the given editor type.
+             </summary>
+             <param name="editedType">The type that is being edited.</param>
+             <param name="editorType">The editor type.</param>
+             <returns>
+             A behavior editor that can edit the given edited type.
+             </returns>
+            </member>
+        <member name="T:FullInspector.CustomAttributePropertyEditorAttribute">
+             <summary>
+             Allows an IPropertyEditor to be used as an attribute property editor.
+             </summary>
+            </member>
+        <member name="F:FullInspector.CustomAttributePropertyEditorAttribute.AttributeActivator">
+             <summary>
+             The attribute type that activates this property editor.
+             </summary>
+            </member>
+        <member name="F:FullInspector.CustomAttributePropertyEditorAttribute.ReplaceOthers">
+             <summary>
+             If true, then this attribute property editor will replace other
+             property editors beneath it.
+             </summary>
+            </member>
+        <member name="M:FullInspector.CustomAttributePropertyEditorAttribute.#ctor(System.Type)">
+             <summary>
+             Construct a new attribute instance.
+             </summary>
+             <param name="attributeActivator">
+             The attribute type that activates this property editor.
+             </param>
+            </member>
+        <member name="M:FullInspector.CustomAttributePropertyEditorAttribute.#ctor(System.Type,System.Boolean)">
+             <summary>
+             Construct a new attribute instance.
+             </summary>
+             <param name="attributeActivator">
+             The attribute type that activates this property editor.
+             </param>
+             <param name="replaceOthers">
+             If true, then this attribute property editor will replace other
+             property editors beneath it.
+             </param>
+            </member>
+        <member name="T:FullInspector.CustomBehaviorEditorAttribute">
+             <summary>
+             Mark a type as a custom behavior editor. That editor needs to derive from
+             BehaviorEditor{TBehavior} and will be used as the editor for that
+             behavior type.
+             </summary>
+            </member>
+        <member name="F:FullInspector.CustomBehaviorEditorAttribute.BehaviorType">
+             <summary>
+             The behavior type to edit.
+             </summary>
+            </member>
+        <member name="F:FullInspector.CustomBehaviorEditorAttribute.Inherit">
+             <summary>
+             True if this should editor should apply to derived types. Defaults to
+             true.
+             </summary>
+            </member>
+        <member name="T:FullInspector.CustomPropertyEditorAttribute">
+             <summary>
+             An annotation that signals that a class is a property editor for a given
+             property type.
+             </summary>
+             <remarks>
+             If the property editor is editing a generic type, then PropertyType
+             should just be an open generic type reflecting the edited type. For
+             example, for a List property editor, PropertyType should be
+             typeof(List{}) (where {} are angle brackets).
+             </remarks>
+            </member>
+        <member name="F:FullInspector.CustomPropertyEditorAttribute.PropertyType">
+             <summary>
+             The type of property that this class is a property editor for. This
+             can be either a non-generic type or an open generic type (List{} is
+             an open generic type, but List[int] is not).
+             </summary>
+            </member>
+        <member name="F:FullInspector.CustomPropertyEditorAttribute.Inherit">
+             <summary>
+             Should this editor type be used for inherited PropertyTypes? If
+             Inherit is true, then the first generic parameter of your property
+             editor type will be automatically populated with the derived type
+             that the property editor is being used to edit.
+             </summary>
+            </member>
+        <member name="F:FullInspector.CustomPropertyEditorAttribute.DisableErrorOnUnityObject">
+             <summary>
+             Internal bool to prevent a warning emission if this property editor
+             targets UnityObject types.
+             </summary>
+            </member>
+        <member name="M:FullInspector.CustomPropertyEditorAttribute.#ctor(System.Type)">
+             <summary>
+             Mark this type as an IPropertyEditor. It will be instantiated
+             automatically.
+             </summary>
+             <param name="propertyType">
+             The type of property that this PropertyEditor is editing.
+             </param>
+            </member>
+        <member name="M:FullInspector.CustomPropertyEditorAttribute.#ctor(System.Type,System.Boolean)">
+             <summary>
+             Mark this type as an IPropertyEditor. It will be instantiated
+             automatically.
+             </summary>
+             <param name="propertyType">
+             The type of property that this PropertyEditor is editing.
+             </param>
+             <param name="inherit">
+             If true, then this PropertyEditor will also be used for types that
+             derive from propertyType. If true, then this also has implications on
+             the generic parameter list. See the documentation on the member
+             variable for more information.
+             </param>
+            </member>
+        <member name="T:FullInspector.DefaultBehaviorEditor">
+             <summary>
+             The default behavior editor is used whenever there is not a user-defined
+             one that should be used instead.
+             </summary>
+            </member>
+        <member name="T:FullInspector.DefaultBehaviorEditor`1">
+             <summary>
+             If you wish to just extend the default behavior editor by adding a
+             section before/after it, you can just extend this class and override the
+             appropriate methods.
+             </summary>
+            </member>
+        <member name="T:FullInspector.IAttributePropertyEditor">
+             <summary>
+             An IAttributePropertyEditor is identical to an IPropertyEditor, except that it also
+             contains an Attribute parameter.
+             </summary>
+            </member>
+        <member name="P:FullInspector.IAttributePropertyEditor.Attribute">
+             <summary>
+             The attribute that was used to create this editor.
+             </summary>
+            </member>
+        <member name="T:FullInspector.AttributePropertyEditor`2">
+             <summary>
+             A property editor is the core editing abstraction used within FI. This allows for
+             overriding of the default inspector logic for elements of a custom type. PropertyEditors
+             are extremely similar to Unity's PropertyDrawers, except that they support generics and
+             are fully type-safe. The AttributePropertyEditor is identical to the PropertyEditor, except
+             that it is activated when a user adds an attribute to a type.
+             </summary>
+             <remarks>
+             Recall that to get FI to actually use the property editor, you need to add the
+             [CustomAttributePropertyEditor] attribute to the type with appropriate parameters.
+             </remarks>
+             <typeparam name="TElement">The element type that the editor will edit</typeparam>
+            </member>
+        <member name="M:FullInspector.IBehaviorEditor.OnEditorActivate(UnityEngine.Object)">
+             <summary>
+             Notification that the inspector/editor is now active.
+             </summary>
+            </member>
+        <member name="M:FullInspector.IBehaviorEditor.OnEditorDeactivate(UnityEngine.Object)">
+             <summary>
+             Notification that the inspector/editor is no longer active.
+             </summary>
+            </member>
+        <member name="M:FullInspector.IBehaviorEditorExtensions.EditWithGUILayout``1(FullInspector.IBehaviorEditor,``0)">
+             <summary>
+             This method makes it easy to use a typical behavior editor as a
+             GUILayout style method, where the rect is taken care of.
+             </summary>
+             <param name="editor">The editor that is being used.</param>
+             <param name="element">The element that is being edited.</param>
+            </member>
+        <member name="T:FullInspector.IPropertyEditor">
+             <summary>
+             Marks an object as a property editor.
+             </summary>
+             <remarks>
+             This interface is split up into two parts, the core one that user's
+             typically access, IPropertyEditor, and one that implements the actual
+             editing API, IPropertyEditorEditAPI. <br /> You almost certainly want to
+             extend PropertyEditor{T} instead of this interface. It provides an
+             automatic implementation for all methods and gives type-safety to your
+             editor.
+             </remarks>
+            </member>
+        <member name="P:FullInspector.IPropertyEditor.EditorChain">
+             <summary>
+             The editing chain that this editor is within. This can be used to
+             fetch the next editor to use and the like.
+             </summary>
+            </member>
+        <member name="M:FullInspector.IPropertyEditor.CanEdit(System.Type)">
+             <summary>
+             Can the editor edit the given type?
+             </summary>
+            </member>
+        <member name="T:FullInspector.IPropertyEditorDefaultFoldoutState">
+             <summary>
+             An optional annotation for a property editor to specify its default
+             foldout state.
+             </summary>
+            </member>
+        <member name="P:FullInspector.IPropertyEditorDefaultFoldoutState.DefaultFoldoutState">
+             <summary>
+             The default foldout state for the property editor. If set to false,
+             then the editor will be collapsed immediately.
+             </summary>
+            </member>
+        <member name="T:FullInspector.PropertyEditor`1">
+             <summary>
+             A property editor is the core editing abstraction used within FI. This
+             allows for overriding of the default inspector logic for elements of a
+             custom type. PropertyEditors are extremely similar to Unity's
+             PropertyDrawers, except that they support generics and are fully
+             type-safe.
+             </summary>
+             <remarks>
+             Recall that to get FI to actually use the property editor, you need to
+             add the [CustomPropertyEditor] attribute to the type with appropriate
+             parameters.
+             </remarks>
+             <typeparam name="TElement">
+             The element type that the editor will edit
+             </typeparam>
+            </member>
+        <member name="T:FullInspector.IPropertyEditorEditAPI">
+             <summary>
+             This is the core editing API that property editors use. We split the
+             editing API and the IPropertyEditor interfaces into two as we define
+             extension methods on IPropertyEditor that allows FI to run arbitrary code
+             before/after the actual edit method executes.
+             </summary>
+            </member>
+        <member name="M:FullInspector.IPropertyEditorEditAPI.Edit(UnityEngine.Rect,UnityEngine.GUIContent,System.Object,FullInspector.fiGraphMetadata)">
+             <summary>
+             Display a Unity inspector GUI that provides an editing interface for
+             the given object.
+             </summary>
+             <param name="region">
+             The rect on the screen to draw the GUI controls.
+             </param>
+             <param name="label">The label to label the controls with.</param>
+             <param name="element">
+             The element itself to edit. This can be mutated directly. For values
+             which cannot be mutated, such as structs, the return value is used to
+             update the stored value.
+             </param>
+             <returns>An updated instance of the element.</returns>
+            </member>
+        <member name="M:FullInspector.IPropertyEditorEditAPI.GetElementHeight(UnityEngine.GUIContent,System.Object,FullInspector.fiGraphMetadata)">
+             <summary>
+             Returns the height of the region that needs editing.
+             </summary>
+             <param name="label">The label that will be used when editing.</param>
+             <param name="element">The element that will be edited.</param>
+             <returns>The height of the region that needs editing.</returns>
+            </member>
+        <member name="M:FullInspector.IPropertyEditorEditAPI.GetFoldoutHeader(UnityEngine.GUIContent,System.Object)">
+             <summary>
+             Returns a header that should be used for the foldout. An item is
+             displayed within a foldout when this property editor reaches a
+             certain height.
+             </summary>
+             <param name="label">The current foldout label.</param>
+             <param name="element">The current object element.</param>
+             <returns>An updated label.</returns>
+            </member>
+        <member name="M:FullInspector.IPropertyEditorEditAPI.OnSceneGUI(System.Object)">
+             <summary>
+             Draw an optional scene GUI.
+             </summary>
+             <param name="element">
+             The object instance to edit using the scene GUI.
+             </param>
+             <returns>An updated object instance.</returns>
+            </member>
+        <member name="P:FullInspector.IPropertyEditorEditAPI.DisplaysStandardLabel">
+             <summary>
+             Does this editor display a standard label that can instead be
+             rendered with EditorGUI.Foldout?
+             </summary>
+            </member>
+        <member name="T:FullInspector.CachedHeightMedatadata">
+             <summary>
+             The cached height metadata is used to optimize CPU/execution time for
+             some memory so that we don't have to recompute heights multiple times
+             over. In essence, if we call GetElementHeight from Edit, then
+             GetElementHeight will short-circuit and just return a cached height.
+             </summary>
+            </member>
+        <member name="T:FullInspector.PropertyEditorExtensions.BaseMethodCall">
+             <summary>
+             We store the current
+             </summary>
+            </member>
+        <member name="F:FullInspector.PropertyEditorExtensions.BaseMethod">
+             <summary>
+             The current method that we are invoking.
+             </summary>
+            </member>
+        <member name="M:FullInspector.PropertyEditorExtensions.GetEditingAPI(FullInspector.IPropertyEditor)">
+             <summary>
+             Helper method to fetch the editing API for an IPropertyEditor.
+             </summary>
+            </member>
+        <member name="M:FullInspector.PropertyEditorExtensions.Edit``1(FullInspector.IPropertyEditor,UnityEngine.Rect,UnityEngine.GUIContent,``0,FullInspector.fiGraphMetadataChild)">
+             <summary>
+             Display a Unity inspector GUI that provides an editing interface for
+             the given object.
+             </summary>
+             <param name="region">
+             The rect on the screen to draw the GUI controls.
+             </param>
+             <param name="label">The label to label the controls with.</param>
+             <param name="element">
+             The element itself to edit. This can be mutated directly. For values
+             which cannot be mutated, such as structs, the return value is used to
+             update the stored value.
+             </param>
+             <returns>An updated instance of the element.</returns>
+            </member>
+        <member name="M:FullInspector.PropertyEditorExtensions.GetDropdownMetadata(FullInspector.IPropertyEditor,FullInspector.fiGraphMetadata)">
+             <summary>
+             Fetches the dropdown metadata instance that should be used. This
+             performs any necessary initialization.
+             </summary>
+            </member>
+        <member name="M:FullInspector.PropertyEditorExtensions.GetElementHeight``1(FullInspector.IPropertyEditor,UnityEngine.GUIContent,``0,FullInspector.fiGraphMetadataChild)">
+             <summary>
+             Returns the height of the region that needs editing.
+             </summary>
+             <param name="label">The label that will be used when editing.</param>
+             <param name="element">The element that will be edited.</param>
+             <returns>The height of the region that needs editing.</returns>
+            </member>
+        <member name="M:FullInspector.PropertyEditorExtensions.GetFoldoutHeader``1(FullInspector.IPropertyEditor,UnityEngine.GUIContent,``0)">
+             <summary>
+             Returns a header that should be used for the foldout. An item is
+             displayed within a foldout when this property editor reaches a
+             certain height.
+             </summary>
+             <param name="label">The current foldout label.</param>
+             <param name="element">The current object element.</param>
+             <returns>An updated label.</returns>
+            </member>
+        <member name="M:FullInspector.PropertyEditorExtensions.OnSceneGUI``1(FullInspector.IPropertyEditor,``0)">
+             <summary>
+             Draw an optional scene GUI.
+             </summary>
+             <param name="element">
+             The object instance to edit using the scene GUI.
+             </param>
+             <returns>An updated object instance.</returns>
+            </member>
+        <member name="M:FullInspector.PropertyEditorExtensions.EditWithGUILayout``1(FullInspector.IPropertyEditor,UnityEngine.GUIContent,``0,FullInspector.fiGraphMetadataChild)">
+             <summary>
+             This method makes it easy to use a typical property editor as a
+             GUILayout style method, where the rect is taken care of.
+             </summary>
+             <param name="editor">The editor that is being used.</param>
+             <param name="label">The label to edit the region with.</param>
+             <param name="element">The element that is being edited.</param>
+            </member>
+        <member name="T:FullInspector.Internal.CompilationDetector">
+             <summary>
+             Detects when Unity is recompiling code. Before a recompile happens, all
+             state is saved and after the recompilation is finished all state is
+             restored.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.CompilationDetector._saved">
+             <summary>
+             True if we have detected a compile but have already saved. This is
+             set to false by Unity after a compilation has finished.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.CompilationDetector._restored">
+             <summary>
+             True if everything has been restored. This is set to false by Unity
+             after a compilation / reload has occurred.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.PlayModeDetector">
+             <summary>
+             Detects when the editor has entered or left play mode or has paused.
+             </summary>
+             <remarks>
+             This class is currently disabled / not used, but it remains here because
+             the code is tricky to get right and may be useful in the future.
+             </remarks>
+            </member>
+        <member name="T:FullInspector.Internal.PlayModeDetector.EditorTransition">
+             <summary>
+             A transition that the editor can go through.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.PlayModeDetector.EditorTransition.PreIntoPlay">
+             <summary>
+             The editor is about to enter play mode but has yet to go through
+             Unity serialization.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.PlayModeDetector.EditorTransition.PostIntoPlay">
+             <summary>
+             The editor is about to enter play mode and has just gone through
+             Unity serialization.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.PlayModeDetector.EditorTransition.PostOutPlay">
+             <summary>
+             The editor is leaving play mode and has just gone through Unity
+             serialization.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.PlayModeDetector.EditorTransition.IntoPause">
+             <summary>
+             The editor is about to enter pause mode
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.PlayModeDetector.EditorTransition.OutPause">
+             <summary>
+             The editor is about to leave pause mode
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.PlayModeDetector._lastPlaying">
+             <summary>
+             The last playing state
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.PlayModeDetector._lastPaused">
+             <summary>
+             The last paused state
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.PlayModeDetector.OnTransition(FullInspector.Internal.PlayModeDetector.EditorTransition)">
+             <summary>
+             This function is called when the editor is undergoing a play mode
+             related transition.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.SceneSaveProcessor">
+             <summary>
+             This processor saves the state of any unsaved BaseBehavior instances when
+             the scene has been saved. This type isn't necessary as the
+             BaseBehaviorEditor manages saving everything, but it provides some extra
+             data protection.
+             </summary>
+            </member>
+        <member name="T:FullInspector.PropertyEditor">
+             <summary>
+             Manages the discovery of PropertyEditor class instances.
+             </summary>
+            </member>
+        <member name="F:FullInspector.PropertyEditor.CachedType.EditedType">
+             <summary>
+             The type of the edited object.
+             </summary>
+            </member>
+        <member name="F:FullInspector.PropertyEditor.CachedType.EditedAttributes">
+             <summary>
+             The attributes associated with the edited type.
+             </summary>
+            </member>
+        <member name="F:FullInspector.PropertyEditor._editorTypes">
+             <summary>
+             A list of all types that have a CustomPropertyEditorAttribute
+             attribute.
+             </summary>
+            </member>
+        <member name="F:FullInspector.PropertyEditor._cachedPropertyEditors">
+             <summary>
+             Cached property editors.
+             </summary>
+            </member>
+        <member name="M:FullInspector.PropertyEditor.SortByPropertyTypeRelevance(System.Collections.Generic.List{FullInspector.IPropertyEditor})">
+             <summary>
+             If there are multiple user-defined property editors that report that
+             they can edit a specific type, we sort the applicability of the
+             property editor based on how close it's reported edited type is to
+             the actual property type. This allows for, say, the
+             IListPropertyEditor to override the ICollectionPropertyEditor.
+             </summary>
+            </member>
+        <member name="M:FullInspector.PropertyEditor.GetCachedEditors(System.Type,System.Reflection.ICustomAttributeProvider)">
+             <summary>
+             Returns a set of property editors that can be used to edit the given
+             property type.
+             </summary>
+            </member>
+        <member name="M:FullInspector.PropertyEditor.Get(System.Type,System.Reflection.ICustomAttributeProvider)">
+             <summary>
+             Returns a PropertyEditorChain that can edit the given type. The
+             PropertyEditorChain will contain all of the IPropertyEditor instances
+             which reported that they could edit the given type (with the
+             associated set of attributes). To get an actual property editor, use
+             chain.FirstEditor or a similar method.
+             </summary>
+             <param name="propertyType">
+             The type of property/field that is being edited.
+             </param>
+             <param name="editedAttributes">
+             Provides attributes that may override the default property editor.
+             This parameter can safely be set to null.
+             </param>
+             <returns>
+             A property editor chain composed of property editors which can edit
+             the given property type.
+             </returns>
+            </member>
+        <member name="T:FullInspector.PropertyEditorChain">
+             <summary>
+             In Full Inspector, there are typically a large number of property editors
+             that can be used for each type, for example, a user defined editor, then
+             the abstract editor, then the reflected editor. PropertyEditorChain
+             encapsulates this idea and makes it easy to retrieve the next editor that
+             will be used.
+             </summary>
+            </member>
+        <member name="F:FullInspector.PropertyEditorChain._editors">
+             <summary>
+             The editing chain. The most applicable editor is at index 0 (followed
+             by the next most applicable at index 1, ...).
+             </summary>
+            </member>
+        <member name="M:FullInspector.PropertyEditorChain.AddEditor(FullInspector.IPropertyEditor)">
+             <summary>
+             Adds an editor to the end of this chain.
+             </summary>
+            </member>
+        <member name="M:FullInspector.PropertyEditorChain.HasNextEditor(FullInspector.IPropertyEditor)">
+             <summary>
+             Returns true if there is another editor after the given one.
+             </summary>
+            </member>
+        <member name="M:FullInspector.PropertyEditorChain.GetNextEditor(FullInspector.IPropertyEditor)">
+             <summary>
+             Returns the next editor that will be used, or null if the given
+             editor is either the last one or was not found in the chain.
+             </summary>
+             <param name="editor">The editor that is currently being used.</param>
+             <returns>The next editor, or null if there is no next one.</returns>
+            </member>
+        <member name="M:FullInspector.PropertyEditorChain.SkipUntilNot(System.Type[])">
+             <summary>
+             Returns the first property editor in this chain that is not an
+             instance of any of the given types.
+             </summary>
+            </member>
+        <member name="P:FullInspector.PropertyEditorChain.FirstEditor">
+             <summary>
+             Returns the first property editor in this chain.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.PropertyEditorTools.CanEdit(System.Type,FullInspector.CustomPropertyEditorAttribute)">
+             <summary>
+             Returns true if the given dataType matches the given propertyType. If
+             the dataType is generic and the propertyType is a generic definition,
+             then the propertyType will be instantiated with the same generic
+             arguments as dataType.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.PropertyEditorTools.TryCreateInstance(System.Type,System.Type,System.Type,System.Reflection.ICustomAttributeProvider,FullInspector.IPropertyEditor@)">
+             <summary>
+             Creates a new instance of the given editorType. It is assumed that
+             editorType extends IPropertyEditor.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.PropertyEditorTools.TryCreateSpecificEditor(System.Type,System.Type,System.Type,System.Reflection.ICustomAttributeProvider)">
+             <summary>
+             Attempt to create a new IPropertyEditor instance.
+             </summary>
+             <param name="usedEditedType">
+             The data type that is used for comparison with the property editor.
+             </param>
+             <param name="actualEditedType">
+             The actual data type that that usedEditedType was derived from.
+             </param>
+             <param name="editorType">
+             The type of editor we are trying to create.
+             </param>
+             <returns></returns>
+            </member>
+        <member name="M:FullInspector.Internal.PropertyEditorTools.TryCreateEditor(System.Type,System.Type,System.Reflection.ICustomAttributeProvider,System.Boolean)">
+             <summary>
+             Attempts to create a property editor for the given edited data type
+             from the given editor type.
+             </summary>
+             <param name="editedType">The type that is being edited.</param>
+             <param name="editorType">The editor type.</param>
+             <param name="attributes">
+             The attributes that were specified for the type.
+             </param>
+             <param name="forceInherit">
+             Should inheritance behavior be forced? The expected value is false.
+             </param>
+             <returns>
+             A property editor that can edit the given edited type.
+             </returns>
+            </member>
+        <member name="F:FullInspector.Internal.AbstractTypeAnimationMetadata.ChangedTypes">
+             <summary>
+             We only animate the abstract type height when we have changed types
+             ourselves. If we always animate when a height change occurs and the
+             inside is also animating, then we will create an "animation lag"
+             which looks awful.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.AbstractTypePropertyEditor">
+             <summary>
+             Provides a property editor for types which cannot be instantiated
+             directly and require the user to select a specific instance to
+             instantiate.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.AttributePropertyEditor._attributeEditorMappings">
+             <summary>
+             A map of attribute type to the IPropertyEditor type that is
+             associated with that attribute (via the
+             CustomAttributePropertyEditorAttribute annotation).
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.AttributePropertyEditor._attributeReplaceMappings">
+             <summary>
+             A map of attribute type to if that property editor should replace all
+             other editors after it.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.EnumPropertyEditor">
+             <summary>
+             Provides a property editor for enums.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.NullablePropertyEditor">
+             <summary>
+             A property editor for nullable types.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.ReflectedPropertyEditor">
+             <summary>
+             The general property editor that takes over when there is no specific override. This uses
+             reflection to discover what values to edit.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.ReflectedPropertyEditor.MaximumNestingDepth">
+             <summary>
+             The maximum depth that the reflected editor will go to for automatic object reference
+             instantiation. Beyond this depth, the user will have the manually instantiate
+             references. We have a depth limit so that we don't end up in an infinite object
+             construction cycle.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.ReflectedPropertyEditor.ShouldAutoInstantiate">
+             <summary>
+             This returns true if automatic instantiation should be enabled. Automatic instantiation
+             gets disabled after the reflected editor has gone a x calls deep into itself in an
+             attempt to prevent infinite recursion.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.ReflectedPropertyEditor.ButtonHeight">
+             <summary>
+             How tall buttons should be.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.ReflectedPropertyEditor.TitleHeight">
+             <summary>
+             How tall the label element should be.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.ReflectedPropertyEditor.DividerHeight">
+             <summary>
+             How much space is between each element.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.ReflectedPropertyEditor.CategoryToolbarHeight">
+             <summary>
+             The height of the category toolbar.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.ReflectedPropertyEditor.HasLabel(UnityEngine.GUIContent)">
+             <summary>
+             Returns true if the given GUIContent element contains any content.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.ReflectedPropertyEditor.DrawLabel(UnityEngine.Rect,UnityEngine.GUIContent)">
+             <summary>
+             Draws a label at the given region. Returns an indented rectangle that can be used for
+             drawing properties directly under the label.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.ReflectedPropertyEditor.EditProperty(UnityEngine.Rect@,System.Object,FullInspector.InspectedProperty,FullInspector.fiGraphMetadata)">
+             <summary>
+             A helper method that draws the inspector for a field/property at the given location.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.ReflectedPropertyEditor.EditButton(UnityEngine.Rect@,System.Object,FullInspector.InspectedMethod)">
+             <summary>
+             A helper method that draws a button at the given region.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.ReflectedPropertyEditor.EditPropertiesButtons(UnityEngine.GUIContent,UnityEngine.Rect,System.Object,FullInspector.fiGraphMetadata)">
+             <summary>
+             Draws the actual property editors.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.TypeDropdownOptionsManager">
+             <summary>
+             Manages the options that are displayed to the user in the instance
+             selection drop-down.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.TypeDropdownOptionsManager.#ctor(System.Type,System.Boolean)">
+             <summary>
+             Setup the instance option manager for the given type.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.TypeDropdownOptionsManager.GetDisplayOptions">
+             <summary>
+             Returns an array of options that should be displayed.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.TypeDropdownOptionsManager.RemoveExtraneousOptions">
+             <summary>
+             Remove any options from the set of display options that are not
+             permanently visible.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.TypeDropdownOptionsManager.GetDisplayOptionIndex(System.Object)">
+             <summary>
+             Returns the index of the option that should be displayed (from
+             GetDisplayOptions()) based on the current object instance.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.TypeDropdownOptionsManager.UpdateObjectInstance(System.Object,System.Int32,System.Int32)">
+             <summary>
+             Changes the instance of the given object, if necessary.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.fiCycleDetector">
+             <summary>
+             This class assists with cycle detection in an object graph.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.fiCycleDetector.Factory">
+             <summary>
+             Factory we use for allocation HashSets (to minimize GC pressure).
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.fiCycleDetector._parents">
+             <summary>
+             Cycle detectors that we are depending on / derived from.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.fiCycleDetector._objects">
+             <summary>
+             The objects we have encountered so far.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.fiCycleDetector._depth">
+             <summary>
+             The recursion depth level that we're at.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Internal.fiCycleDetector.Depth">
+             <summary>
+             The current recursion / nesting depth.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiCycleDetector.Enter">
+             <summary>
+             Increase the recursion / nesting depth.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiCycleDetector.Exit">
+             <summary>
+             Decrease the recursion / nesting depth.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiCycleDetector.TryMark(System.Object)">
+             <summary>
+             Tries to mark an object. Returns false if the object is already in
+             the cycle detector, ie, it has already been encountered (which
+             implies that it's part of a cycle).
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiCycleDetector.IsCycle(System.Object)">
+             <summary>
+             Returns true if the object is in the cycle detector, ie, the object
+             is part of a cycle.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.fiGenericPropertyDrawerPropertyEditorManager.TemporaryEditor">
+             <summary>
+             An editor that is displayed while we are generating the
+             PropertyDrawer bindings.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.fiAnimationMetadata">
+             <summary>
+             A wrapper around AnimFloat that makes it easier to use.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiAnimationMetadata.UpdateHeight(System.Single)">
+             <summary>
+             Update the height of the editor.
+             </summary>
+             <param name="height">The new height.</param>
+             <param name="allowAnimation">
+             Should animation be allowed? Sometimes animation is not desired if a
+             sub-item is animation. If this item animations when a sub-item is
+             animating, then there will be visible UX jerk.
+             </param>
+             <returns>
+             If true, then a transition is occurring and the animation is
+             rendering.
+             </returns>
+            </member>
+        <member name="P:FullInspector.Internal.fiAnimationMetadata.IsAnimating">
+             <summary>
+             Returns true if animation is occurring.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Internal.fiAnimationMetadata.AnimationHeight">
+             <summary>
+             The current height of the animation.
+             </summary>
+            </member>
+        <member name="T:FullInspector.fiCommonSerializedObjectEditor">
+             <summary>
+             An editor that provides a good inspector experience for types which
+             derive from ISerializedObject.
+             </summary>
+            </member>
+        <member name="F:FullInspector.fiCommonSerializedObjectEditor._editorShowSerializedState">
+             <summary>
+             This is accessed by the BaseBehaviorEditor (using reflection) to
+             determine if the editor should show the value for _serializedState.
+             </summary>
+            </member>
+        <member name="M:FullInspector.fiCommonSerializedObjectEditor.DrawOpenScriptButton(UnityEngine.Object)">
+             <summary>
+             Draws an open script button for the given object.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiEditorGUI.ObjectField(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.Object,System.Type,System.Boolean)">
+             <summary>
+             Draws a normal EditorGUI.ObjectField, except it includes the
+             component type.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiEditorGUI.LabeledButton(UnityEngine.Rect,System.String,System.String)">
+             <summary>
+             Draws a button with a label in front of the button.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiEditorGUI.LabeledButton(UnityEngine.Rect,UnityEngine.GUIContent,UnityEngine.GUIContent)">
+             <summary>
+             Draws a button with a label in front of the button.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiEditorGUI.tkControl(UnityEngine.Rect,UnityEngine.GUIContent,System.Object,FullInspector.fiGraphMetadata,FullInspector.tkControlEditor)">
+             <summary>
+             Draws an editor for the given control at the given rect.
+             </summary>
+             <param name="rect">The rect to draw the editor within.</param>
+             <param name="label">The label for the edited control.</param>
+             <param name="element">The element to edit.</param>
+             <param name="metadata">The metadata to use when editing.</param>
+             <param name="control">
+             The actual control that will be used for the editor.
+             </param>
+             <returns>The updated element instance.</returns>
+            </member>
+        <member name="M:FullInspector.Internal.fiEditorGUI.tkControlHeight(UnityEngine.GUIContent,System.Object,FullInspector.fiGraphMetadata,FullInspector.tkControlEditor)">
+             <summary>
+             Draws an editor for the given control at the given rect.
+             </summary>
+             <param name="element">The element to edit.</param>
+             <param name="label">The label for the edited control.</param>
+             <param name="metadata">The metadata to use when editing.</param>
+             <param name="control">
+             The actual control that will be used for the editor.
+             </param>
+             <returns>
+             The height that is needed to fully display this control.
+             </returns>
+            </member>
+        <member name="M:FullInspector.Internal.fiEditorGUI.EditPropertyDirect(UnityEngine.Rect,FullInspector.InspectedProperty,System.Object,FullInspector.fiGraphMetadataChild)">
+             <summary>
+             Draws a GUI for editing the given property and returns the updated
+             value. This does
+             *not* write the updated value to a container.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiEditorGUI.EditPropertyDirect(UnityEngine.Rect,FullInspector.InspectedProperty,System.Object,FullInspector.fiGraphMetadataChild,System.Object)">
+             <summary>
+             Draws a GUI for editing the given property and returns the updated
+             value. This does
+             *not* write the updated value to a container.
+             </summary>
+             <param name="context">
+             An optional context that the property value came from. If this is not
+             given, then a prefab context menu will not be displayable.
+             </param>
+            </member>
+        <member name="T:FullInspector.Internal.fiEditorUtilityCache">
+             <summary>
+             This class is used to cache results for some expensive fiEditorUtility
+             method calls.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiEditorUtility.GetAllScenes">
+             <summary>
+             Returns the paths of all .scene files in the Unity project.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiEditorUtility.GetAllPrefabsOfType(System.Type)">
+             <summary>
+             Find all prefabs of a given type, regardless of location.
+             </summary>
+             <param name="type">The type of object to fetch</param>
+             <remarks>
+             Please note that this method can return UnityObject instances that
+             have been deleted.
+             </remarks>
+            </member>
+        <member name="M:FullInspector.Internal.fiEditorUtility.GetAllAssetsOfType(System.Type)">
+             <summary>
+             Find all assets of a given type, regardless of location.
+             </summary>
+             <param name="type">
+             The (ScriptableObject derived) type of object to fetch
+             </param>
+             <remarks>
+             Please note that this method can return UnityObject instances that
+             have been deleted.
+             </remarks>
+            </member>
+        <member name="M:FullInspector.Internal.fiEditorUtility.RepaintAllEditors">
+             <summary>
+             This will sent a repaint request to every active editor.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.fiEditorUtility.RepaintableEditorWindows">
+             <summary>
+             Add to this list if the editor should be repainted upon a general
+             repaint request.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.fiEditorUtility.ShouldInspectorRedraw">
+             <summary>
+             If enabled, then the inspector should be constantly redrawn. This is
+             used to work around some rendering issues within Unity.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiEditorUtility.TryGetMonoScript(System.Object,UnityEditor.MonoScript@)">
+             <summary>
+             Attempts to fetch a MonoScript that is associated with the given obj.
+             </summary>
+             <param name="obj">The object to fetch the script for.</param>
+             <param name="script">The script, if found.</param>
+             <returns>True if there was a script, false otherwise.</returns>
+            </member>
+        <member name="M:FullInspector.Internal.fiEditorUtility.HasMonoScript(System.Object)">
+             <summary>
+             Returns true if the given obj has a MonoScript associated with it.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.fiGlobalMetadata">
+             <summary>
+             Returns an associated object for another object.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.fiGlobalMetadata._items">
+             <summary>
+             A mapping from the objects that contain metadata to their metadata.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiGlobalMetadata.Has(System.Object)">
+             <summary>
+             Returns true if there is metadata for the given item.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiGlobalMetadata.Set``1(System.Object,``0)">
+             <summary>
+             Sets the metadata instance for the given item and type.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiGlobalMetadata.Get``1(System.Object)">
+             <summary>
+             Fetch a metadata instance for the given item.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.fiPrefabTools">
+             <summary>
+             Utility functions for working with prefab overrides.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiPrefabTools.ContainsPropertyName(System.String,System.String)">
+             <summary>
+             Returns true if the period separate property path contains the given
+             property name.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiPrefabTools.TryExtractPropertyName(FullInspector.ISerializedObject,UnityEditor.PropertyModification,System.String@)">
+             <summary>
+             Attempts to extract the name of serialized key for the given property
+             modification.
+             </summary>
+             <param name="obj">
+             The object that that modification is applied to.
+             </param>
+             <param name="mod">The modification.</param>
+             <param name="keyName">
+             An output parameter containing the name of the key that the
+             modification maps to.
+             </param>
+             <returns>True if the key was found, false otherwise.</returns>
+            </member>
+        <member name="M:FullInspector.Internal.fiPrefabTools.RevertValue(System.Object,FullInspector.InspectedProperty)">
+             <summary>
+             Reverts the given property on the instance to the prefab value.
+             </summary>
+             <param name="instance">
+             The prefab instance to revert the value on.
+             </param>
+             <param name="property">The property to revert.</param>
+            </member>
+        <member name="M:FullInspector.Internal.fiPrefabTools.HasPrefabDiff(System.Object,FullInspector.InspectedProperty)">
+             <summary>
+             Returns true if the given property on the given object instance has a
+             prefab override.
+             </summary>
+             <param name="instance">The object instance.</param>
+             <param name="property">The property to check.</param>
+             <returns>
+             True if the property is prefab override, false otherwise.
+             </returns>
+             <remarks>
+             Currently, this method only works for MonoBehavior targets.
+             </remarks>
+            </member>
+        <member name="F:FullInspector.Internal.fiReflectionUtility._creatableTypeCache">
+             <summary>
+             A cache of all types that derive the key type in the AppDomain. The
+             cache is automatically destroyed upon assembly loads.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiReflectionUtility.GetCreatableTypesDeriving(System.Type)">
+             <summary>
+             Returns all types that derive from the base type. This includes
+             generic type definitions, which when returned will have appropriate
+             constructor values injected.
+             </summary>
+             <param name="baseType">The base parent type.</param>
+            </member>
+        <member name="T:FullInspector.Internal.fiReflectionUtility.GenericParameterCandidate">
+             <summary>
+             A candidate type that can potentially be used as a generic parameter
+             argument.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.fiReflectionUtility.GenericParameterCandidate.Type">
+             <summary>
+             The actual type that will be the generic parameter.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.fiReflectionUtility.GenericParameterCandidate.SourceParameterName">
+             <summary>
+             The name of the generic parameter that this type came from.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiReflectionUtility.GetIndexOfName(System.Type[],System.String)">
+             <summary>
+             Helper method to return the index of the Type in the array that has
+             the given Name (or
+             - 1 if the item is not in the array).
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiReflectionUtility.SelectBestTypeParameters(System.Collections.Generic.List{FullInspector.Internal.fiReflectionUtility.GenericParameterCandidate},System.Type)">
+             <summary>
+             Orders the given types parameter array so that the order most closely
+             matches the given genericArguments array
+             </summary>
+             <param name="candidateTypes">
+             The types that have been collected as potential candidates for
+             generic parameter arguments
+             </param>
+             <param name="openGenericType">
+             The type that we are going to use the candidateTypes for constructing
+             a closed generic type on
+             </param>
+             <returns>
+             An array of types that can (hopefully) be used to construct a closed
+             generic type from the given openGenericType.
+             </returns>
+            </member>
+        <member name="M:FullInspector.Internal.fiReflectionUtility.TryConstructAssignableGenericType(System.Type,System.Type,System.Type,System.Type[],System.Type@)">
+             <summary>
+             Attempts to create an instance of openGenericType such that it is can
+             be assigned to baseType.
+             </summary>
+             <param name="openGenericType">
+             An open generic type that derives baseType
+             </param>
+             <param name="baseType">
+             A generic type with fully populated type parameters.
+             </param>
+             <param name="baseTypeGenericDefinition">
+             Just baseType.GetGenericTypeDefinition()
+             </param>
+             <param name="baseTypeGenericArguments">
+             Just baseType.GetGenericArguments()
+             </param>
+             <param name="constructedType">
+             If this function returns true, then this value is set to the created
+             type that is assignable to baseType and an instance of
+             openGenericType.
+             </param>
+             <returns>True if a type was constructed, false otherwise.</returns>
+            </member>
+        <member name="M:FullInspector.Internal.fiReflectionUtility.GetExactImplementation(System.Type,System.Type)">
+             <summary>
+             Searches for a particular implementation of the given parent type
+             inside of the type. This is particularly useful if the interface type
+             is an open type, ie, typeof(IFace{}), because this method will then
+             return IFace{} but with appropriate type parameters inserted.
+             </summary>
+             <param name="type">The base type to search for interface</param>
+             <param name="parentType">
+             The parent type to search for. Can be an open generic type.
+             </param>
+             <returns>
+             The actual interface type that the type contains, or null if there is
+             no implementation of the given interfaceType on type.
+             </returns>
+            </member>
+        <member name="M:FullInspector.Internal.fiReflectionUtility.GetObjectTypeNameSafe(System.Object)">
+             <summary>
+             Tries to fetch the given CSharpName of the given object type, or null
+             if the object is null.
+             </summary>
+            </member>
+        <member name="T:FullInspector.fiSaveManager">
+             <summary>
+             A few APIs to forcibly call SaveState and RestoreState on every type that
+             implements ISerializedObject.
+             </summary>
+            </member>
+        <member name="M:FullInspector.fiSaveManager.SaveAll">
+             <summary>
+             Forcibly save the state of all objects which derive from
+             ISerializedObject. ISerializedObject saving is managed automatically
+             when you use the editor (and can be customized in fiSettings).
+             </summary>
+            </member>
+        <member name="M:FullInspector.fiSaveManager.RestoreAll">
+             <summary>
+             Forcibly restore the state of all objects which derive from
+             ISerializedObject.
+             </summary>
+            </member>
+        <member name="M:FullInspector.fiSaveManager.RemoveAllSerializedData">
+             <summary>
+             This will clean all of the FI data from the scene.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiSerializedPropertyUtility.GetTarget(UnityEditor.SerializedProperty)">
+             <summary>
+             Returns the object that this serialized property is currently
+             storing.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.fiUnityInternalReflection">
+             <summary>
+             This class contains methods that do not use public Unity API. These are
+             subject to break/change per update.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiUnityInternalReflection.SetBoldDefaultFont(System.Boolean)">
+             <summary>
+             Attempts to enable/disable the bold font that is used by Unity when
+             an object has a value different from its prefab.
+             </summary>
+             <param name="enabled">
+             True if the bold font is set, false if it is not.
+             </param>
+            </member>
+        <member name="T:FullInspector.BackupService.fiBackupEditorGUILayout">
+             <summary>
+             Contains editing logic common to the backup window and the inline backup
+             viewer.
+             </summary>
+            </member>
+        <member name="T:FullInspector.BackupService.fiBackupEditorWindow">
+             <summary>
+             The backup editor window.
+             </summary>
+            </member>
+        <member name="T:FullInspector.BackupService.fiBackupManager">
+             <summary>
+             The central API that end-users might be interested in. Provides key
+             functions such as creating a new backup and restoring an old one.
+             </summary>
+            </member>
+        <member name="M:FullInspector.BackupService.fiBackupManager.GetBackupsFor(FullInspector.Internal.CommonBaseBehavior)">
+             <summary>
+             Returns all backups for the given object.
+             </summary>
+            </member>
+        <member name="M:FullInspector.BackupService.fiBackupManager.CreateBackup(UnityEngine.Component)">
+             <summary>
+             Creates a new backup of the given component. Only guaranteed to work
+             for types that derive from CommonBaseBehavior, but there is a good
+             chance it'll work for most/all types derived from Component.
+             </summary>
+            </member>
+        <member name="M:FullInspector.BackupService.fiBackupManager.ShouldIgnoreForPersist(FullInspector.InspectedProperty)">
+             <summary>
+             Helper function that just ignores a few FI internal types for
+             serialization since the backup solution serializes all inspected
+             properties, not just those that are serialized
+             </summary>
+            </member>
+        <member name="M:FullInspector.BackupService.fiBackupManager.RestoreBackup(FullInspector.BackupService.fiSerializedObject)">
+             <summary>
+             Restores a backup that was previously created.
+             </summary>
+            </member>
+        <member name="M:FullInspector.BackupService.fiBackupManager.Serialize(UnityEngine.Component)">
+             <summary>
+             Creates a serialized object from the given component.
+             </summary>
+            </member>
+        <member name="T:FullInspector.BackupService.fiPrefabManager">
+             <summary>
+             Manages backups stored in prefab storage container. The prefab container
+             stores backups when Unity is in play-mode and when the backup target does
+             not live in the scene (an example would be a backup targeting another
+             prefab).
+             </summary>
+            </member>
+        <member name="T:FullInspector.BackupService.fiSceneManager">
+             <summary>
+             Manages the backup storage that lives in the scene.
+             </summary>
+            </member>
+        <member name="T:FullInspector.BackupService.fiStorageManager">
+             <summary>
+             This class provides a unified API for accessing backups across scene and
+             prefab storage.
+             </summary>
+            </member>
+        <member name="P:FullInspector.BackupService.fiStorageManager.PersistentStorage">
+             <summary>
+             Returns the storage component that is currently best suited for use.
+             </summary>
+            </member>
+        <member name="M:FullInspector.BackupService.fiStorageManager.RemoveBackup(FullInspector.BackupService.fiSerializedObject)">
+             <summary>
+             Removes the given backup instance.
+             </summary>
+            </member>
+        <member name="M:FullInspector.BackupService.fiStorageManager.RemoveInvalidBackups">
+             <summary>
+             Removes backups that are no longer valid (their target got destroyed,
+             etc).
+             </summary>
+            </member>
+        <member name="M:FullInspector.BackupService.fiStorageManager.MigrateStorage">
+             <summary>
+             Attempts to migrate prefab storage into scene storage.
+             </summary>
+            </member>
+        <member name="M:FullInspector.BackupService.fiStorageManager.HasBackups(FullInspector.Internal.CommonBaseBehavior)">
+             <summary>
+             Returns true if there is a backup for the given behavior.
+             </summary>
+            </member>
+        <member name="P:FullInspector.BackupService.fiStorageManager.SerializedObjects">
+             <summary>
+             Returns every serialized object.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.ArrayAdaptor`1">
+             <summary>
+             Reorderable list adapter for arrays.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.CollectionAdaptor`1">
+             <summary>
+             Reorderable list adapter for ICollection types
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.CollectionAdaptor`1._height">
+             <summary>
+             Returns the height of the given element.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.CollectionAdaptor`1._drawer">
+             <summary>
+             Provides an editor for the given element.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.CollectionAdaptor`1._metadata">
+             <summary>
+             Metadata we use for the callbacks.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.CollectionAdaptor`1._collection">
+             <summary>
+             Stores all of the elements
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.CollectionAdaptor`1._collectionCache">
+             <summary>
+             A cached version of the collection optimized for item lookup.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.CollectionAdaptor`1.InvalidateCache(System.Boolean)">
+             <summary>
+             For performance reasons, the CollectionAdaptor stores an array
+             version of the collection. If the adapted collection has been
+             structurally modified, for example, an item has been added, then the
+             local cache is invalid. Calling this method updates the cache, which
+             will restore proper adapter semantics.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.ListAdaptor`1">
+             <summary>
+             Reorderable list adapter for generic list.
+             </summary>
+             <remarks>
+             <para>
+             This adapter can be subclassed to add special logic to item height
+             calculation. You may want to implement a custom adapter class where
+             specialized functionality is needed.
+             </para>
+             </remarks>
+            </member>
+        <member name="M:FullInspector.Internal.ListAdaptor`1.#ctor(System.Collections.Generic.IList{`0},FullInspector.Internal.ListAdaptor{`0}.ItemDrawer,FullInspector.Internal.ListAdaptor{`0}.ItemHeight,FullInspector.fiGraphMetadata)">
+             <param name="list">The list which can be reordered.</param>
+             <param name="itemDrawer">Callback to draw list item.</param>
+             <param name="itemHeight">Height of list item in pixels.</param>
+            </member>
+        <member name="T:FullInspector.Internal.BaseCollectionPropertyEditor`4">
+             <summary>
+             This is the base collection property editor with a set of extension
+             points for the other property editors. All Rotorz-style collection
+             editors use this as the base editor. It provides automatic support for
+             paging.
+             </summary>
+             <typeparam name="TActual">
+             The actual type of the collection, ie, List{T}. This is used for instance
+             creation.
+             </typeparam>
+             <typeparam name="TCollection">
+             The collection interface, ie, IList{T}, or List{T}. The property editor
+             selection logic will choose the most associated editor using this type.
+             </typeparam>
+             <typeparam name="TItem">
+             The type of items stored inside of the collection, ie, {T} in List{T}.
+             </typeparam>
+             <typeparam name="TAddItem">
+             The type of item that is added to a collection, ie, TAddItem = {K} in
+             TActual = Dictionary{K, V} where TItem = KeyValuePair{K, V}
+             </typeparam>
+            </member>
+        <member name="M:FullInspector.Internal.BaseCollectionPropertyEditor`4.GetAdaptor(`1,FullInspector.fiGraphMetadata)">
+             <summary>
+             Fetch an adaptor for the collection.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.BaseCollectionPropertyEditor`4.OnPostEdit(`1@,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             Called after an edit cycle is done if the collection needs to be
+             updated from the adaptor.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.BaseCollectionPropertyEditor`4.AddItemToCollection(`3,`1@,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             An item has been added to the collection.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Internal.BaseCollectionPropertyEditor`4.DisplayAddItemPreview">
+             <summary>
+             Should the item added to the collection be customized *before* adding
+             it?
+             </summary>
+            </member>
+        <member name="P:FullInspector.Internal.BaseCollectionPropertyEditor`4.AllowReordering">
+             <summary>
+             Can we reorder elements inside of the collection?
+             </summary>
+            </member>
+        <member name="T:FullInspector.Modules.InspectorDatabaseEditorAttributeEditor`2">
+             <summary>
+             Provides a relatively simple editor for IList{T} types that only views
+             one element at a time. This is useful if the list is massive, or perhaps
+             to just reduce information overload when editing.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Modules.InspectorDatabaseEditorAttributeEditor`2.HasEditableItem(FullInspector.Modules.tkDatabaseContext)">
+             <summary>
+             Returns true if there is currently an item that is being edited.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Modules.InspectorDatabaseEditorAttributeEditor`2.TryEnsureValidIndex(FullInspector.Modules.tkDatabaseContext)">
+             <summary>
+             Attempts to ensure that the current editing index is not out of
+             range. However, if the edited list is empty, then the index will
+             always be out of range.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Modules.InspectorDatabaseEditorAttributeEditor`2.InspectorDatabaseEditorMetadata">
+             <summary>
+             The metadata we store on each item that we edit so that we know what
+             the active editing item is.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor">
+             <summary>
+             Adaptor allowing reorderable list control to interface with list data.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor.Count">
+             <summary>
+             Gets count of elements in list.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor.CanDrag(System.Int32)">
+             <summary>
+             Determines whether an item can be reordered by dragging mouse.
+             </summary>
+             <remarks>
+             <para>
+             This should be a light-weight method since it will be used to
+             determine whether grab handle should be included for each item in a
+             reorderable list.
+             </para>
+             <para>
+             Please note that returning a value of <c>false</c> does not prevent
+             movement on list item since other draggable items can be moved around
+             it.
+             </para>
+             </remarks>
+             <param name="index">Zero-based index for list element.</param>
+             <returns>
+             A value of <c>true</c> if item can be dragged; otherwise /c&gt;.
+             </returns>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor.CanRemove(System.Int32)">
+             <summary>
+             Determines whether an item can be removed from list.
+             </summary>
+             <remarks>
+             <para>
+             This should be a light-weight method since it will be used to
+             determine whether remove button should be included for each item in
+             list.
+             </para>
+             <para>
+             This is redundant when <see cref="F:FullInspector.Rotorz.ReorderableList.ReorderableListFlags.HideRemoveButtons" /> is specified.
+             </para>
+             </remarks>
+             <param name="index">Zero-based index for list element.</param>
+             <returns>
+             A value of <c>true</c> if item can be removed; otherwise /c&gt;.
+             </returns>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor.Add">
+             <summary>
+             Add new element at end of list.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor.Insert(System.Int32)">
+             <summary>
+             Insert new element at specified index.
+             </summary>
+             <param name="index">Zero-based index for list element.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor.Duplicate(System.Int32)">
+             <summary>
+             Duplicate existing element.
+             </summary>
+             <param name="index">Zero-based index of list element.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor.Remove(System.Int32)">
+             <summary>
+             Remove element at specified index.
+             </summary>
+             <param name="index">Zero-based index of list element.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor.Move(System.Int32,System.Int32)">
+             <summary>
+             Move element from source index to destination index.
+             </summary>
+             <param name="sourceIndex">Zero-based index of source element.</param>
+             <param name="destIndex">
+             Zero-based index of destination element.
+             </param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor.Clear">
+             <summary>
+             Clear all elements from list.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor.DrawItem(UnityEngine.Rect,System.Int32)">
+             <summary>
+             Draw interface for list element.
+             </summary>
+             <param name="position">Position in GUI.</param>
+             <param name="index">Zero-based index of array element.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor.GetItemHeight(System.Int32)">
+             <summary>
+             Gets height of list item in pixels.
+             </summary>
+             <param name="index">Zero-based index of array element.</param>
+             <returns>Measurement in pixels.</returns>
+            </member>
+        <member name="T:FullInspector.Rotorz.ReorderableList.Internal.ReorderableListResources">
+             <summary>
+             Resources to assist with reorderable list control.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.Internal.ReorderableListResources.s_LightSkin">
+             <summary>
+             Resource assets for light skin.
+             </summary>
+             <remarks>
+             <para>
+             Resource assets are PNG images which have been encoded using a
+             base-64 string so that actual asset files are not necessary.
+             </para>
+             </remarks>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.Internal.ReorderableListResources.s_DarkSkin">
+             <summary>
+             Resource assets for dark skin.
+             </summary>
+             <remarks>
+             <para>
+             Resource assets are PNG images which have been encoded using a
+             base-64 string so that actual asset files are not necessary.
+             </para>
+             </remarks>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.Internal.ReorderableListResources.texAddButton">
+             <summary>
+             Gets light or dark texture "add_button.png".
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.Internal.ReorderableListResources.texAddButtonActive">
+             <summary>
+             Gets light or dark texture "add_button_active.png".
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.Internal.ReorderableListResources.texContainerBackground">
+             <summary>
+             Gets light or dark texture "container_background.png".
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.Internal.ReorderableListResources.texGrabHandle">
+             <summary>
+             Gets light or dark texture "grab_handle.png".
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.Internal.ReorderableListResources.texRemoveButton">
+             <summary>
+             Gets light or dark texture "remove_button.png".
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.Internal.ReorderableListResources.texRemoveButtonActive">
+             <summary>
+             Gets light or dark texture "remove_button_active.png".
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.Internal.ReorderableListResources.texTitleBackground">
+             <summary>
+             Gets light or dark texture "title_background.png".
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.Internal.ReorderableListResources.GenerateSpecialTextures">
+             <summary>
+             Generate special textures.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.Internal.ReorderableListResources.CreatePixelTexture(System.String,UnityEngine.Color)">
+             <summary>
+             Create 1x1 pixel texture of specified color.
+             </summary>
+             <param name="name">Name for texture object.</param>
+             <param name="color">Pixel color.</param>
+             <returns>The new <c>Texture2D</c> instance.</returns>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.Internal.ReorderableListResources.LoadResourceAssets">
+             <summary>
+             Read textures from base-64 encoded strings. Automatically selects
+             assets based upon whether the light or dark (pro) skin is active.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.Internal.ReorderableListResources.GetImageSize(System.Byte[],System.Int32@,System.Int32@)">
+             <summary>
+             Read width and height if PNG file in pixels.
+             </summary>
+             <param name="imageData">PNG image data.</param>
+             <param name="width">Width of image in pixels.</param>
+             <param name="height">Height of image in pixels.</param>
+            </member>
+        <member name="T:FullInspector.Rotorz.ReorderableList.Internal.RotorzGUIHelper">
+             <summary>
+             Utility functions to assist with GUIs.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.Internal.RotorzGUIHelper.VisibleRect">
+             <summary>
+             Gets visible rectangle within GUI.
+             </summary>
+             <remarks>
+             <para>VisibleRect = TopmostRect + scrollViewOffsets</para>
+             </remarks>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.Internal.RotorzGUIHelper.FocusTextInControl">
+             <summary>
+             Focus control and text editor where applicable.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Rotorz.ReorderableList.ItemInsertedEventArgs">
+             <summary>
+             Arguments which are passed to <see cref="T:FullInspector.Rotorz.ReorderableList.ItemInsertedEventHandler" />.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ItemInsertedEventArgs.adaptor">
+             <summary>
+             Gets adaptor to reorderable list container which contains element.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ItemInsertedEventArgs.itemIndex">
+             <summary>
+             Gets zero-based index of item which was inserted.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ItemInsertedEventArgs.wasDuplicated">
+             <summary>
+             Indicates if inserted item was duplicated from another item.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ItemInsertedEventArgs.#ctor(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32,System.Boolean)">
+             <summary>
+             Initializes a new instance of <see cref="T:FullInspector.Rotorz.ReorderableList.ItemInsertedEventArgs" />.
+             </summary>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <param name="itemIndex">Zero-based index of item.</param>
+             <param name="wasDuplicated">
+             Indicates if inserted item was duplicated from another item.
+             </param>
+            </member>
+        <member name="T:FullInspector.Rotorz.ReorderableList.ItemInsertedEventHandler">
+             <summary>
+             An event handler which is invoked after new list item is inserted.
+             </summary>
+             <param name="sender">Object which raised event.</param>
+             <param name="args">Event arguments.</param>
+            </member>
+        <member name="T:FullInspector.Rotorz.ReorderableList.ItemRemovingEventArgs">
+             <summary>
+             Arguments which are passed to <see cref="T:FullInspector.Rotorz.ReorderableList.ItemRemovingEventHandler" />.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ItemRemovingEventArgs.adaptor">
+             <summary>
+             Gets adaptor to reorderable list container which contains element.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ItemRemovingEventArgs.itemIndex">
+             <summary>
+             Gets zero-based index of item which was inserted.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ItemRemovingEventArgs.#ctor(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32)">
+             <summary>
+             Initializes a new instance of <see cref="T:FullInspector.Rotorz.ReorderableList.ItemInsertedEventArgs" />.
+             </summary>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <param name="itemIndex">Zero-based index of item.</param>
+            </member>
+        <member name="T:FullInspector.Rotorz.ReorderableList.ItemRemovingEventHandler">
+             <summary>
+             An event handler which is invoked before a list item is removed.
+             </summary>
+             <remarks>
+             <para>
+             Item removal can be cancelled by setting <see cref="P:System.ComponentModel.CancelEventArgs.Cancel" /> to <c>true</c>.
+             </para>
+             </remarks>
+             <param name="sender">Object which raised event.</param>
+             <param name="args">Event arguments.</param>
+            </member>
+        <member name="T:FullInspector.Rotorz.ReorderableList.ReorderableListControl">
+             <summary>
+             Base class for custom reorderable list control.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Rotorz.ReorderableList.ReorderableListControl.ItemDrawer`1">
+             <summary>
+             Invoked to draw list item.
+             </summary>
+             <remarks>
+             <para>
+             GUI controls must be positioned absolutely within the given rectangle
+             since list items must be sized consistently.
+             </para>
+             </remarks>
+             <example>
+             <para>
+             The following listing presents a text field for each list item:
+             </para>
+             <code language="csharp">
+             <![CDATA[ using UnityEngine; using UnityEditor;
+            
+             using System.Collections.Generic;
+            
+             public class ExampleWindow : EditorWindow { public List<string> wishlist = new
+             List<string>();
+            
+             private void OnGUI() { ReorderableListGUI.ListField(wishlist, DrawListItem); }
+            
+             private string DrawListItem(Rect position, string value) { // Text fields do not like
+             `null` values! if (value == null) value = ""; return EditorGUI.TextField(position,
+             value) ; } } ]]>
+             </code>
+             <code language="unityscript">
+             <![CDATA[ import
+             System.Collections.Generic;
+            
+             class ExampleWindow extends EditorWindow { var wishlist:List.<String>;
+            
+             function OnGUI() { ReorderableListGUI.ListField(wishlist, DrawListItem); }
+            
+             function DrawListItem(position:Rect, value:String):String { // Text fields do not like
+             `null` values! if (value == null) value = ''; return EditorGUI.TextField(position,
+             value) ; } } ]]>
+             </code>
+             </example>
+             <typeparam name="T">Type of item list.</typeparam>
+             <param name="position">Position of list item.</param>
+             <param name="item">The list item.</param>
+             <returns>The modified value.</returns>
+            </member>
+        <member name="T:FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmpty">
+             <summary>
+             Invoked to draw content for empty list.
+             </summary>
+             <remarks>
+             <para>
+             Callback should make use of <c>GUILayout</c> to present controls.
+             </para>
+             </remarks>
+             <example>
+             <para>
+             The following listing displays a label for empty list control:
+             </para>
+             <code language="csharp">
+             <![CDATA[ using UnityEngine; using UnityEditor;
+            
+             using System.Collections.Generic;
+            
+             public class ExampleWindow : EditorWindow { private List<string> _list;
+            
+             private void OnEnable() { _list = new List<string>(); } private void OnGUI() {
+             ReorderableListGUI.ListField(_list, ReorderableListGUI.TextFieldItemDrawer,
+             DrawEmptyMessage) ; }
+            
+             private string DrawEmptyMessage() { GUILayout.Label("List is empty!",
+             EditorStyles.miniLabel); } } ]]>
+             </code>
+             <code language="unityscript">
+             <![CDATA[ import
+             System.Collections.Generic;
+            
+             class ExampleWindow extends EditorWindow { private var _list:List.<String>;
+            
+             function OnEnable() { _list = new List.<String>(); } function OnGUI() {
+             ReorderableListGUI.ListField(_list, ReorderableListGUI.TextFieldItemDrawer,
+             DrawEmptyMessage) ; }
+            
+             function DrawEmptyMessage() { GUILayout.Label('List is empty!', EditorStyles.miniLabel);
+             } } ]]>
+             </code>
+             </example>
+            </member>
+        <member name="T:FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute">
+             <summary>
+             Invoked to draw content for empty list with absolute positioning.
+             </summary>
+             <param name="position">Position of empty content.</param>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.AnchorBackgroundColor">
+             <summary>
+             Background color of anchor list item.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.TargetBackgroundColor">
+             <summary>
+             Background color of target slot when dragging list item.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.s_RightAlignedLabelStyle">
+             <summary>
+             Style for right-aligned label for element number prefix.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawControlFromState(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmpty,FullInspector.Rotorz.ReorderableList.ReorderableListFlags)">
+             <summary>
+             Generate and draw control from state object.
+             </summary>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <param name="drawEmpty">Delegate for drawing empty list.</param>
+             <param name="flags">Optional flags to pass into list field.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawControlFromState(UnityEngine.Rect,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute,FullInspector.Rotorz.ReorderableList.ReorderableListFlags)">
+             <summary>
+             Generate and draw control from state object.
+             </summary>
+             <param name="position">Position of control.</param>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <param name="drawEmpty">Delegate for drawing empty list.</param>
+             <param name="flags">Optional flags to pass into list field.</param>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.s_AnchorMouseOffset">
+             <summary>
+             Position of mouse upon anchoring item for drag.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.s_AnchorIndex">
+             <summary>
+             Zero-based index of anchored list item.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.s_TargetIndex">
+             <summary>
+             Zero-based index of target list item for reordering.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.s_AutoFocusControlID">
+             <summary>
+             Unique ID of list control which should be automatically focused. A
+             value of zero indicates that no control is to be focused.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.s_AutoFocusIndex">
+             <summary>
+             Zero-based index of item which should be focused.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.s_CurrentItemIndex">
+             <summary>
+             Zero-based index of list item which is currently being drawn.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ReorderableListControl.currentItemIndex">
+             <summary>
+             Gets zero-based index of list item which is currently being drawn; or
+             a value of -1 if no item is currently being drawn.
+             </summary>
+             <remarks>
+             <para>
+             Use <see cref="P:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.currentItemIndex" /> instead.
+             </para>
+             </remarks>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ReorderableListControl.flags">
+             <summary>
+             Gets or sets flags which affect behavior of control.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ReorderableListControl.hasAddButton">
+             <summary>
+             Gets a value indicating whether add button is shown.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ReorderableListControl.hasRemoveButtons">
+             <summary>
+             Gets a value indicating whether remove buttons are shown.
+             </summary>
+            </member>
+        <member name="E:FullInspector.Rotorz.ReorderableList.ReorderableListControl.ItemInserted">
+             <summary>
+             Occurs after list item is inserted or duplicated.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.OnItemInserted(FullInspector.Rotorz.ReorderableList.ItemInsertedEventArgs)">
+             <summary>
+             Raises event after list item is inserted or duplicated.
+             </summary>
+             <param name="args">Event arguments.</param>
+            </member>
+        <member name="E:FullInspector.Rotorz.ReorderableList.ReorderableListControl.ItemRemoving">
+             <summary>
+             Occurs before list item is removed and allows removal to be
+             cancelled.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.OnItemRemoving(FullInspector.Rotorz.ReorderableList.ItemRemovingEventArgs)">
+             <summary>
+             Raises event before list item is removed and provides oppertunity to
+             cancel.
+             </summary>
+             <param name="args">Event arguments.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.#ctor">
+             <summary>
+             Initializes a new instance of <see cref="T:FullInspector.Rotorz.ReorderableList.ReorderableListControl" />.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.#ctor(FullInspector.Rotorz.ReorderableList.ReorderableListFlags)">
+             <summary>
+             Initializes a new instance of <see cref="T:FullInspector.Rotorz.ReorderableList.ReorderableListControl" />.
+             </summary>
+             <param name="flags">
+             Optional flags which affect behavior of control.
+             </param>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl._controlID">
+             <summary>
+             Unique Id of control.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl._visibleRect">
+             <summary>
+             Visible rectangle of control.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl._indexLabelWidth">
+             <summary>
+             Width of index label in pixels (zero indicates no label).
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl._tracking">
+             <summary>
+             Indicates whether item is currently being dragged within control.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl._allowReordering">
+             <summary>
+             Indicates if reordering is allowed.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.PrepareState(System.Int32,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             Prepare initial state for list control.
+             </summary>
+             <param name="controlID">Unique ID of list control.</param>
+             <param name="adaptor">Reorderable list adaptor.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.AutoFocusItem(System.Int32,System.Int32)">
+             <summary>
+             Indicate that first control of list item should be automatically
+             focused if possible.
+             </summary>
+             <param name="controlID">Unique ID of list control.</param>
+             <param name="itemIndex">Zero-based index of list item.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.DoAddButton(UnityEngine.Rect,System.Int32,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             Draw add item button.
+             </summary>
+             <param name="position">Position of button.</param>
+             <param name="controlID">Unique ID of list control.</param>
+             <param name="adaptor">Reorderable list adaptor.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.DoRemoveButton(UnityEngine.Rect,System.Boolean)">
+             <summary>
+             Draw remove button.
+             </summary>
+             <param name="position">Position of button.</param>
+             <param name="visible">
+             Indicates if control is visible within GUI.
+             </param>
+             <returns>
+             A value of <c>true</c> if clicked; otherwise /c&gt;.
+             </returns>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.BeginTrackingReorderDrag(System.Int32,System.Int32)">
+             <summary>
+             Begin tracking drag and drop within list.
+             </summary>
+             <param name="controlID">Unique ID of list control.</param>
+             <param name="itemIndex">
+             Zero-based index of item which is going to be dragged.
+             </param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.StopTrackingReorderDrag">
+             <summary>
+             Stop tracking drag and drop.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.IsTrackingControl(System.Int32)">
+             <summary>
+             Gets a value indicating whether item in current list is currently
+             being tracked.
+             </summary>
+             <param name="controlID">Unique ID of list control.</param>
+             <returns>
+             A value of <c>true</c> if item is being tracked; otherwise /c&gt;.
+             </returns>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.AcceptReorderDrag(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             Accept reordering.
+             </summary>
+             <param name="adaptor">Reorderable list adaptor.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawListContainerAndItems(UnityEngine.Rect,System.Int32,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             Draw list container and items.
+             </summary>
+             <param name="position">Position of list control in GUI.</param>
+             <param name="controlID">Unique ID of list control.</param>
+             <param name="adaptor">Reorderable list adaptor.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.CheckForAutoFocusControl(System.Int32)">
+             <summary>
+             Checks to see if list control needs to be automatically focused.
+             </summary>
+             <param name="controlID">Unique ID of list control.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawFooterControls(UnityEngine.Rect,System.Int32,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             Draw additional controls below list control and highlight drop
+             target.
+             </summary>
+             <param name="position">Position of list control in GUI.</param>
+             <param name="controlID">Unique ID of list control.</param>
+             <param name="adaptor">Reorderable list adaptor.</param>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.s_ContainerHeightCache">
+             <summary>
+             Cache of container heights mapped by control ID.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawLayoutListField(System.Int32,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             Do layout version of list field.
+             </summary>
+             <param name="controlID">Unique ID of list control.</param>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <returns>
+             Position of list container area in GUI (excludes footer area).
+             </returns>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawLayoutEmptyList(FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmpty)">
+             <summary>
+             Draw content for empty list (layout version).
+             </summary>
+             <param name="drawEmpty">Callback to draw empty content.</param>
+             <returns>
+             Position of list container area in GUI (excludes footer area).
+             </returns>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmptyListControl(UnityEngine.Rect,FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute)">
+             <summary>
+             Draw content for empty list (layout version).
+             </summary>
+             <param name="position">Position of list control in GUI.</param>
+             <param name="drawEmpty">Callback to draw empty content.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.FixStyles">
+             <summary>
+             Correct if for some reason one or more styles are missing!
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.Draw(System.Int32,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmpty)">
+             <summary>
+             Draw layout version of list control.
+             </summary>
+             <param name="controlID">Unique ID of list control.</param>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <param name="drawEmpty">Delegate for drawing empty list.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.Draw(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmpty)">
+             <inheritdoc cref="Draw(int, IReorderableListAdaptor, DrawEmpty)" />
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.Draw(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <inheritdoc cref="Draw(int, IReorderableListAdaptor, DrawEmpty)" />
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.Draw(UnityEngine.Rect,System.Int32,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute)">
+             <summary>
+             Draw list control with absolute positioning.
+             </summary>
+             <param name="position">Position of list control in GUI.</param>
+             <param name="controlID">Unique ID of list control.</param>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <param name="drawEmpty">Delegate for drawing empty list.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.Draw(UnityEngine.Rect,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute)">
+             <summary>
+             Draw list control with absolute positioning.
+             </summary>
+             <param name="position">Position of list control in GUI.</param>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <param name="drawEmpty">Delegate for drawing empty list.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.Draw(UnityEngine.Rect,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <inheritdoc cref="Draw(Rect, IReorderableListAdaptor, DrawEmptyAbsolute)" />
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.commandMoveToTop">
+             <summary>
+             Content for "Move to Top" command.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.commandMoveToBottom">
+             <summary>
+             Content for "Move to Bottom" command.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.commandInsertAbove">
+             <summary>
+             Content for "Insert Above" command.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.commandInsertBelow">
+             <summary>
+             Content for "Insert Below" command.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.commandDuplicate">
+             <summary>
+             Content for "Duplicate" command.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.commandRemove">
+             <summary>
+             Content for "Remove" command.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.commandClearAll">
+             <summary>
+             Content for "Clear All" command.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListControl.defaultContextHandler">
+             <summary>
+             Default functionality to handle context command.
+             </summary>
+             <example>
+             <para>
+             Can be used when adding custom items to the context menu:
+             </para>
+             <code language="csharp">
+             <![CDATA[ protected override void AddItemsToMenu(GenericMenu menu, int itemIndex, IReorderableListAdaptor adaptor) { var specialCommand = new GUIContent("Special Command"); menu.AddItem(specialCommand, false, defaultContextHandler, specialCommand); } ]]>
+             </code>
+             <code language="unityscript">
+             <![CDATA[ function AddItemsToMenu(menu:GenericMenu, itemIndex:int, list:IReorderableListAdaptor) { var specialCommand = new GUIContent('Special Command'); menu.AddItem(specialCommand, false, defaultContextHandler, specialCommand); } ]]>
+             </code>
+             </example>
+             <seealso cref="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.AddItemsToMenu(UnityEditor.GenericMenu,System.Int32,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)" />
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.AddItemsToMenu(UnityEditor.GenericMenu,System.Int32,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             Invoked to generate context menu for list item.
+             </summary>
+             <param name="menu">Menu which can be populated.</param>
+             <param name="itemIndex">
+             Zero-based index of item which was right-clicked.
+             </param>
+             <param name="adaptor">Reorderable list adaptor.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.HandleCommand(System.String,System.Int32,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             Invoked to handle context command.
+             </summary>
+             <remarks>
+             <para>
+             It is important to set the value of <c>GUI.changed</c> to <c>true</c>
+             if any changes are made by command handler.
+             </para>
+             <para>Default command handling functionality can be inherited:</para>
+             <code language="csharp">
+             <![CDATA[ protected override bool HandleCommand(string commandName, int itemIndex, IReorderableListAdaptor adaptor) { if (base.HandleCommand(itemIndex, adaptor)) return true;
+            
+             // Place custom command handling code here... switch (commandName) { case "Your
+             Command": return true; }
+            
+             return false; } ]]>
+             </code>
+             <code language="unityscript">
+             <![CDATA[ function
+             HandleCommand(commandName:String, itemIndex:int,
+             adaptor: IReorderableListAdaptor):boolean { if (base.HandleCommand(itemIndex, adaptor))
+             return true;
+            
+             // Place custom command handling code here... switch (commandName) { case 'Your
+             Command': return true; }
+            
+             return false; } ]]>
+             </code>
+             </remarks>
+             <param name="commandName">
+             Name of command. This is the text shown in the context menu.
+             </param>
+             <param name="itemIndex">
+             Zero-based index of item which was right-clicked.
+             </param>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <returns>
+             A value of <c>true</c> if command was known; otherwise /c&gt;.
+             </returns>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.DoCommand(System.String,System.Int32,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             Call to manually perform command.
+             </summary>
+             <remarks>
+             <para>
+             Warning message is logged to console if attempted to execute unknown
+             command.
+             </para>
+             </remarks>
+             <param name="commandName">
+             Name of command. This is the text shown in the context menu.
+             </param>
+             <param name="itemIndex">
+             Zero-based index of item which was right-clicked.
+             </param>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <returns>
+             A value of <c>true</c> if command was known; otherwise /c&gt;.
+             </returns>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.DoCommand(UnityEngine.GUIContent,System.Int32,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             Call to manually perform command.
+             </summary>
+             <remarks>
+             <para>
+             Warning message is logged to console if attempted to execute unknown
+             command.
+             </para>
+             </remarks>
+             <param name="command">Content representing command.</param>
+             <param name="itemIndex">
+             Zero-based index of item which was right-clicked.
+             </param>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <returns>
+             A value of <c>true</c> if command was known; otherwise /c&gt;.
+             </returns>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.CalculateListHeight(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             Calculate height of list control in pixels.
+             </summary>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <returns>Required list height in pixels.</returns>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.CalculateListHeight(System.Int32,System.Single)">
+             <summary>
+             Calculate height of list control in pixels.
+             </summary>
+             <param name="itemCount">Count of items in list.</param>
+             <param name="itemHeight">Fixed height of list item.</param>
+             <returns>Required list height in pixels.</returns>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.MoveItem(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32,System.Int32)">
+             <summary>
+             Move item from source index to destination index.
+             </summary>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <param name="sourceIndex">Zero-based index of source item.</param>
+             <param name="destIndex">
+             Zero-based index of destination index.
+             </param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.AddItem(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             Add item at end of list and raises the event <see cref="E:FullInspector.Rotorz.ReorderableList.ReorderableListControl.ItemInserted" />.
+             </summary>
+             <param name="adaptor">Reorderable list adaptor.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.InsertItem(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32)">
+             <summary>
+             Insert item at specified index and raises the event <see cref="E:FullInspector.Rotorz.ReorderableList.ReorderableListControl.ItemInserted" />.
+             </summary>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <param name="itemIndex">Zero-based index of item.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.DuplicateItem(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32)">
+             <summary>
+             Duplicate specified item and raises the event <see cref="E:FullInspector.Rotorz.ReorderableList.ReorderableListControl.ItemInserted" />.
+             </summary>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <param name="itemIndex">Zero-based index of item.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.RemoveItem(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,System.Int32)">
+             <summary>
+             Remove specified item.
+             </summary>
+             <remarks>
+             <para>
+             The event <see cref="E:FullInspector.Rotorz.ReorderableList.ReorderableListControl.ItemRemoving" /> is raised prior to removing item
+             and allows removal to be cancelled.
+             </para>
+             </remarks>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <param name="itemIndex">Zero-based index of item.</param>
+             <returns>
+             Returns a value of <c>false</c> if operation was cancelled.
+             </returns>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListControl.ClearAll(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <summary>
+             Remove all items from list.
+             </summary>
+             <remarks>
+             <para>
+             The event <see cref="E:FullInspector.Rotorz.ReorderableList.ReorderableListControl.ItemRemoving" /> is raised for each item prior to
+             clearing array and allows entire operation to be cancelled.
+             </para>
+             </remarks>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <returns>
+             Returns a value of <c>false</c> if operation was cancelled.
+             </returns>
+            </member>
+        <member name="T:FullInspector.Rotorz.ReorderableList.ReorderableListGUI">
+             <summary>
+             Utility class for drawing reorderable lists.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.DefaultItemHeight">
+             <summary>
+             Default list item height.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.indexOfChangedItem">
+             <summary>
+             Gets or sets zero-based index of last item which was changed. A value
+             of -1 indicates that no item was changed by list.
+             </summary>
+             <remarks>
+             <para>
+             This property should not be set when items are added or removed.
+             </para>
+             </remarks>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.currentItemIndex">
+             <summary>
+             Gets zero-based index of list item which is currently being drawn; or
+             a value of -1 if no item is currently being drawn.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.defaultListControl">
+             <summary>
+             Gets the default list control implementation.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.defaultTitleStyle">
+             <summary>
+             Gets default style for title header.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.defaultContainerStyle">
+             <summary>
+             Gets default style for background of list control.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.defaultAddButtonStyle">
+             <summary>
+             Gets default style for add item button.
+             </summary>
+            </member>
+        <member name="P:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.defaultRemoveButtonStyle">
+             <summary>
+             Gets default style for remove item button.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.Title(UnityEngine.GUIContent)">
+             <summary>
+             Draw title control for list field.
+             </summary>
+             <remarks>
+             <para>
+             When needed, should be shown immediately before list field.
+             </para>
+             </remarks>
+             <example>
+             <code language="csharp">
+             <![CDATA[ ReorderableListGUI.Title(titleContent); ReorderableListGUI.ListField(list, DynamicListGU.TextFieldItemDrawer); ]]>
+             </code>
+             <code language="unityscript">
+             <![CDATA[ ReorderableListGUI.Title(titleContent); ReorderableListGUI.ListField(list, DynamicListGU.TextFieldItemDrawer); ]]>
+             </code>
+             </example>
+             <param name="title">Content for title control.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.Title(System.String)">
+             <summary>
+             Draw title control for list field.
+             </summary>
+             <remarks>
+             <para>
+             When needed, should be shown immediately before list field.
+             </para>
+             </remarks>
+             <example>
+             <code language="csharp">
+             <![CDATA[ ReorderableListGUI.Title("Your Title"); ReorderableListGUI.ListField(list, DynamicListGU.TextFieldItemDrawer); ]]>
+             </code>
+             <code language="unityscript">
+             <![CDATA[ ReorderableListGUI.Title('Your Title'); ReorderableListGUI.ListField(list, DynamicListGU.TextFieldItemDrawer); ]]>
+             </code>
+             </example>
+             <param name="title">Text for title control.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.Title(UnityEngine.Rect,UnityEngine.GUIContent)">
+             <summary>
+             Draw title control for list field with absolute positioning.
+             </summary>
+             <param name="position">Position of control.</param>
+             <param name="title">Content for title control.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.Title(UnityEngine.Rect,System.String)">
+             <summary>
+             Draw title control for list field with absolute positioning.
+             </summary>
+             <param name="position">Position of control.</param>
+             <param name="text">Text for title control.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.DoListField(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmpty,FullInspector.Rotorz.ReorderableList.ReorderableListFlags)">
+             <summary>
+             Draw list field control for adapted collection.
+             </summary>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <param name="drawEmpty">
+             Callback to draw custom content for empty list (optional).
+             </param>
+             <param name="flags">Optional flags to pass into list field.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.DoListFieldAbsolute(UnityEngine.Rect,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute,FullInspector.Rotorz.ReorderableList.ReorderableListFlags)">
+             <summary>
+             Draw list field control for adapted collection.
+             </summary>
+             <param name="position">Position of control.</param>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <param name="drawEmpty">
+             Callback to draw custom content for empty list (optional).
+             </param>
+             <param name="flags">Optional flags to pass into list field.</param>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.ListField(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmpty,FullInspector.Rotorz.ReorderableList.ReorderableListFlags)">
+             <inheritdoc cref="DoListField(IReorderableListAdaptor, ReorderableListControl.DrawEmpty, ReorderableListFlags)" />
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute,FullInspector.Rotorz.ReorderableList.ReorderableListFlags)">
+             <inheritdoc cref="DoListFieldAbsolute(Rect, IReorderableListAdaptor, ReorderableListControl.DrawEmptyAbsolute, ReorderableListFlags)" />
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.ListField(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmpty)">
+             <inheritdoc cref="DoListField(IReorderableListAdaptor, ReorderableListControl.DrawEmpty, ReorderableListFlags)" />
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListControl.DrawEmptyAbsolute)">
+             <inheritdoc cref="DoListFieldAbsolute(Rect, IReorderableListAdaptor, ReorderableListControl.DrawEmptyAbsolute, ReorderableListFlags)" />
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.ListField(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListFlags)">
+             <inheritdoc cref="DoListField(IReorderableListAdaptor, ReorderableListControl.DrawEmpty, ReorderableListFlags)" />
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListFlags)">
+             <inheritdoc cref="DoListFieldAbsolute(Rect, IReorderableListAdaptor, ReorderableListControl.DrawEmptyAbsolute, ReorderableListFlags)" />
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.ListField(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <inheritdoc cref="DoListField(IReorderableListAdaptor, ReorderableListControl.DrawEmpty, ReorderableListFlags)" />
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.ListFieldAbsolute(UnityEngine.Rect,FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <inheritdoc cref="DoListFieldAbsolute(Rect, IReorderableListAdaptor, ReorderableListControl.DrawEmptyAbsolute, ReorderableListFlags)" />
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.CalculateListFieldHeight(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor,FullInspector.Rotorz.ReorderableList.ReorderableListFlags)">
+             <summary>
+             Calculate height of list field for adapted collection.
+             </summary>
+             <param name="adaptor">Reorderable list adaptor.</param>
+             <param name="flags">Optional flags to pass into list field.</param>
+             <returns>Required list height in pixels.</returns>
+            </member>
+        <member name="M:FullInspector.Rotorz.ReorderableList.ReorderableListGUI.CalculateListFieldHeight(FullInspector.Rotorz.ReorderableList.IReorderableListAdaptor)">
+             <inheritdoc cref="CalculateListFieldHeight(IReorderableListAdaptor, ReorderableListFlags)" />
+            </member>
+        <member name="T:FullInspector.Modules.NumericTypeEditorHelper">
+             <summary>
+             Provides an Edit field that uses a string so that types of varying bit
+             width (greater than 32 bits, which is what IntField/FloatField is limited
+             to) can be represented properly in the editor without losing data.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Modules.NumericTypeEditorHelper.Edit``1(UnityEngine.Rect,UnityEngine.GUIContent,``0)">
+             <summary>
+             Edit the given type using a TextField. Convert.ChangeType will be
+             used to convert the given type T to and from a string.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Modules.KeyValuePairPropertyEditor`2.SplitRect(UnityEngine.Rect,System.Single,System.Single,UnityEngine.Rect@,UnityEngine.Rect@)">
+             <summary>
+             Splits the given rect into two rects that are divided horizontally.
+             </summary>
+             <param name="rect">The rect to split</param>
+             <param name="percentage">
+             The horizontal percentage that the rects are split at
+             </param>
+             <param name="margin">
+             How much space that should be between the two rects
+             </param>
+             <param name="left">The output left-hand side rect</param>
+             <param name="right">The output right-hand side rect</param>
+            </member>
+        <member name="P:FullInspector.Modules.ObjectFoldoutStateGraphMetadata.IsActive">
+             <summary>
+             Is the foldout currently active, ie, is the rendered item being
+             displayed or is the short-form foldout being displayed?
+             </summary>
+            </member>
+        <member name="P:FullInspector.Modules.ObjectFoldoutStateGraphMetadata.AnimPercentage">
+             <summary>
+             What percentage are we at in the animation between active states?
+             </summary>
+            </member>
+        <member name="P:FullInspector.Modules.ObjectFoldoutStateGraphMetadata.IsAnimating">
+             <summary>
+             Are we currently animating between different states?
+             </summary>
+            </member>
+        <member name="T:FullInspector.Modules.IObjectPropertyEditor">
+             <summary>
+             Used to remove the generic arguments from ObjectPropertyEditor so that it
+             can be used as a "banned" argument for PropertyEditor.Get
+             </summary>
+            </member>
+        <member name="T:FullInspector.Modules.ObjectPropertyEditor`1">
+             <summary>
+             Provides an ObjectField for every type which derives from Object.
+             </summary>
+             <typeparam name="ObjectType">
+             The actual type of the derived parameter
+             </typeparam>
+            </member>
+        <member name="T:FullInspector.Internal.ObjectDataPath">
+             <summary>
+             Provides a route to read/write data inside of an object. That data can be
+             (recursively) stored within a field, property, or collection.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.ObjectDataPath.#ctor(FullInspector.Internal.ObjectDataPath[])">
+             <summary>
+             The data path stores the type of the object.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.ObjectDataPath.#ctor(FullInspector.InspectedProperty)">
+             <summary>
+             The data path accesses the given property.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.ObjectDataPath.#ctor(FullInspector.InspectedProperty,System.Int32)">
+             <summary>
+             The data path accesses an element inside of an IList instance
+             (including arrays). The list instance resides at |property|.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.ObjectDataPath.#ctor(FullInspector.InspectedProperty,System.Object)">
+             <summary>
+             The data path accesses an element inside of an IDictionary instance.
+             The dictionary instance resides at |property|.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Internal.ObjectDataPath.s_RemoveObject">
+             <summary>
+             Special marker object used to notify Write to write the default/null
+             value.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.SavedObject.IsPrimitiveValue(System.Object)">
+             <summary>
+             Returns true if the given object should be saved directly inside of
+             the state dictionary.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Internal.fiImageUtility.GetImageSize(System.Byte[],System.Int32@,System.Int32@)">
+             <summary>
+             Read width and height of PNG file in pixels.
+             </summary>
+            </member>
+        <member name="T:FullInspector.FacadeTypeManager">
+             <summary>
+             Manages the type selection drop-down for a facade.
+             </summary>
+            </member>
+        <member name="M:FullInspector.FacadeTypeManager.#ctor(System.Type)">
+             <summary>
+             Creates a new type manager.
+             </summary>
+             <param name="baseType">The base facade type.</param>
+            </member>
+        <member name="M:FullInspector.FacadeTypeManager.GetDisplayOptionIndex(System.Type)">
+             <summary>
+             Finds the active display option index for the given type, or -1 if it
+             isn't found.
+             </summary>
+            </member>
+        <member name="F:FullInspector.FacadeTypeManager.Types">
+             <summary>
+             The available types. This will always have at least one element.
+             </summary>
+            </member>
+        <member name="F:FullInspector.FacadeTypeManager.DisplayedOptions">
+             <summary>
+             A displayable variant of the type array. This will always have at
+             least one element.
+             </summary>
+            </member>
+        <member name="M:FullInspector.FacadeEditor`1.GetDefault(System.Type)">
+             <summary>
+             Returns the default value for the given type. Notably, this will
+             return a zeroed out value type if the type is a value type, not null.
+             </summary>
+            </member>
+        <member name="M:FullInspector.FacadeEditor`1.DeserializeProperty(FullInspector.BaseSerializer,FullInspector.ISerializationOperator,FullInspector.InspectedProperty,FullInspector.Facade{`0})">
+             <summary>
+             Deserializes a property on the facade.
+             </summary>
+            </member>
+        <member name="M:FullInspector.FacadeEditor`1.TrySerializeProperty(FullInspector.BaseSerializer,FullInspector.ISerializationOperator,FullInspector.InspectedProperty,System.Object,System.String@)">
+             <summary>
+             Serializes a property that will be stored on the facade.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.fiScriptableObjectManagerWindow">
+             <summary>
+             Provides a nice interface for interacting with and managing scriptable
+             object instances
+             </summary>
+            </member>
+        <member name="F:FullInspector.Modules.BaseSerialiationInvokableEditor`1.DividerHeight">
+             <summary>
+             The amount of space between the object selector and the method
+             selection popup.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Modules.BaseSerialiationInvokableEditor`1.EndSeparatorHeight">
+             <summary>
+             Amount of space after the method selection popup that will separate
+             this element from the next one.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Modules.BaseSerialiationInvokableEditor`1.IsValidMethod(System.Reflection.MethodInfo)">
+             <summary>
+             Adaptor method to determine if the given method should be shown in
+             the method dropdown.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Modules.BaseSerialiationInvokableEditor`1.EnsureInstance(`0@)">
+             <summary>
+             Ensures that action is not null.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Modules.BaseSerialiationInvokableEditor`1.SplitRects(UnityEngine.Rect,UnityEngine.Rect@,UnityEngine.Rect@)">
+             <summary>
+             Splits the general region rect into the two object and popup rects.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Modules.BaseSerialiationInvokableEditor`1.GetMethodOptions(`0,System.Int32@,System.String[]@)">
+             <summary>
+             Returns the methods that should be shown in the dropdown, and returns
+             the active method in that list.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Modules.BaseSerialiationInvokableEditor`1.GetContainerTypeOrUnityObject(`0)">
+             <summary>
+             Returns either the container type, or if the contaier is null, then
+             typeof(UnityObject).
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.fiDefaultSerializerRewriter">
+             <summary>
+             Helper to write the C# file containing the selected serializer
+             information.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Modules.fiSerializerMigrationUtility.MigrateUnityObject(UnityEngine.Object,System.Type,System.Type)">
+             <summary>
+             Changes the serialization data for the given GameObject.
+             </summary>
+             <param name="go">
+             The UnityObject to migrate (either a ScriptableObject, GameObject, or
+             Component). If it is a GameObject, then all child components will
+             also be scanned.
+             </param>
+             <param name="fromSerializer">The current serializer</param>
+             <param name="toSerializer">The new serializer</param>
+            </member>
+        <member name="M:FullInspector.Modules.fiSerializerMigrationUtility.GetSceneObjects">
+             <summary>
+             Returns all scene specific objects that use Full Inspector.
+             </summary>
+             <returns></returns>
+            </member>
+        <member name="M:FullInspector.Modules.fiSerializerMigrationUtility.GetPersistentObjects">
+             <summary>
+             Returns all persistent objects that use Full Inspector.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Modules.fiSerializerMigrationUtilityEditorWindow.UnityObjectSelectionGroup">
+             <summary>
+             This is a utility class that wraps the UX that lets the user pick
+             which UnityObjects they want to process.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Modules.fiSharedInstanceScriptGenerator">
+             <summary>
+             Generates derived types for SharedInstance{T}.
+             </summary>
+            </member>
+        <member name="M:FullInspector.Modules.fiSharedInstanceScriptGenerator.Emit(System.String,System.String,System.String)">
+             <param name="className">
+             The name of the class in the file, ie, class {className} {}
+             </param>
+             <param name="genericType">
+             The value for the generic type, ie, class foo : parent{genericType}
+             {}
+             </param>
+             <param name="serializerName">
+             The value for the serializer type, optional. It will also go in a
+             generic type argument.
+             </param>
+            </member>
+        <member name="M:FullInspector.Modules.fiSharedInstanceSelectorWindow.Show(System.Type,System.Type,System.Action{UnityEngine.Object})">
+             <summary>
+             Shows a new selection window for a SharedInstance type.
+             </summary>
+             <param name="instanceType">
+             The generic SharedInstance parameter; that actual instance type.
+             </param>
+             <param name="sharedInstanceType">
+             The generic SharedInstance type itself.
+             </param>
+             <param name="onSelected">
+             Method to invoke when a new SharedInstance has been selected.
+             </param>
+            </member>
+        <member name="M:FullInspector.Internal.fiSharedInstanceUtility.GetSerializableType(System.Type)">
+             <summary>
+             Returns a SharedInstance type that Unity can serialize for the given
+             generic SharedInstance type. This returns null if the type is not yet
+             created. Create it with
+             SharedInstanceScriptGenerator.GenerateScript(instanceType);
+             </summary>
+            </member>
+        <member name="F:FullInspector.Modules.StaticInspectorWindow._inspectorScrollPosition">
+             <summary>
+             The current scrolling position for the static inspector.
+             </summary>
+            </member>
+        <member name="F:FullInspector.Modules.StaticInspectorWindow._serializedInspectedType">
+             <summary>
+             The type that we are currently viewing the statics for.
+             Unfortunately, we have to store this type as a string so that Unity
+             can serialize it. It would be awesome to have FI serialization on
+             EditorWindows, but oh well :P.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.tkControlPropertyEditor`1">
+             <summary>
+             A standard tkControlPropertyEditor except with some more appropriate
+             values popualted.
+             </summary>
+            </member>
+        <member name="T:FullInspector.Internal.tkControlPropertyEditor">
+             <summary>
+             Derive from this class if you wish to write a custom property editor that
+             is rendered from a tkControl.
+             </summary>
+             <remarks>
+             You probably want to derive from tkControlPropertyEditor{TEdited}
+             </remarks>
+            </member>
+        <member name="T:FullInspector.tkCustomBehaviorEditor`1">
+             <summary>
+             Helper class you can derive from to write a custom tk control for a
+             behavior. This wraps some of the boilerplate.
+             </summary>
+            </member>
+    </members>
+</doc>
