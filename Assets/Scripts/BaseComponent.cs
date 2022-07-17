@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Security;
+using FullInspector;
 using MihoyoOptimization;
 using UnityEngine;
 using UnityEngine.Scripting;
@@ -48,13 +49,13 @@ namespace MoleMole
 		protected bool _managerLateTick; // 0x37
 		[NonSerialized]
 		[NotSerialized] // 0x0000000189845E90-0x0000000189845EA0
-		public List<int> onEventIDs; // 0x38
+		public List<EventID> onEventIDs; // 0x38
 		[NonSerialized]
 		[NotSerialized] // 0x0000000189845E90-0x0000000189845EA0
-		public List<int> listenEventIDs; // 0x40
-		private int[] _selfOnEventIDsCache; // 0x48
+		public List<EventID> listenEventIDs; // 0x40
+		private EventID[] _selfOnEventIDsCache; // 0x48
 		private bool _isSelfOnEventIDsCached; // 0x50
-		private int[] _selfListenEventIDsCache; // 0x58
+		private EventID[] _selfListenEventIDsCache; // 0x58
 		private bool _isSelfListenEventIDsCached; // 0x60
 		[NonSerialized]
 		public Action preInitCallback; // 0x68
@@ -98,10 +99,10 @@ namespace MoleMole
 		private List<BaseComponentPlugin> _lateTickPlugins; // 0xC0
 		private Dictionary<System.Type, int> _disableNoTickPlugins; // 0xC8
 		private Dictionary<System.Type, int> _disableNoLateTickPlugins; // 0xD0
-		private Dictionary<int, BaseComponentPlugin> _onEventPluginMap; // 0xD8
-		private Dictionary<int, List<BaseComponentPlugin>> _onEventPluginsMap; // 0xE0
-		private Dictionary<int, BaseComponentPlugin> _listenEventPluginMap; // 0xE8
-		private Dictionary<int, List<BaseComponentPlugin>> _listenEventPluginsMap; // 0xF0
+		private Dictionary<EventID, BaseComponentPlugin> _onEventPluginMap; // 0xD8
+		private Dictionary<EventID, List<BaseComponentPlugin>> _onEventPluginsMap; // 0xE0
+		private Dictionary<EventID, BaseComponentPlugin> _listenEventPluginMap; // 0xE8
+		private Dictionary<EventID, List<BaseComponentPlugin>> _listenEventPluginsMap; // 0xF0
 		private static ScopeCycleCounter? addComponentScopeCounter; // 0x08
 		[NonSerialized]
 		[NotSerialized] // 0x0000000189845E90-0x0000000189845EA0
@@ -235,7 +236,7 @@ namespace MoleMole
 		// [XID] // 0x00000001899DF900-0x00000001899DF920
 		protected static EventID[] GetSelfOnEventIDsRemoveFromBase() => default; // 0x00000001852692E0-0x0000000185269380
 																				 // [XID] // 0x00000001896FF710-0x00000001896FF730
-		public int[] GetSelfOnEventIDs()
+		public EventID[] GetSelfOnEventIDs()
 		{
 			if (_isSelfOnEventIDsCached)
 			{
@@ -251,7 +252,7 @@ namespace MoleMole
 		// [XID] // 0x0000000189A6D2D0-0x0000000189A6D2F0
 		protected static System.Type[] GetSelfListenEventIDsExcludingBase() => default; // 0x00000001852690A0-0x0000000185269140
 																						// [XID] // 0x00000001898DB500-0x00000001898DB520
-		public int[] GetSelfListenEventIDs()
+		public EventID[] GetSelfListenEventIDs()
 		{
 			if (_isSelfListenEventIDsCached)
 			{
@@ -739,7 +740,7 @@ namespace MoleMole
             {
                 if (onEventIDs == null)
                 {
-                    onEventIDs = ObjectPoolUtility.Allocate<List<int>>();
+                    onEventIDs = ObjectPoolUtility.Allocate<List<EventID>>();
                     ExtensionMethods.EnsureCapacity(onEventIDs, onEventIDs.Count + selfOnEventIDs.Length);
                     foreach (var cnm in selfOnEventIDs)
                     {
@@ -753,7 +754,7 @@ namespace MoleMole
             {
                 if (listenEventIDs == null)
                 {
-                    listenEventIDs = ObjectPoolUtility.Allocate<List<int>>();
+                    listenEventIDs = ObjectPoolUtility.Allocate<List<EventID>>();
                     ExtensionMethods.EnsureCapacity(listenEventIDs, listenEventIDs.Count + selfOnEventIDs2.Length);
                     foreach (var cnm in selfOnEventIDs2)
                     {
@@ -803,7 +804,7 @@ namespace MoleMole
 		// [XID] // 0x0000000189994B40-0x0000000189994B60
 		private void TryToAddEventPlugin(BaseComponentPlugin plugin, HandleEventType handleEventType) // ShiyumeWarning : I'm not sure if this code is correctly reversed
 		{
-			int[] eventID;
+			EventID[] eventID;
             if (handleEventType >= HandleEventType.OnEventResolved)
             {
                 eventID = plugin.GetSelfListenEventIDs();
@@ -819,7 +820,7 @@ namespace MoleMole
             {
                 if (handleEventType >= HandleEventType.OnEventResolved)
                     if (listenEventIDs == null)
-                        listenEventIDs = ObjectPoolUtility.Allocate<List<int>>();
+                        listenEventIDs = ObjectPoolUtility.Allocate<List<EventID>>();
                 eventIDs = listenEventIDs;
                 eventPluginMap = _listenEventPluginMap;
                 eventPlguinsMap = _listenEventPluginsMap;
@@ -828,7 +829,7 @@ namespace MoleMole
             else
             {
                 if (onEventIDs == null)
-                    onEventIDs = ObjectPoolUtility.Allocate<List<int>>();
+                    onEventIDs = ObjectPoolUtility.Allocate<List<EventID>>();
                 eventIDs = onEventIDs;
                 eventPluginMap = _onEventPluginMap;
                 eventPlguinsMap = _onEventPluginsMap;
@@ -850,7 +851,7 @@ namespace MoleMole
                 {
                     if (eventPluginMap == null)
                     {
-                        eventPluginMap = ObjectPoolUtility.Allocate<Dictionary<int, BaseComponentPlugin>>();
+                        eventPluginMap = ObjectPoolUtility.Allocate<Dictionary<EventID, BaseComponentPlugin>>();
                     }
                     if (handleEventType >= HandleEventType.OnEventResolved)
                     {
@@ -867,7 +868,7 @@ namespace MoleMole
                         _listenEventPluginMap.Remove(id);
                         if (eventPlguinsMap == null)
                         {
-                            eventPlguinsMap = ObjectPoolUtility.Allocate<Dictionary<int, List<BaseComponentPlugin>>>();
+                            eventPlguinsMap = ObjectPoolUtility.Allocate<Dictionary<EventID, List<BaseComponentPlugin>>>();
                             if (handleEventType >= HandleEventType.OnEventResolved)
                             {
                                 _listenEventPluginsMap = eventPlguinsMap;
@@ -891,7 +892,7 @@ namespace MoleMole
           // [XID] // 0x000000018999C3A0-0x000000018999C3C0
         private void TryToRemoveEventPlugin(BaseComponentPlugin plugin, HandleEventType handleEventType)
 		{
-			int[] eventID;
+			EventID[] eventID;
             if (handleEventType >= HandleEventType.OnEventResolved)
             {
                 eventID = plugin.GetSelfListenEventIDs();
@@ -911,7 +912,7 @@ namespace MoleMole
 			}
         } // 0x000000018526E370-0x000000018526E550
           // [XID] // 0x000000018997D770-0x000000018997D790
-        private void TryToRemovePluginFromEventPluginsMap(int eventID, BaseComponentPlugin plugin, HandleEventType handleEventType)
+        private void TryToRemovePluginFromEventPluginsMap(EventID eventID, BaseComponentPlugin plugin, HandleEventType handleEventType)
 		{
 			var pluginMap = (handleEventType >= HandleEventType.OnEventResolved ? _listenEventPluginsMap : _onEventPluginsMap);
 			pluginMap.TryGetValue(eventID, out var plugins);
