@@ -12,12 +12,12 @@ using System.Runtime.InteropServices;
 
 namespace MihoyoOptimization
 {
-	public enum ERecycleStyle // TypeDefIndex: 6669
-	{
-		Disable = 0,
-		Enable = 1,
-		AlsoElement = 2,
-		ForbidSetToNull = 3,
-		RecycleElementsOnly = 4
-	}
+    public enum ERecycleStyle // TypeDefIndex: 6669
+    {
+        Disable = 0,
+        Enable = 1,
+        AlsoElement = 2,
+        ForbidSetToNull = 3,
+        RecycleElementsOnly = 4
+    }
 }

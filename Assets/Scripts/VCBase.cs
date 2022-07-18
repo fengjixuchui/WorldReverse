@@ -12,10 +12,10 @@ using MoleMole;
 
 public class VCBase : BaseComponent // TypeDefIndex: 32042
 {
-	// Properties
-	public override int categoryType { /* [XID] */ /* 0x0000000189B61B50-0x0000000189B61B70 */ get => 0x0001; } // 0x000000018221BF40-0x000000018221BFE0 
+    // Properties
+    public override int categoryType { /* [XID] */ /* 0x0000000189B61B50-0x0000000189B61B70 */ get => 0x0001; } // 0x000000018221BF40-0x000000018221BFE0 
 
-	// Constructors
-	public VCBase() {} // 0x000000018221BEC0-0x000000018221BF40
+    // Constructors
+    public VCBase() { } // 0x000000018221BEC0-0x000000018221BF40
 }
 

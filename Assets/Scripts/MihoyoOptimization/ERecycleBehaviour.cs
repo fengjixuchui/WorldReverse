@@ -12,11 +12,11 @@ using System.Runtime.InteropServices;
 
 namespace MihoyoOptimization
 {
-	public enum ERecycleBehaviour // TypeDefIndex: 6670
-	{
-		AllocateAndDeallocate = 0,
-		DeallocateOnly = 1,
-		DeallocateOnlyToDictionaryPool = 2,
-		DeallocateOnlyWhenNotEmpty = 3
-	}
+    public enum ERecycleBehaviour // TypeDefIndex: 6670
+    {
+        AllocateAndDeallocate = 0,
+        DeallocateOnly = 1,
+        DeallocateOnlyToDictionaryPool = 2,
+        DeallocateOnlyWhenNotEmpty = 3
+    }
 }

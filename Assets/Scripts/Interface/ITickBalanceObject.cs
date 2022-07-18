@@ -11,14 +11,14 @@ using System.Security;
 
 public interface ITickBalanceObject // TypeDefIndex: 21286
 {
-	// Properties
-	bool bIgnoreIntervalTick { get; set; }
-	int tickInterval { get; }
-	int tickBalanceRemainder { get; }
-	int requestTickInterval { get; }
-	bool canBeTickBalanced { get; }
-	int greaterToDisableInterval { get; set; }
-	bool isTickable { get; }
-	float balanceTickDeltaTime { get; }
+    // Properties
+    bool bIgnoreIntervalTick { get; set; }
+    int tickInterval { get; }
+    int tickBalanceRemainder { get; }
+    int requestTickInterval { get; }
+    bool canBeTickBalanced { get; }
+    int greaterToDisableInterval { get; set; }
+    bool isTickable { get; }
+    float balanceTickDeltaTime { get; }
 }
 

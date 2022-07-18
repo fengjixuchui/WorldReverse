@@ -12,9 +12,9 @@ using System.Runtime.InteropServices;
 
 namespace MihoyoOptimization
 {
-	public enum ERecycleThread // TypeDefIndex: 6672
-	{
-		DefaultMain = 0,
-		SpecifiedPool = 1
-	}
+    public enum ERecycleThread // TypeDefIndex: 6672
+    {
+        DefaultMain = 0,
+        SpecifiedPool = 1
+    }
 }

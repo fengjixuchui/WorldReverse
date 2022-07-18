@@ -12,9 +12,9 @@ using System.Runtime.InteropServices;
 
 namespace MihoyoOptimization
 {
-	public enum ERecycleCodeGen // TypeDefIndex: 6671
-	{
-		Mean = 0,
-		Full = 1
-	}
+    public enum ERecycleCodeGen // TypeDefIndex: 6671
+    {
+        Mean = 0,
+        Full = 1
+    }
 }

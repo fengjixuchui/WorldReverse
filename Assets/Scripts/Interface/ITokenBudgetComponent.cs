@@ -11,9 +11,9 @@ using System.Security;
 
 public interface ITokenBudgetComponent // TypeDefIndex: 21287
 {
-	// Properties
-	int metaTypeID { get; }
-	bool isForceFullTick { get; }
-	bool canBeTickedReadonly { get; }
+    // Properties
+    int metaTypeID { get; }
+    bool isForceFullTick { get; }
+    bool canBeTickedReadonly { get; }
 }
 

@@ -12,9 +12,9 @@ using System.Runtime.InteropServices;
 
 namespace MihoyoOptimization
 {
-	public class TickWithFrameDeltaTime : Attribute // TypeDefIndex: 6675
-	{
-		// Constructors
-		public TickWithFrameDeltaTime() {} // 0x00000001895B46A0-0x00000001895B5BD0
-	}
+    public class TickWithFrameDeltaTime : Attribute // TypeDefIndex: 6675
+    {
+        // Constructors
+        public TickWithFrameDeltaTime() { } // 0x00000001895B46A0-0x00000001895B5BD0
+    }
 }

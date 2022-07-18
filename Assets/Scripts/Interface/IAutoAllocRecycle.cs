@@ -11,13 +11,13 @@ using System.Runtime.CompilerServices;
 
 namespace MoleMole
 {
-	public interface IAutoAllocRecycle // TypeDefIndex: 7488
-	{
-		// Methods
-		void AutoAllocTypeFields();
-		void AutoRecycleTypeFields();
-		void ReturnToObjectPool();
-		void OnPoolAllocated();
-		void OnBeforePoolRecycled();
-	}
+    public interface IAutoAllocRecycle // TypeDefIndex: 7488
+    {
+        // Methods
+        void AutoAllocTypeFields();
+        void AutoRecycleTypeFields();
+        void ReturnToObjectPool();
+        void OnPoolAllocated();
+        void OnBeforePoolRecycled();
+    }
 }

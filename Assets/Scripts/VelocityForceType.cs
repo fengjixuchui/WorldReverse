@@ -11,15 +11,15 @@ using System.Security;
 
 public enum VelocityForceType // TypeDefIndex: 18569
 {
-	RetreatType = 0,
-	RetreatAirType = 1,
-	RushMoveType = 2,
-	WindZoneType = 3,
-	AirflowType = 4,
-	RiseType = 5,
-	SpeedupType = 6,
-	AirflowAccType = 7,
-	InertiaType = 8,
-	FixedRushMoveType = 9
+    RetreatType = 0,
+    RetreatAirType = 1,
+    RushMoveType = 2,
+    WindZoneType = 3,
+    AirflowType = 4,
+    RiseType = 5,
+    SpeedupType = 6,
+    AirflowAccType = 7,
+    InertiaType = 8,
+    FixedRushMoveType = 9
 }
 

@@ -12,18 +12,18 @@ using System.Runtime.InteropServices;
 
 namespace MihoyoOptimization
 {
-	public class PooledField : Attribute // TypeDefIndex: 6673
-	{
-		// Fields
-		public ERecycleStyle _returnStyle; // 0x10
-		public ERecycleBehaviour _recycleBehaivour; // 0x14
-	
-		// Constructors
-		public PooledField() {} // Dummy constructor
-		public PooledField(ERecycleStyle inRS, ERecycleBehaviour inRB = ERecycleBehaviour.AllocateAndDeallocate /* Metadata: 0x00ADD9C4 */) 
-		{
-			_returnStyle = inRS;
-			_recycleBehaivour = inRB;
-		} // 0x00000001895B45A0-0x00000001895B4620
-	}
+    public class PooledField : Attribute // TypeDefIndex: 6673
+    {
+        // Fields
+        public ERecycleStyle _returnStyle; // 0x10
+        public ERecycleBehaviour _recycleBehaivour; // 0x14
+
+        // Constructors
+        public PooledField() { } // Dummy constructor
+        public PooledField(ERecycleStyle inRS, ERecycleBehaviour inRB = ERecycleBehaviour.AllocateAndDeallocate /* Metadata: 0x00ADD9C4 */)
+        {
+            _returnStyle = inRS;
+            _recycleBehaivour = inRB;
+        } // 0x00000001895B45A0-0x00000001895B4620
+    }
 }
