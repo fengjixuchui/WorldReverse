@@ -19,7 +19,7 @@ namespace MoleMole
 		protected VCBaseMove _moveComponent; // 0x110
 	
 		// Properties
-		public override int metaTypeID { /* [XID] */ /* 0x0000000189A6A3E0-0x0000000189A6A400 */ get => 0xC000; } // 0x0000000183BE6720-0x0000000183BE67C0 
+		public override int metaTypeID { /* [XID] */ /* 0x0000000189A6A3E0-0x0000000189A6A400 */ get => VCBaseComponentTypeIDs.VCBaseInputController; } // 0x0000000183BE6720-0x0000000183BE67C0 
 		public ControlData controlData { /* [XID] */ /* 0x0000000189A717D0-0x0000000189A71810 */ get; /* [XID] */ /* 0x0000000189A7C320-0x0000000189A7C360 */ set; } // 0x0000000183BE66C0-0x0000000183BE6720 0x0000000183BE67C0-0x0000000183BE6830
 	
 		// Constructors

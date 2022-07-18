@@ -17,7 +17,7 @@ public sealed class VCLocalInputController : VCBaseInputController // TypeDefInd
 	private LCCharacterCombat _combatComponent; // 0x118
 
 	// Properties
-	public override int metaTypeID { /* [XID] */ /* 0x0000000189BCCA60-0x0000000189BCCA80 */ get => 0xC002; } // 0x00000001824FF5B0-0x00000001824FF650 
+	public override int metaTypeID { /* [XID] */ /* 0x0000000189BCCA60-0x0000000189BCCA80 */ get => VCBaseComponentTypeIDs.VCLocalInputController; } // 0x00000001824FF5B0-0x00000001824FF650 
 
 	// Constructors
 	public VCLocalInputController()

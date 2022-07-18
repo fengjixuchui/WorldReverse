@@ -17,7 +17,7 @@ public class LCCharacterCombat : LCBaseCombat // TypeDefIndex: 11724
 	private Dictionary<uint, SummonInfo> _summonInfos; // 0x1B0
 
 	// Properties
-	public override int metaTypeID { /* [XID] */ /* 0x00000001896C4040-0x00000001896C4060 */ get => 0x100B001; } // 0x00000001833AB820-0x00000001833AB8C0 
+	public override int metaTypeID { /* [XID] */ /* 0x00000001896C4040-0x00000001896C4060 */ get => LCBaseComponentTypeIDs.LCCharacterCombat; } // 0x00000001833AB820-0x00000001833AB8C0 
 
 	// Nested types
 	public class SummonInfo // TypeDefIndex: 11725
