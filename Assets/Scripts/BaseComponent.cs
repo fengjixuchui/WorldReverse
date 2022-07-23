@@ -1187,7 +1187,7 @@ namespace MoleMole
             if (typeID == inTypeID)
             {
                 bool lc = ComponentMetaTypeIDGenerator.IsLC(metaTypeID);
-                bool inlc = ComponentMetaTypeIDGenerator.IsLC(metaTypeID);
+                bool inlc = ComponentMetaTypeIDGenerator.IsLC(inMetaTypeID);
                 flag = lc == inlc;
             }
             return flag;
