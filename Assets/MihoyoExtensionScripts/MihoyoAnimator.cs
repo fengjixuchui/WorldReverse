@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public static class MihoyoEngineEx
+public static class MihoyoAnimator
 {
     public static bool HasParameter(this Animator animator, int nameHash)
     {
