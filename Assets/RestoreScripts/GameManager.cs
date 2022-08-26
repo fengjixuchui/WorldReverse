@@ -150,8 +150,40 @@ namespace MoleMole
                                             // [XID] // 0x00000001896BBCC0-0x00000001896BBCE0
         public void ShowLogo() { } // 0x0000000181F86030-0x0000000181F86180
                                    // [XID] // 0x00000001896C3180-0x00000001896C31A0
-        private void CreateNewGameWorld(GlobalVars.WorldType worldType, uint token, string levelInfo = null, string overloadDefaultWeatherProfile = null) { } // 0x0000000181F84B40-0x0000000181F84FD0
-                                                                                                                                                              // [XID] // 0x00000001896CA690-0x00000001896CA6B0
+        private void CreateNewGameWorld(GlobalVars.WorldType worldType, uint token, string levelInfo = null, string overloadDefaultWeatherProfile = null)
+        {
+            switch (worldType)
+            {
+                case GlobalVars.WorldType.BundleDownload:
+                    _curGameWorld = new BundleDownload();
+                    break;
+                case GlobalVars.WorldType.Home:
+                    _curGameWorld = new Home();
+                    break;
+                case GlobalVars.WorldType.Level:
+                    _curGameWorld = new MPLevel();
+                    break;
+                case GlobalVars.WorldType.DevLevel:
+                    _curGameWorld = new DevLevel();
+                    break;
+                case GlobalVars.WorldType.TestCutscene:
+                    _curGameWorld = new TestCutscene();
+                    (_curGameWorld as TestCutscene).InitScenePath("EmotionPreview");
+                    break;
+                case GlobalVars.WorldType.ProfileEffects:
+                    _curGameWorld = new ProfileEffects();
+                    break;
+                case GlobalVars.WorldType.PSPrepare:
+                    _curGameWorld = new PSPrepare();
+                    break;
+                case GlobalVars.WorldType.Login:
+                    _curGameWorld = new Login();
+                    break;
+            }
+            _curGameWorld.Init(token);
+            _curGameWorld.worldType = worldType;
+        } // 0x0000000181F84B40-0x0000000181F84FD0
+          // [XID] // 0x00000001896CA690-0x00000001896CA6B0
         private void CreateGlobalManagers() { } // 0x0000000181F81620-0x0000000181F81A50
                                                 // [XID] // 0x00000001896D1D20-0x00000001896D1D40
         private void DestroyGlobalManagers() { } // 0x0000000181F81FA0-0x0000000181F82360
