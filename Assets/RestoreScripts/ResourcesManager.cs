@@ -121,7 +121,7 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
                 {
                     foreach (string text in externalResources.undergoingUnloadedAssetJobNames)
                     {
-                        smjb.Append(9 + text);
+                        smjb.Append("	" + text);
                     }
                     SuperDebug.LogWarning("undergoingUnloadedAssetJobNames:" + smjb);
                 }
@@ -131,7 +131,7 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
 
                     foreach (string text in externalResources.undergoingAssetJobNames)
                     {
-                        smjb.Append(9 + text);
+                        smjb.Append("	" + text);
                     }
                     SuperDebug.LogWarning("undergoingUnloadedAssetJobNames:" + smjb);
                 }
@@ -141,7 +141,7 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
 
                     foreach (string text in externalResources.undergoingBundleJobNames)
                     {
-                        smjb.Append(9 + text);
+                        smjb.Append("	" + text);
                     }
                     SuperDebug.LogWarning("undergoingUnloadedAssetJobNames:" + smjb);
                 }
