@@ -219,7 +219,7 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
             EvtWillCreateStage createStage = EventHelper.Allocate<EvtWillCreateStage>();
             createStage.Init();
             Singleton<EventManager>.Instance.FireEvent(createStage);
-            LevelTimeManager.TimeProgressMode mode = null;
+            LevelTimeManager.TimeProgressMode mode = LevelTimeManager.TimeProgressMode.None;
             LevelTimeManager levelTime = Singleton<LevelTimeManager>.Instance;
             if (GameManager.Instance.isOnlineMode)
             {
