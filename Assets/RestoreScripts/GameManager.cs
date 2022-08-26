@@ -234,7 +234,7 @@ namespace MoleMole
             Singleton<ResourcesManager>.Instance.Tick();
             SchedulerUtils.SchedulerWaitFlush(_schedulerMgr, SchedulerType.AFTER_RES_TO_UPDATE_END, false);
             //Singleton<SocketManager>.Instance.Tick();
-            //Singleton<LuaManager>.Instance.Tick();
+            Singleton<LuaManager>.Instance.Tick();
             if (_curGameWorld != null) _curGameWorld.BeforeUpdateSchedule();
             Singleton<TimerManager>.Instance.Tick();
         } // 0x0000000181F80D60-0x0000000181F81210
