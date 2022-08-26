@@ -312,8 +312,33 @@ public sealed class PlayerModule : CharacterModule // TypeDefIndex: 21567
                                             // [XID] // 0x0000000189903A30-0x0000000189903A50
     private void PreLoadTestSyncAvatarPostEntityReady(EvtEntityReadyPost evt) { } // 0x00000001811A84C0-0x00000001811A8610
                                                                                   // [XID] // 0x000000018990AE90-0x000000018990AEB0
-    public void PreLoadAllAvatars(List<ulong> reloadAvatarList, bool anyncLoad = false /* Metadata: 0x00AFF974 */) { } // 0x00000001811A5740-0x00000001811A5B60
-                                                                                                                       // [XID] // 0x0000000189912B40-0x0000000189912B60
+    public void PreLoadAllAvatars(List<ulong> reloadAvatarList, bool anyncLoad = false /* Metadata: 0x00AFF974 */)
+    {
+        EntityManager entityManager = Singleton<EntityManager>.Instance;
+        if (entityManager != null)
+        {
+            if (reloadAvatarList != null)
+            {
+                bool isSameWithAvatar = reloadAvatarList.Contains(Singleton<PlayerModule>.Instance.accountData.chooseAvatarGuid);
+                entityManager.CreateHeroEntity(isSameWithAvatar);
+                foreach (var avatar in reloadAvatarList)
+                {
+                    PreloadAvatarByGUID(avatar, anyncLoad);
+                }
+                var camera = entityManager.GetMainCameraEntity();
+                if (camera != null)
+                {
+                    camera.TryRefreshHeroEntity();
+                }
+
+                Singleton<CoroutineManager>.Instance.InvokeNextFrame(() =>
+                {
+                    Singleton<NotifyManager>.Instance.FireNotify(Notify.CreateNotify(NotifyTypes.TeamInfoRefresh));
+                });
+            }
+        }
+    } // 0x00000001811A5740-0x00000001811A5B60
+      // [XID] // 0x0000000189912B40-0x0000000189912B60
     public void PreloadAvatarByGUID(ulong guid, bool anyncLoad = false /* Metadata: 0x00AFF975 */) { } // 0x0000000181191430-0x0000000181191CD0
                                                                                                        // [XID] // 0x000000018991A410-0x000000018991A430
     public static void OnAvatarEntityReadyPostCallBack(EvtEntityReadyPost evt) { } // 0x00000001811A8120-0x00000001811A8250
