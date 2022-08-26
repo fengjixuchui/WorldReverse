@@ -258,7 +258,93 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
         SuperDebug.LogError("Level Data not founded!");
     } // 0x00000001814E8E60-0x00000001814E93E0
       // [XID] // 0x0000000189B5F8B0-0x0000000189B5F8D0
-    protected virtual void OnSceneLoadedPostInit(uint token) { } // 0x00000001814EE6A0-0x00000001814EED10
+    protected virtual void OnSceneLoadedPostInit(uint token)
+    {
+        MapModule map = Singleton<MapModule>.Instance;
+        PlayerModule player = Singleton<PlayerModule>.Instance;
+        CoroutineManager coroutine = Singleton<CoroutineManager>.Instance;
+        HomeworldModule homeWorld = Singleton<HomeworldModule>.Instance;
+        HomeworldManager homeManager = Singleton<HomeworldManager>.Instance;
+        if (GameManager.Instance.isOnlineMode)
+        {
+            map.CreateLocalPoints();
+            map.RequestScenePoints(player.curSceneID);
+            map.RequestSceneAreas(player.curSceneID);
+            if (player.curSceneID != InLevelData.BIGWORLD_SCENE_ID)
+            {
+                map.RequestScenePoints(InLevelData.BIGWORLD_SCENE_ID);
+                map.RequestSceneAreas(InLevelData.BIGWORLD_SCENE_ID);
+            }
+            OnPlayerEnterSceneFinish(token, false);
+        }
+        else
+        {
+            player.CreateFakeAvatarItem();
+            map.CreateLocalPoints();
+            map.RequestScenePoints(player.curSceneID);
+            map.RequestSceneAreas(player.curSceneID);
+            ClearLevelCoroutine();
+            curCoroutine = coroutine.InvokeAfterFrames(5, () =>
+            {
+                TeamManager team = Singleton<TeamManager>.Instance;
+                DataItemManager dataItem = Singleton<DataItemManager>.Instance;
+                EntityManager entityManager = Singleton<EntityManager>.Instance;
+                EventManager eventManager = Singleton<EventManager>.Instance;
+                AvatarEntity firstAvatar = null;
+                foreach (var avatarData in team.curOwnTeamList)
+                {
+                    AvatarDataItem avatarItem = dataItem.GetAvatarDataByGUID(avatarData);
+                    BaseEntity entity = entityManager.GetEntity(avatarItem.entityId);
+                    AvatarEntity avatar = (entity as AvatarEntity);
+                    avatar.SetAbsolutePosition(levelCreateData.PlayBonePos, false);
+                    if (firstAvatar == null)
+                    {
+                        firstAvatar = avatar;
+                    }
+                }
+                LevelCreateLuaTeamAndAvatars(0);
+                if (firstAvatar != null)
+                {
+                    Action<EvtEntityReadyPost> callBack = (EvtEntityReadyPost evt) =>
+                    {
+                        EvtChangeAvatar changeAvatar = EventHelper.Allocate<EvtChangeAvatar>();
+                        changeAvatar.Init(firstAvatar.runtimeID, true, 0);
+                        eventManager.FireEvent(changeAvatar);
+                        CreateLocalMPLevelEntity();
+                        CameraEntity camera = entityManager.GetMainCameraEntity();
+                        camera.SetFollowTarget(firstAvatar);
+                        CameraEntity.ResetCameraToAvatarBackward(0.0f);
+                        FinishLoadSceneReal(0, true, false);
+                    };
+                    if (firstAvatar.IsEntityReady())
+                    {
+                        callBack(null);
+                    }
+                    else
+                    {
+                        firstAvatar.AddEventListener(callBack);
+                    }
+                }
+                else
+                {
+                    SuperDebug.LogError("All AvatarEntity is Null");
+                }
+            });
+        }
+        homeWorld.RequestHomeworldScenePoints();
+        if (IsHomeworld())
+        {
+            homeManager.InitHomeworldManager();
+            if (GameManager.Instance.isOnlineMode)
+            {
+                homeWorld.GetHomeGetBasicInfoReq();
+            }
+            else
+            {
+                homeManager.LoadHomeWorld();
+            }
+        }
+    } // 0x00000001814EE6A0-0x00000001814EED10
     [DebuggerHidden] // 0x0000000189B66FC0-0x0000000189B67000
                      // [XID] // 0x0000000189B66FC0-0x0000000189B67000
     protected virtual IEnumerator PreloadRes() => default; // 0x00000001814F09E0-0x00000001814F0AB0
