@@ -165,8 +165,48 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
     public static void ClearConfig() { } // 0x00000001814EDEF0-0x00000001814EE070
     [DebuggerHidden] // 0x0000000189B3E3D0-0x0000000189B3E410
                      // [XID] // 0x0000000189B3E3D0-0x0000000189B3E410
-    protected virtual IEnumerator PreInitIter(uint token) => default; // 0x00000001814EFBB0-0x00000001814EFC90
-                                                                      // [XID] // 0x0000000189B49000-0x0000000189B49020
+    protected virtual IEnumerator PreInitIter(uint token)
+    {
+        LoadScene();
+        ExternalResources externalResources = MoleMole.Lazy<ExternalResources>.Get<ExternalResources>();
+        externalResources.CollectBatchLoad((float progress) => { });
+        MiHoYoEmotionManager.CheckInit();
+        Singleton<LoadingManager>.Instance.EnterInitScene(token);
+        LoadingLevelProgress(LoadState.LoadScene);
+        if (GlobalVars.useClearInLevelJob)
+        {
+            yield return 3;
+            JobProxy.ClearInLevel();
+        }
+        Singleton<UIManager>.Instance.InitUICamera();
+        levelState = LevelState.Preparing;
+        SetAsyncLoadEntity(false);
+        OnSceneLoadedPreInit();
+        levelState = LevelState.Loading;
+        yield return PreloadRes();
+        LoadingLevelProgress(LoadState.PreInit);
+        OnSceneLoadedInit();
+        LoadingLevelProgress(LoadState.Init);
+        float prevRealtimeSinceStartup = Time.realtimeSinceStartup;
+        Singleton<LoadingManager>.Instance.EnterLoadStage(token, true);
+        yield return LoadStage();
+        if (GraphicsSettingData.deviceSetting.preloadUIScene == 1)
+        {
+            Singleton<UIManager>.Instance.CreateUIScene();
+        }
+        float[] loadCost = new float[1];
+        loadCost[0] = Time.realtimeSinceStartup - prevRealtimeSinceStartup;
+        SuperDebug.LogFormat("LoadStage cost = {0}", loadCost);
+        yield return WaitAudioFinish();
+        prevRealtimeSinceStartup = Time.realtimeSinceStartup;
+        OnSceneLoadedPostInit(token);
+        loadCost[0] = Time.realtimeSinceStartup - prevRealtimeSinceStartup;
+        SuperDebug.LogFormat("OnSceneLoadedPostInit cost = {0}", loadCost);
+
+        loadCost[0] = Time.realtimeSinceStartup - _startTime;
+        SuperDebug.LogFormat("after LoadStage cost = {0}", loadCost);
+    }// 0x00000001814EFBB0-0x00000001814EFC90
+     // [XID] // 0x0000000189B49000-0x0000000189B49020
     protected void LoadScene() { } // 0x00000001814E9F90-0x00000001814EA060
                                    // [XID] // 0x0000000189B50600-0x0000000189B50620
     protected void OnSceneLoadedPreInit() { } // 0x00000001814F0690-0x00000001814F0980
