@@ -211,8 +211,53 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
                                    // [XID] // 0x0000000189B50600-0x0000000189B50620
     protected void OnSceneLoadedPreInit() { } // 0x00000001814F0690-0x00000001814F0980
                                               // [XID] // 0x0000000189B57F10-0x0000000189B57F30
-    protected void OnSceneLoadedInit() { } // 0x00000001814E8E60-0x00000001814E93E0
-                                           // [XID] // 0x0000000189B5F8B0-0x0000000189B5F8D0
+    protected void OnSceneLoadedInit()
+    {
+        float prevRealtimeSinceStartup = Time.realtimeSinceStartup;
+        if (levelCreateData != null)
+        {
+            EvtWillCreateStage createStage = EventHelper.Allocate<EvtWillCreateStage>();
+            createStage.Init();
+            Singleton<EventManager>.Instance.FireEvent(createStage);
+            LevelTimeManager.TimeProgressMode mode = null;
+            LevelTimeManager levelTime = Singleton<LevelTimeManager>.Instance;
+            if (GameManager.Instance.isOnlineMode)
+            {
+                if (IsDungeon())
+                {
+                    if (!levelCreateData.timeProcess)
+                    {
+                        levelTime.ResetTimeProgressMode(LevelTimeManager.TimeProgressMode.None);
+                        levelTime.SetInternalTimeOfDay(levelCreateData.lockedTimeOfDay);
+                        levelTime.ChangeState(LevelTimeManager.State.Static);
+
+                        Singleton<StageManager>.Instance.CreateStage(levelCreateData, _overloadDefaultWeatherProfile);
+                        Singleton<LuaManager>.Instance.Start();
+
+                        SuperDebug.LogFormat("OnSceneLoadedPreInit cost = {0}", new float[] { Time.realtimeSinceStartup - prevRealtimeSinceStartup });
+                        return;
+                    }
+                }
+                levelTime.ChangeState(LevelTimeManager.State.Normal);
+                mode = LevelTimeManager.TimeProgressMode.Simulated;
+            }
+            else
+            {
+                LoadingTask loadingTask = Singleton<LoadingManager>.Instance.GetCurLoadingTask();
+                loadingTask.initPos = levelCreateData.PlayBonePos;
+                levelTime.SetInternalTimeOfDay(12.0f);
+                mode = LevelTimeManager.TimeProgressMode.None;
+            }
+            levelTime.ResetTimeProgressMode(mode);
+            Singleton<StageManager>.Instance.CreateStage(levelCreateData, _overloadDefaultWeatherProfile);
+            Singleton<LuaManager>.Instance.Start();
+
+            SuperDebug.LogFormat("OnSceneLoadedPreInit cost = {0}", new float[] { Time.realtimeSinceStartup - prevRealtimeSinceStartup });
+            return;
+        }
+        SuperDebug.LogError("Level Data not founded!");
+    } // 0x00000001814E8E60-0x00000001814E93E0
+      // [XID] // 0x0000000189B5F8B0-0x0000000189B5F8D0
     protected virtual void OnSceneLoadedPostInit(uint token) { } // 0x00000001814EE6A0-0x00000001814EED10
     [DebuggerHidden] // 0x0000000189B66FC0-0x0000000189B67000
                      // [XID] // 0x0000000189B66FC0-0x0000000189B67000
