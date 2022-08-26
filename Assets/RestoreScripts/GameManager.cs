@@ -88,8 +88,120 @@ namespace MoleMole
                                              // [XID] // 0x0000000189662080-0x00000001896620A0
         private void ClearOtherOnBackHome() { } // 0x0000000181F85D90-0x0000000181F85E80
                                                 // [XID] // 0x0000000189669C80-0x0000000189669CA0
-        public void ChangeGameWorld(GlobalVars.WorldType worldType, uint token = 0 /* Metadata: 0x00AFE1E2 */, string levelInfo = null, Action createNewWorldCallback = null, string overrideDefalutWeatherProfile = null) { } // 0x0000000181F82360-0x0000000181F82830
-                                                                                                                                                                                                                               // [XID] // 0x0000000189671880-0x00000001896718A0
+        public void ChangeGameWorld(GlobalVars.WorldType worldType, uint token = 0, string levelInfo = null, Action createNewWorldCallback = null, string overrideDefalutWeatherProfile = null)
+        {
+            ResourcesManager.QuietDownCallback action = () =>
+            {
+                ResourcesManager resourcesManager = Singleton<ResourcesManager>.Instance;
+                if (resourcesManager.assetUpdated)
+                {
+                    CoroutineManager coroutineManager = Singleton<CoroutineManager>.Instance;
+                    coroutineManager.StartCoroutine(resourcesManager.PreToLoadSceneIter(() =>
+                    {
+                        CreateNewGameWorld(worldType, token, levelInfo, overrideDefalutWeatherProfile);
+                        if (createNewWorldCallback != null) createNewWorldCallback();
+                        isUnloadResource = false;
+                    }));
+                }
+                else
+                {
+                    CreateNewGameWorld(worldType, token, levelInfo, overrideDefalutWeatherProfile);
+                    if (createNewWorldCallback != null) createNewWorldCallback();
+                    isUnloadResource = false;
+                }
+                if (worldType == GlobalVars.WorldType.Home)
+                {
+                    ObjectPoolManager.ClearAllPool();
+                }
+            };
+            if (!isUnloadResource)
+            {
+                /* Debug代码 懒得搞
+                if (SuperDebug_IsSwitchOn(0i64, 6, 0i64))
+                {
+                    v13 = Object__Array__TypeInfo;
+                    sub_189564EE0(Object__Array__TypeInfo);
+                    v16 = il2cpp_array_new_specific_0(v13, 4ui64);
+                    if (!v16)
+                        sub_1895AD8F0(v15);
+                    v17 = StringLiteral_ChangeGameWorld_worldType_;
+                    if (StringLiteral_ChangeGameWorld_worldType_)
+                    {
+                        if (!sub_1895C0F20(StringLiteral_ChangeGameWorld_worldType_, v16->klass->_0.element_class))
+                        {
+                            v18 = sub_1895ACF70(v15, v14);
+                            CxxThrowException(v18, 0i64);
+                        }
+                        v17 = StringLiteral_ChangeGameWorld_worldType_;
+                    }
+                    if (!LODWORD(v16->max_length))
+                    {
+                        v19 = arrayOutError(v15, v14);
+                        CxxThrowException(v19, 0i64);
+                    }
+                    v16->vector[0] = v17;
+                    LODWORD(v41[0]) = *(v11 + 16);
+                    v20 = il2cpp_value_box_0(GlobalVars_WorldType__Enum__TypeInfo, v41);
+                    v23 = v20;
+                    if (v20 && !sub_1895C0F20(v20, v16->klass->_0.element_class))
+                    {
+                        v24 = sub_1895ACF70(v22, v21);
+                        CxxThrowException(v24, 0i64);
+                    }
+                    if (LODWORD(v16->max_length) <= 1)
+                    {
+                        v25 = arrayOutError(v22, v21);
+                        CxxThrowException(v25, 0i64);
+                    }
+                    v16->vector[1] = v23;
+                    v26 = StringLiteral__levelInfo__;
+                    if (StringLiteral__levelInfo__)
+                    {
+                        if (!sub_1895C0F20(StringLiteral__levelInfo__, v16->klass->_0.element_class))
+                        {
+                            v27 = sub_1895ACF70(v22, v21);
+                            CxxThrowException(v27, 0i64);
+                        }
+                        v26 = StringLiteral__levelInfo__;
+                    }
+                    if (LODWORD(v16->max_length) <= 2)
+                    {
+                        v28 = arrayOutError(v22, v21);
+                        CxxThrowException(v28, 0i64);
+                    }
+                    v16->vector[2] = v26;
+                    v29 = *(v11 + 24);
+                    if (v29 && !sub_1895C0F20(*(v11 + 24), v16->klass->_0.element_class))
+                    {
+                        v30 = sub_1895ACF70(v22, v21);
+                        CxxThrowException(v30, 0i64);
+                    }
+                    if (LODWORD(v16->max_length) <= 3)
+                    {
+                        v31 = arrayOutError(v22, v21);
+                        CxxThrowException(v31, 0i64);
+                    }
+                    v16->vector[3] = v29;
+                    if ((*(&String__TypeInfo->_1 + 90) & 1) != 0 && !String__TypeInfo->_1.cctor_finished)
+                        il2cpp_runtime_class_init_0(String__TypeInfo);
+                    v32 = String_Concat_6(0i64, v16, 0i64);
+                    if ((*(&SuperDebug__TypeInfo->_1 + 90) & 1) != 0 && !SuperDebug__TypeInfo->_1.cctor_finished)
+                        il2cpp_runtime_class_init_0(SuperDebug__TypeInfo);
+                    SuperDebug_Log_2(0i64, 6, v32, 0i64);
+                }
+                */
+                UniqueString.Clear();
+                SliceFrameManager.ClearAllWRRHandles();
+                BaseEntity.ClearStats();
+                _shouldForceFinishObjectPoolWarmUp = true;
+                SchedulerConfigUtils.ClearOnLevelDestroy();
+                ResourcesManager resourcesManager = Singleton<ResourcesManager>.Instance;
+                resourcesManager.DropUnstartedLoads();
+                resourcesManager.RegisterQuietDownCallback(action);
+                DestroyCurLevel();
+            }
+        } // 0x0000000181F82360-0x0000000181F82830
+          // [XID] // 0x0000000189671880-0x00000001896718A0
         public void DestroyCurLevel() { } // 0x0000000181F82C50-0x0000000181F82D90
                                           // [XID] // 0x0000000189679090-0x00000001896790B0
         private void ClearOtherOnLevelDestroy() { } // 0x0000000181F82D90-0x0000000181F82E80
