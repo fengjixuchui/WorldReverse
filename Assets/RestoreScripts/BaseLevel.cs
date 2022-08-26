@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Security;
 using IFix.Core;
+using miHoYoThread;
 using MoleMole;
 using UnityEngine;
 
@@ -69,7 +70,7 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
     // Constructors
     protected BaseLevel()
     {
-        _loadEntityAsync = 1;
+        _loadEntityAsync = true;
     } // Dummy constructor
     public BaseLevel(string dataName, string overloadDefaultWeatherProfile = null) { } // 0x00000001814F15D0-0x00000001814F1690
     static BaseLevel() { } // 0x00000001814F13B0-0x00000001814F15D0
@@ -120,8 +121,35 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
                                                                               // [XID] // 0x0000000189AFB9C0-0x0000000189AFB9E0
     public void OnPlayerTransmitFinish(uint token) { } // 0x00000001814E83D0-0x00000001814E86A0
                                                        // [XID] // 0x0000000189B03070-0x0000000189B03090
-    public override void Init(uint token) { } // 0x00000001814EB2D0-0x00000001814EB750
-                                              // [XID] // 0x0000000189B0A7E0-0x0000000189B0A800
+    public override void Init(uint token)
+    {
+        ClearConfig();
+        GlobalVars.time = Time.realtimeSinceStartup;
+        _startTime = Time.realtimeSinceStartup;
+        scenePath = "Level";
+        SetAsyncLoadEntity(false);
+        SchedulerMgr.Create();
+        SchedulerMgr.SwitchThread(GlobalVars.lockScene);
+        if (string.IsNullOrEmpty(sceneDataName))
+        {
+            levelCreateData = CommonMiscs.LoadExternal<SceneScriptData>(("Data/Level/" + sceneDataName), out configHandle);
+        }
+        if (!levelCreateData)
+        {
+            SuperDebug.Error("OnEnterScenePeerNotify is Null:" + sceneDataName);
+        }
+        else
+        {
+            NotifyManager notifyManager = Singleton<NotifyManager>.Instance;
+            notifyManager.FireNotify(Notify.CreateNotify(NotifyTypes.LevelLoadBegin));
+            Singleton<LevelModule>.Instance.curLevel = this;
+            LoadingLevelProgress(BaseLevel.LoadState.ClearAsset);
+            ClearLevelCoroutine();
+            Singleton<CoroutineManager>.Instance.StartCoroutine(PreInitIter(token));
+            Singleton<SecurityModule>.Instance.StartReportCoroutine();
+        }
+    } // 0x00000001814EB2D0-0x00000001814EB750
+      // [XID] // 0x0000000189B0A7E0-0x0000000189B0A800
     public override void FixedTick() { } // 0x00000001814EC980-0x00000001814ECAB0
                                          // [XID] // 0x0000000189B11EC0-0x0000000189B11EE0
     public override void Tick() { } // 0x00000001814EB750-0x00000001814EB9E0
