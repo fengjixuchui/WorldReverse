@@ -448,8 +448,36 @@ public sealed class PlayerModule : CharacterModule // TypeDefIndex: 21567
       // [XID] // 0x000000018991A410-0x000000018991A430
     public static void OnAvatarEntityReadyPostCallBack(EvtEntityReadyPost evt) { } // 0x00000001811A8120-0x00000001811A8250
                                                                                    // [XID] // 0x0000000189921BE0-0x0000000189921C00
-    private AvatarEntity PreloadAvatar(AvatarDataItem avatar, bool anyncLoad = false /* Metadata: 0x00AFF976 */) => default; // 0x000000018119DF50-0x000000018119E430
-                                                                                                                             // [XID] // 0x0000000189929340-0x0000000189929360
+    private AvatarEntity PreloadAvatar(AvatarDataItem avatar, bool anyncLoad = false /* Metadata: 0x00AFF976 */)
+    {
+        AvatarEntity newEntity = EntityFactory.CreateAvatar(avatar.guid, avatar.entityId, 0, CampHelper.CAMP_PLAYER, initPos + BornPos, anyncLoad) as AvatarEntity;
+        if (newEntity != null)
+        {
+            newEntity.onEntityReadyPreCallback += (BaseEntity e) =>
+            {
+                avatar.RefreshEntityOnPreEntityReady();
+            };
+            newEntity.AddEventListener((EvtEntityReadyPost evt) =>
+            {
+                AvatarEntity avatarEntity = evt.en as AvatarEntity;
+                if (avatarEntity != null)
+                {
+                    if (avatarEntity.runtimeID != Singleton<EntityManager>.Instance.GetLocalAvatarEntityID())
+                    {
+                        avatarEntity.SetActive(false);
+                    }
+                    Singleton<DataItemManager>.Instance.GetAvatarDataByGUID(avatarEntity.questID).RefreshEntityOnPostEntityReady();
+                }
+            });
+        }
+        else
+        {
+            SuperDebug.VeryImportantError("PreloadAvatar avatar is Null:" + avatar.guid, ErrorLevel.Medium, ErrorCategory.Entity, "6703800040");
+            return null;
+        }
+        return newEntity;
+    }// 0x000000018119DF50-0x000000018119E430
+     // [XID] // 0x0000000189929340-0x0000000189929360
     public static void OnPreloadAvatarEntityReadyPostCallBack(EvtEntityReadyPost evt) { } // 0x00000001811BD620-0x00000001811BD810
                                                                                           // [XID] // 0x00000001899309C0-0x00000001899309E0
     private Vector3 GetAppearPos(SceneEntityInfo entity) => default; // 0x00000001811AAA10-0x00000001811AAC80
