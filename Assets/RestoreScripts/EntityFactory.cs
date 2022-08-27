@@ -247,8 +247,21 @@ public class EntityFactory // TypeDefIndex: 20796
                                                                                                              // [XID] // 0x0000000189ABEE90-0x0000000189ABEEB0
     public static BaseEntity CreateLoadingDoorEntity(uint id, ConfigLoadingDoor config) => default; // 0x0000000182027510-0x00000001820279B0
                                                                                                     // [XID] // 0x0000000189AC69B0-0x0000000189AC69D0
-    private static void CreateSubEntity(BaseEntity entity, ulong prefabPathHash, Vector3 initPos, Quaternion initRotation, float scale, bool loadPrefabAsync = true /* Metadata: 0x00AFE421 */, Action<BaseEntity> loadFinishCallback = null, bool createGameObjectIfDummy = false /* Metadata: 0x00AFE422 */, bool forceDontUseUpdateRigidbody = false /* Metadata: 0x00AFE423 */, GameObject givenGameObject = null, Action<BaseEntity> jsonLoadedCallback = null) { } // 0x00000001820279B0-0x0000000182027D20
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                         // [XID] // 0x00000001896D5C60-0x00000001896D5C80
+    private static void CreateSubEntity(BaseEntity entity, ulong prefabPathHash, Vector3 initPos, Quaternion initRotation, float scale, bool loadPrefabAsync = true /* Metadata: 0x00AFE421 */, Action<BaseEntity> loadFinishCallback = null, bool createGameObjectIfDummy = false /* Metadata: 0x00AFE422 */, bool forceDontUseUpdateRigidbody = false /* Metadata: 0x00AFE423 */, GameObject givenGameObject = null, Action<BaseEntity> jsonLoadedCallback = null)
+    {
+        entity.finishLoadCallback += loadFinishCallback;
+        entity.InitVisual(prefabPathHash, initPos, initRotation, scale, loadPrefabAsync, createGameObjectIfDummy, forceDontUseUpdateRigidbody, givenGameObject, jsonLoadedCallback);
+        if (!loadPrefabAsync)
+        {
+            if (entity.gameObject)
+            {
+                entity.tickBalanceProxy.SetForceTickPrerequisite(true);
+                Singleton<EntityManager>.Instance.AppendForceSyncReadyForNextFrameEntities(entity, false);
+            }
+        }
+        SuperDebug.AssertThrow(entity.EventDispatcher != null, "Entity Create Error ,has back to Pool!!");
+    } // 0x00000001820279B0-0x0000000182027D20
+      // [XID] // 0x00000001896D5C60-0x00000001896D5C80
     public static EntityGameObjectNode GetGameObjectNode(uint configId) => default; // 0x0000000182030BE0-0x0000000182030CC0
                                                                                     // [XID] // 0x0000000189AD5F00-0x0000000189AD5F20
     public static void SetGameObjectNode(uint configId, EntityGameObjectNode node, bool isLightActive = true /* Metadata: 0x00AFE424 */) { } // 0x000000018202B7B0-0x000000018202B8E0
