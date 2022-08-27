@@ -160,15 +160,7 @@ public class EntityFactory // TypeDefIndex: 20796
                     entity.GetAnimator().cullingMode = AnimatorCullingMode.AlwaysAnimate;
                 };
             }
-            CreateSubEntity(autoAllocRecycleEntity, prefabPathHash, initPos, Quaternion.identity, 1.0f, anyncLoad, loadFinishCallback, false, false, null, (BaseEntity entity) =>
-            {
-                if (entity != null && entity.excelConfig != null)
-                {
-                    AvatarExcelConfig avatarExcel = entity.excelConfig as AvatarExcelConfig;
-                    entity.jsonConfig = AvatarData.GetAvatarConfig(avatarExcel.combatConfigHash);
-                    ComponentFactory.CreateAvatarComponents(entity as AvatarEntity, TargetType.Enemy);
-                }
-            });
+            CreateSubEntity(autoAllocRecycleEntity, prefabPathHash, initPos, Quaternion.identity, 1.0f, anyncLoad, loadFinishCallback, false, false, null, AvatarCreationPostJsonConfigLoaded);
         }
         else
         {
@@ -177,8 +169,16 @@ public class EntityFactory // TypeDefIndex: 20796
         return autoAllocRecycleEntity;
     }// 0x0000000182023030-0x0000000182023AB0
      // [XID] // 0x00000001899C2710-0x00000001899C2730
-    private static void AvatarCreationPostJsonConfigLoaded(BaseEntity entity) { } // 0x000000018202E340-0x000000018202E4D0
-                                                                                  // [XID] // 0x00000001899C9D20-0x00000001899C9D40
+    private static void AvatarCreationPostJsonConfigLoaded(BaseEntity entity)
+    {
+        if (entity != null && entity.excelConfig != null)
+        {
+            AvatarExcelConfig avatarExcel = entity.excelConfig as AvatarExcelConfig;
+            entity.jsonConfig = AvatarData.GetAvatarConfig(avatarExcel.combatConfigHash);
+            ComponentFactory.CreateAvatarComponents(entity as AvatarEntity, TargetType.Enemy);
+        }
+    } // 0x000000018202E340-0x000000018202E4D0
+      // [XID] // 0x00000001899C9D20-0x00000001899C9D40
     public static BaseEntity CreateHeroAvatar(bool isSameAvatar, ulong guid, uint entityId, uint configId, uint campID, Vector3 initPos, bool anyncLoad = true /* Metadata: 0x00AFE3D9 */, Action<BaseEntity> loadFinishCallback = null) => default; // 0x000000018202CAF0-0x000000018202D5E0
                                                                                                                                                                                                                                                      // [XID] // 0x00000001899D15C0-0x00000001899D15E0
     private static void HeroAvatarCreationPostJsonConfigLoaded(BaseEntity entity) { } // 0x0000000182028C00-0x0000000182028D90

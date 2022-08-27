@@ -1472,14 +1472,6 @@ public abstract class BaseEntity : IAmortizedTickEntity, IAutoAllocRecycle, IEve
         {
             anyncLoad = true;
         }
-        Action preloadAsyncCallback = () =>
-        {
-            if (_jsonConfigLoadedCallback != null)
-            {
-                _jsonConfigLoadedCallback(this);
-            }
-            OnLoadFinished();
-        };
         if (givenGameObject)
         {
             gameObject = givenGameObject;
@@ -1488,12 +1480,12 @@ public abstract class BaseEntity : IAmortizedTickEntity, IAutoAllocRecycle, IEve
             gameObject.transform.localScale = new Vector3(initUniformScale, initUniformScale, initUniformScale);
             if (anyncLoad)
             {
-                PreloadAsync(ConfigPreloadType.onCreate, preloadAsyncCallback);
+                PreloadAsync(ConfigPreloadType.onCreate, PreloadAsyncCallback);
             }
             else
             {
                 Preload(ConfigPreloadType.onCreate);
-                preloadAsyncCallback();
+                PreloadAsyncCallback();
             }
             _isEntityAsyncLoad = anyncLoad;
             _tokenMgr.HandleEntityCreateToken(_isEntityAsyncLoad, this);
@@ -1521,7 +1513,7 @@ public abstract class BaseEntity : IAmortizedTickEntity, IAutoAllocRecycle, IEve
                         gameObject.transform.position = WorldShiftManager.GetRelativePosition(initPos);
                         gameObject.transform.rotation = initRotation;
                     }
-                    PreloadAsync(ConfigPreloadType.onCreate, preloadAsyncCallback);
+                    PreloadAsync(ConfigPreloadType.onCreate, PreloadAsyncCallback);
                 }
                 else
                 {
@@ -1551,7 +1543,7 @@ public abstract class BaseEntity : IAmortizedTickEntity, IAutoAllocRecycle, IEve
                     }
                     else
                     {
-                        gameObject = CommonMiscs.LoadPrefab(prefabPathHash, _gameObjectResourceHandle);
+                        gameObject = CommonMiscs.LoadPrefab(prefabPathHash, ref _gameObjectResourceHandle);
                         _isGameObjectFromPool = false;
                     }
                     if (gameObject)
@@ -1581,8 +1573,15 @@ public abstract class BaseEntity : IAmortizedTickEntity, IAutoAllocRecycle, IEve
         }
     } // 0x00000001826882B0-0x00000001826890E0
       // [XID] // 0x0000000189B89F00-0x0000000189B89F20
-    protected void PreloadAsyncCallback() { } // 0x00000001826910C0-0x0000000182691180
-                                              // [XID] // 0x0000000189ABB730-0x0000000189ABB750
+    protected void PreloadAsyncCallback()
+    {
+        if (_jsonConfigLoadedCallback != null)
+        {
+            _jsonConfigLoadedCallback(this);
+        }
+        OnLoadFinished();
+    } // 0x00000001826910C0-0x0000000182691180
+      // [XID] // 0x0000000189ABB730-0x0000000189ABB750
     public void ReInitTransform(Vector3 initPos, Quaternion initRotation, float uniformScale) { } // 0x0000000182687CF0-0x0000000182687ED0
                                                                                                   // [XID] // 0x0000000189733560-0x0000000189733580
     public void ResetTransform(Vector3 position, Quaternion rotation, float uniformScale) { } // 0x000000018268D4A0-0x000000018268D5E0
