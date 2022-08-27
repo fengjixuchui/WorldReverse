@@ -4,3 +4,6 @@ LC+(Component)			= Logic Component
 逻辑组件 运行时应该是不会被删除的
 VC+(Component)			= Virtual Component
 虚拟组件 临时给实体添加的功能性组件 不用时会删除 减少计算量
+
+isAuthority
+直译是权限 但目前看来是区分是否是玩家的 如果是玩家就用更复杂的组件之类的
