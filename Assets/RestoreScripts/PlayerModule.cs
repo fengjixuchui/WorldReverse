@@ -339,8 +339,113 @@ public sealed class PlayerModule : CharacterModule // TypeDefIndex: 21567
         }
     } // 0x00000001811A5740-0x00000001811A5B60
       // [XID] // 0x0000000189912B40-0x0000000189912B60
-    public void PreloadAvatarByGUID(ulong guid, bool anyncLoad = false /* Metadata: 0x00AFF975 */) { } // 0x0000000181191430-0x0000000181191CD0
-                                                                                                       // [XID] // 0x000000018991A410-0x000000018991A430
+    public void PreloadAvatarByGUID(ulong guid, bool anyncLoad = false /* Metadata: 0x00AFF975 */)
+    {
+        var dataItem = Singleton<DataItemManager>.Instance;
+        var avatar = dataItem.GetAvatarDataByGUID(guid);
+        var entityManager = Singleton<EntityManager>.Instance;
+        bool isCachedEntity = false;
+        bool runtimeIdChange = false;
+        if (avatar != null)
+        {
+            //if (avatar.sceneId != 0 && avatar.sceneId == curSceneID)
+            //{
+            //    goto localGame;
+            //}
+            if ((avatar.sceneId != 0 && avatar.sceneId == curSceneID) || !GameManager.Instance.isOnlineMode)
+            {
+                localGame:
+                if (avatar.entityId != 0)
+                {
+                    var entity = entityManager.GetAvatarEntity(avatar.entityId);
+                    if (entity != null)
+                    {
+                        isCachedEntity = entityManager.IsCachedEntity(entity);
+                    }
+                    if (entity != null && isCachedEntity)
+                    {
+                        readyEntity:
+                        if (entity.isAuthority && !needRecoverAbilities)
+                        {
+                            avatar.abilitySyncInfo = null;
+                        }
+                        if (entity.IsEntityReady())
+                        {
+                            avatar.RefreshEntityOnPreEntityReady();
+                            avatar.RefreshEntityOnPostEntityReady();
+                        }
+                        else
+                        {
+                            entity.onEntityReadyPreCallback += (BaseEntity readyEntity) => { avatar.RefreshEntityOnPreEntityReady(); };
+                            entity.AddEventListener((EvtEntityReadyPost evt) =>
+                            {
+                                if (entity == null) entity = evt.en as AvatarEntity;
+                                else dataItem.GetAvatarDataByGUID(entity.questID).RefreshEntityOnPostEntityReady();
+                            });
+                        }
+                        return;
+                    }
+                    else
+                    {
+                        runtimeIdChange = true;
+                        AvatarEntity cachedEntity = entityManager.GetCacheEntity(avatar.configId, avatar.entityId) as AvatarEntity;
+                        if (cachedEntity != null)
+                        {
+                            if (avatar.entityId != entityManager.GetLocalAvatarEntityID())
+                            {
+                                PreloadAvatar(avatar, anyncLoad);
+                                return;
+                            }
+                        }
+                    }
+                    avatar.RefreshEntityOnPreEntityReady();
+                    entityManager.ReuseCachedEntity(entity, false, runtimeIdChange);
+                    if (entity.runtimeID != entityManager.GetLocalAvatarEntityID())
+                    {
+                        entity.SetActive(false);
+                        //goto readyEntity;
+                        if (entity.isAuthority && !needRecoverAbilities)
+                        {
+                            avatar.abilitySyncInfo = null;
+                        }
+                        if (entity.IsEntityReady())
+                        {
+                            avatar.RefreshEntityOnPreEntityReady();
+                            avatar.RefreshEntityOnPostEntityReady();
+                        }
+                        else
+                        {
+                            entity.onEntityReadyPreCallback += (BaseEntity readyEntity) => { avatar.RefreshEntityOnPreEntityReady(); };
+                            entity.AddEventListener((EvtEntityReadyPost evt) =>
+                            {
+                                if (entity == null) entity = evt.en as AvatarEntity;
+                                else dataItem.GetAvatarDataByGUID(entity.questID).RefreshEntityOnPostEntityReady();
+                            });
+                        }
+                        return;
+                    }
+                }
+            }
+            if (GameManager.Instance.isOnlineMode)
+            {
+                BaseEntity entity = entityManager.GetEntity(avatar.entityId);
+                if (entity != null)
+                {
+                    if (entity.gameObject)
+                    {
+                        entity.gameObject.SetActive(false);
+                    }
+                    entity.SetToBeRemoved<BaseEntity>(ref entity);
+                }
+                avatar.entityId = 0;
+            }
+        }
+        else
+        {
+            SuperDebug.Error("PreLoadAllAvatars Team Has No Avatar:" + guid);
+        }
+    } // 0x0000000181191430-0x0000000181191CD0
+      // [XID] // 0x000000018991A410-0x000000018991A430
     public static void OnAvatarEntityReadyPostCallBack(EvtEntityReadyPost evt) { } // 0x00000001811A8120-0x00000001811A8250
                                                                                    // [XID] // 0x0000000189921BE0-0x0000000189921C00
     private AvatarEntity PreloadAvatar(AvatarDataItem avatar, bool anyncLoad = false /* Metadata: 0x00AFF976 */) => default; // 0x000000018119DF50-0x000000018119E430
