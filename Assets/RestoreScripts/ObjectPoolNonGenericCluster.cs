@@ -45,8 +45,11 @@ namespace MoleMole
 
         // Methods
         // [XID] // 0x0000000189A6B090-0x0000000189A6B0B0
-        private static ObjectPoolInstanceNonGeneric CreateObjectPoolNonGeneric(System.Type t) => default; // 0x0000000186C30E10-0x0000000186C30F90
-                                                                                                          // [XID] // 0x0000000189AB3C80-0x0000000189AB3CA0
+        private static ObjectPoolInstanceNonGeneric CreateObjectPoolNonGeneric(System.Type t)
+        {
+            return new ObjectPoolInstanceNonGeneric(t, new Func<object>(() => { return Activator.CreateInstance(t); }), true);
+        }// 0x0000000186C30E10-0x0000000186C30F90
+         // [XID] // 0x0000000189AB3C80-0x0000000189AB3CA0
         private void Init() { } // 0x0000000186C312B0-0x0000000186C31350
                                 // [XID] // 0x0000000189ABB8F0-0x0000000189ABB910
         public void Tick() { } // 0x0000000186C31560-0x0000000186C31740
