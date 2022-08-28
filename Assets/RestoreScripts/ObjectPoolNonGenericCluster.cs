@@ -62,8 +62,18 @@ namespace MoleMole
             }
         } // 0x0000000186C30AF0-0x0000000186C30C10
           // [XID] // 0x0000000189ACA7F0-0x0000000189ACA810
-        public ObjectPoolInstanceNonGeneric GetObjectPool(System.Type t) => default; // 0x0000000186C31150-0x0000000186C312B0
-                                                                                     // [XID] // 0x0000000189AD2290-0x0000000189AD22B0
+        public ObjectPoolInstanceNonGeneric GetObjectPool(System.Type t)
+        {
+            if (!_objectPoolCluster.TryGetValue(t, out var value))
+            {
+                if (addSet.Add(t))
+                {
+                    _addList.Push(t);
+                }
+            }
+            return value;
+        }// 0x0000000186C31150-0x0000000186C312B0
+         // [XID] // 0x0000000189AD2290-0x0000000189AD22B0
         public void PreRegisterObjectPools(params /* 0x000000018989F6F0-0x000000018989F700 */ System.Type[] types) { } // 0x0000000186C31350-0x0000000186C31440
         public T Allocate<T>()
             where T : class, new() => default;
