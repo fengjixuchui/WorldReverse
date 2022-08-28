@@ -192,12 +192,14 @@ namespace MoleMole
             LocalDataVersion.LoadFromFile();
             Singleton<MiHoYoGameData>.Create();
             Instance = this;
+            /* 因为是单机版可以跳过
             FileIOUtil.CheckPackageType();
             PersistDirUtil.CheckClearResInPersistDir_BeforeCreateGlobalManager();
             FileIOUtil.CheckUnsavedNewRes();
             DownloadAliveKeeper.OnInit();
+            */
             CreateGlobalManagers();
-            PersistDirUtil.CheckClearResInPersistDir_AfterCreateGlobalManager();
+            //PersistDirUtil.CheckClearResInPersistDir_AfterCreateGlobalManager();
             InitEmbeddedData();
             Singleton<LocalizationManager>.Instance.ResetWindowTitle();
             ShowLogo();
