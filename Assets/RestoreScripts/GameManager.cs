@@ -6,10 +6,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Security;
+using System.Threading;
 using IFix.Core;
+using MiHoYo.SDK;
 using miHoYoThread;
+using miHoYoTools;
 using UnityEngine;
 
 // Image 60: Assembly-CSharp.dll - Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 10700-32500
@@ -52,8 +56,25 @@ namespace MoleMole
         // [XID] // 0x00000001895EA8C0-0x00000001895EA8E0
         public GameWorld GetCurGameWorld() => default; // 0x0000000181F83C30-0x0000000181F83CD0
                                                        // [XID] // 0x00000001895F1DD0-0x00000001895F1DF0
-        private void Awake() { } // 0x0000000181F81210-0x0000000181F81570
-                                 // [XID] // 0x00000001895F9710-0x00000001895F9730
+        private void Awake()
+        {
+            ObjectPoolUtility.isMainThread = true;
+            CultureInfo cultureInfo = new CultureInfo("zh-CN");
+            string currentCulture = Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
+            string defaultCulture = cultureInfo.NumberFormat.CurrencyDecimalSeparator;
+            if (currentCulture.CompareTo(defaultCulture) == 0)
+            {
+                SuperDebug.VeryImportantError("CurrentCulture is Invalid:" + cultureInfo.Name + " " + cultureInfo.NumberFormat.ToString(), ErrorLevel.Medium, ErrorCategory.Level, " ");
+                Thread.CurrentThread.CurrentCulture = cultureInfo;
+            }
+            WatchDog.Start();
+            Miscs.SetUnloadCPUVertexDataForSkinnedMesh(false);
+            if (Miscs.IsCloudGame())
+            {
+                MiHoYoBaseSDK.SetCloudPlat(true);
+            }
+        } // 0x0000000181F81210-0x0000000181F81570
+          // [XID] // 0x00000001895F9710-0x00000001895F9730
         private void Start() { } // 0x0000000181F864A0-0x0000000181F86590
                                  // [XID] // 0x0000000189600E40-0x0000000189600E60
         private void InitObjectPool() { } // 0x0000000181F85E80-0x0000000181F86030
