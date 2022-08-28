@@ -37,8 +37,11 @@ namespace MoleMole
                                                                          // [XID] // 0x0000000189B31C10-0x0000000189B31C30
         private static bool IsInMainThread() => default; // 0x0000000186C32730-0x0000000186C327D0
                                                          // [XID] // 0x0000000189B39050-0x0000000189B39070
-        public static void ReplaceCluster(IObjectPoolCluster inCluster) { } // 0x0000000186C328B0-0x0000000186C32960
-                                                                            // [XID] // 0x0000000189B40D40-0x0000000189B40D60
+        public static void ReplaceCluster(IObjectPoolCluster inCluster)
+        {
+            _cluster = inCluster;
+        } // 0x0000000186C328B0-0x0000000186C32960
+          // [XID] // 0x0000000189B40D40-0x0000000189B40D60
         public static void Init()
         {
             ReplaceCluster(ObjectPoolNonGenericCluster.instance);
