@@ -80,6 +80,8 @@ namespace MoleMole
             InitObjectPool();
             Screen.sleepTimeout = -1;
             InitGame();
+
+            // 控制台相关 先忽视
             InitObfuscatorTranslation();
             BaseEntity.StartStatWatch();
             StatCommandBootstrap.RegisterCommands();
@@ -90,6 +92,8 @@ namespace MoleMole
             ObjectPoolUtility.Init();
             SECTR_Utils.InitObjectPool();
             ObjectPoolWarmupNoGen.WarmupObjectPool();
+
+            // 大得就尼玛离离离离离离离离离离离离离离离离离离离离离离谱 删了也能空池触发所以先忽略
             IEnumerator warmupCallback = default;
             if (GlobalVars.UseLegacyGenericObjectPool)
             {
