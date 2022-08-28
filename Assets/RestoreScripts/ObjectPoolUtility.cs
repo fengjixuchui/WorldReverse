@@ -55,8 +55,11 @@ namespace MoleMole
             where T : class, new()
         { }
         // [XID] // 0x0000000189B52BD0-0x0000000189B52BF0
-        public static void ReplaceAllocator(System.Type t, Func<object> inAllocator) { } // 0x0000000186C327D0-0x0000000186C328B0
-                                                                                         // [XID] // 0x0000000189B5A5C0-0x0000000189B5A5E0
+        public static void ReplaceAllocator(System.Type t, Func<object> inAllocator)
+        {
+            _cluster.ReplaceAllocator(t, inAllocator);
+        } // 0x0000000186C327D0-0x0000000186C328B0
+          // [XID] // 0x0000000189B5A5C0-0x0000000189B5A5E0
         public static object Allocate(System.Type t) => default; // 0x0000000186C321E0-0x0000000186C32320
                                                                  // [IDTag] // 0x0000000189B61AA0-0x0000000189B61AE0
                                                                  // [XID] // 0x0000000189B61AA0-0x0000000189B61AE0
