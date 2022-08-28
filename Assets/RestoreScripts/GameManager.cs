@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Security;
 using System.Threading;
@@ -184,8 +185,25 @@ namespace MoleMole
                                                  // [XID] // 0x0000000189688380-0x00000001896883A0
         public void ForceQuitApplication() { } // 0x0000000181F83810-0x0000000181F83960
                                                // [XID] // 0x000000018968FBC0-0x000000018968FBE0
-        private void InitGame() { } // 0x0000000181F84FD0-0x0000000181F853B0
-                                    // [XID] // 0x00000001896975C0-0x00000001896975E0
+        private void InitGame()
+        {
+            WebRequest.Create("http://localhost:19999").Abort();
+            DontDestroyOnLoad(gameObject);
+            LocalDataVersion.LoadFromFile();
+            Singleton<MiHoYoGameData>.Create();
+            Instance = this;
+            FileIOUtil.CheckPackageType();
+            PersistDirUtil.CheckClearResInPersistDir_BeforeCreateGlobalManager();
+            FileIOUtil.CheckUnsavedNewRes();
+            DownloadAliveKeeper.OnInit();
+            CreateGlobalManagers();
+            PersistDirUtil.CheckClearResInPersistDir_AfterCreateGlobalManager();
+            InitEmbeddedData();
+            Singleton<LocalizationManager>.Instance.ResetWindowTitle();
+            ShowLogo();
+            UnityEngine.Debug.LogFormat("InitGame end at {0}" + Time.realtimeSinceStartup);
+        } // 0x0000000181F84FD0-0x0000000181F853B0
+          // [XID] // 0x00000001896975C0-0x00000001896975E0
         public void BindPSNPStateChange() { } // 0x0000000181F81F00-0x0000000181F81FA0
                                               // [XID] // 0x000000018969EAF0-0x000000018969EB10
         private void OnPSNPStateChange(int userID, int state) { } // 0x0000000181F82830-0x0000000181F828F0
