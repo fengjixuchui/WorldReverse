@@ -75,8 +75,16 @@ namespace MoleMole
             }
         } // 0x0000000181F81210-0x0000000181F81570
           // [XID] // 0x00000001895F9710-0x00000001895F9730
-        private void Start() { } // 0x0000000181F864A0-0x0000000181F86590
-                                 // [XID] // 0x0000000189600E40-0x0000000189600E60
+        private void Start()
+        {
+            InitObjectPool();
+            Screen.sleepTimeout = -1;
+            InitGame();
+            InitObfuscatorTranslation();
+            BaseEntity.StartStatWatch();
+            StatCommandBootstrap.RegisterCommands();
+        } // 0x0000000181F864A0-0x0000000181F86590
+          // [XID] // 0x0000000189600E40-0x0000000189600E60
         private void InitObjectPool() { } // 0x0000000181F85E80-0x0000000181F86030
                                           // [XID] // 0x00000001896087B0-0x00000001896087D0
         private void FixedUpdate() { } // 0x0000000181F83750-0x0000000181F83810
