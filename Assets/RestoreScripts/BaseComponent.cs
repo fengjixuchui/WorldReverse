@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security;
 using FullInspector;
@@ -816,87 +817,111 @@ namespace MoleMole
             TryToAddEventPlugin(plugin, HandleEventType.ListenEvent);
         } // 0x00000001852657A0-0x0000000185265960
           // [XID] // 0x0000000189994B40-0x0000000189994B60
-        private void TryToAddEventPlugin(BaseComponentPlugin plugin, HandleEventType handleEventType) // ShiyumeWarning : I'm not sure if this code is correctly reversed
+        private void TryToAddEventPlugin(BaseComponentPlugin plugin, HandleEventType handleEventType)
         {
-            EventID[] eventID;
+            EventID[] pluginEventIDs;
             if (handleEventType >= HandleEventType.OnEventResolved)
             {
-                eventID = plugin.GetSelfListenEventIDs();
-            }
-            else
-            {
-                eventID = plugin.GetSelfOnEventIDs();
-            }
-            var eventIDs = listenEventIDs;
-            var eventPluginMap = _listenEventPluginMap;
-            var eventPlguinsMap = _listenEventPluginsMap;
-            if (eventID != null)
-            {
-                if (handleEventType >= HandleEventType.OnEventResolved)
-                    if (listenEventIDs == null)
-                        listenEventIDs = ObjectPoolUtility.Allocate<List<EventID>>();
-                eventIDs = listenEventIDs;
-                eventPluginMap = _listenEventPluginMap;
-                eventPlguinsMap = _listenEventPluginsMap;
-
-            }
-            else
-            {
-                if (onEventIDs == null)
-                    onEventIDs = ObjectPoolUtility.Allocate<List<EventID>>();
-                eventIDs = onEventIDs;
-                eventPluginMap = _onEventPluginMap;
-                eventPlguinsMap = _onEventPluginsMap;
-            }
-            foreach (var id in eventIDs)
-            {
-                if (eventPlguinsMap != null && eventPlguinsMap.ContainsKey(id))
+                if (handleEventType >= HandleEventType.ListenEvent)
                 {
-                    if (eventPlguinsMap[id] == null)
-                    {
-                        eventPlguinsMap[id] = ObjectPoolUtility.Allocate<List<BaseComponentPlugin>>();
-                    }
-                    if (!eventPlguinsMap[id].Contains(plugin))
-                    {
-                        eventPlguinsMap[id].Add(plugin);
-                    }
+                    SuperDebug.Assert(false, "handleEventType is not valid On TryToAddEventPlugin");
+                }
+                pluginEventIDs = plugin.GetSelfListenEventIDs();
+            }
+            else
+            {
+                pluginEventIDs = plugin.GetSelfOnEventIDs();
+            }
+            if (pluginEventIDs != null)
+            {
+                var selfEventIDs = listenEventIDs;
+                var selfListenPluginMap = _listenEventPluginMap;
+                var selfEventPlguinsMap = _listenEventPluginsMap;
+                if (pluginEventIDs != null)
+                {
+                    if (handleEventType >= HandleEventType.OnEventResolved)
+                        if (listenEventIDs == null)
+                            listenEventIDs = ObjectPoolUtility.Allocate<List<EventID>>();
+                    selfEventIDs = listenEventIDs;
+                    selfListenPluginMap = _listenEventPluginMap;
+                    selfEventPlguinsMap = _listenEventPluginsMap;
+
                 }
                 else
                 {
-                    if (eventPluginMap == null)
+                    if (onEventIDs == null)
+                        onEventIDs = ObjectPoolUtility.Allocate<List<EventID>>();
+                    selfEventIDs = onEventIDs;
+                    selfListenPluginMap = _onEventPluginMap;
+                    selfEventPlguinsMap = _onEventPluginsMap;
+                }
+                if (pluginEventIDs.Length > 0)
+                {
+                    foreach (var pluginID in pluginEventIDs)
                     {
-                        eventPluginMap = ObjectPoolUtility.Allocate<Dictionary<EventID, BaseComponentPlugin>>();
-                    }
-                    if (handleEventType >= HandleEventType.OnEventResolved)
-                    {
-                        _listenEventPluginMap = eventPluginMap;
-                    }
-                    else
-                    {
-                        _onEventPluginMap = eventPluginMap;
-                    }
-                    _listenEventPluginMap.Add(id, plugin);
-                    if (_listenEventPluginMap[id] != plugin)
-                    {
-                        var item = _listenEventPluginMap[id];
-                        _listenEventPluginMap.Remove(id);
-                        if (eventPlguinsMap == null)
+                        if (!selfEventIDs.Contains(pluginID))
                         {
-                            eventPlguinsMap = ObjectPoolUtility.Allocate<Dictionary<EventID, List<BaseComponentPlugin>>>();
-                            if (handleEventType >= HandleEventType.OnEventResolved)
+                            selfEventIDs.Add(pluginID);
+                        }
+                    }
+                    foreach (var pluginID in pluginEventIDs)
+                    {
+                        if (selfEventPlguinsMap != null && selfEventPlguinsMap.ContainsKey(pluginID))
+                        {
+                            var componentPlugin = selfEventPlguinsMap[pluginID];
+                            if (componentPlugin == null)
                             {
-                                _listenEventPluginsMap = eventPlguinsMap;
+                                componentPlugin = ObjectPoolUtility.Allocate<List<BaseComponentPlugin>>();
                             }
-                            else
+                            if (componentPlugin.Contains(plugin))
                             {
-                                _onEventPluginsMap = eventPlguinsMap;
+                                componentPlugin.Add(plugin);
+                                continue;
                             }
-                            if (!_onEventPluginsMap.ContainsKey(id))
+                        }
+                        else
+                        {
+                            if (selfListenPluginMap == null)
                             {
-                                var plugins = ObjectPoolUtility.Allocate<List<BaseComponentPlugin>>();
-                                _onEventPluginsMap.Add(id, plugins);
-                                _onEventPluginsMap[id].Add(item);
-                                _onEventPluginsMap[id].Add(plugin);
+                                selfListenPluginMap = ObjectPoolUtility.Allocate<Dictionary<EventID, BaseComponentPlugin>>();
+                                if (handleEventType >= HandleEventType.OnEventResolved)
+                                    _listenEventPluginMap = selfListenPluginMap;
+                                else
+                                    _onEventPluginMap = selfListenPluginMap;
+
+                                selfListenPluginMap.Add(pluginID, plugin);
+                                continue;
+                            }
+                            if (!selfListenPluginMap.ContainsKey(pluginID))
+                            {
+                                selfListenPluginMap.Add(pluginID, plugin);
+                                continue;
+                            }
+                            if (selfListenPluginMap[pluginID] != plugin)
+                            {
+                                var temp = selfListenPluginMap[pluginID];
+                                selfListenPluginMap.Remove(pluginID);
+
+                                if (selfEventPlguinsMap == null)
+                                {
+                                    selfEventPlguinsMap = ObjectPoolUtility.Allocate<Dictionary<EventID, List<BaseComponentPlugin>>>();
+                                    if (handleEventType >= HandleEventType.OnEventResolved)
+                                        _listenEventPluginsMap = selfEventPlguinsMap;
+                                    else
+                                        _onEventPluginsMap = selfEventPlguinsMap;
+
+                                    if (selfEventPlguinsMap.ContainsKey(pluginID))
+                                    {
+                                        SuperDebug.Assert(false, "eventPluginsMap should not eventID" + _entity.ToString() + " " + pluginID + " " + plugin.ToString());
+                                    }
+                                    else
+                                    {
+                                        var basePluginList = ObjectPoolUtility.Allocate<List<BaseComponentPlugin>>();
+                                        selfEventPlguinsMap.Add(pluginID, basePluginList);
+                                        basePluginList.Add(temp);
+                                        basePluginList.Add(plugin);
+                                    }
+                                }
                             }
                         }
                     }
