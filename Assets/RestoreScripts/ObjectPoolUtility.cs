@@ -20,8 +20,8 @@ namespace MoleMole
         private static IObjectPoolCluster _cluster; // 0x00
 
         // Properties
-        public static IObjectPoolCluster threadSharedCluster { /* [XID] */ /* 0x0000000189B23010-0x0000000189B23030 */ get; } // 0x0000000186C32A10-0x0000000186C32AC0 
-        public static IObjectPoolCluster cluster { /* [XID] */ /* 0x0000000189B6C270-0x0000000189B6C290 */ get; } // 0x0000000186C32960-0x0000000186C32A10 
+        public static IObjectPoolCluster threadSharedCluster { /* [XID] */ /* 0x0000000189B23010-0x0000000189B23030 */ get => _cluster; } // 0x0000000186C32A10-0x0000000186C32AC0 
+        public static IObjectPoolCluster cluster { /* [XID] */ /* 0x0000000189B6C270-0x0000000189B6C290 */ get => _cluster; } // 0x0000000186C32960-0x0000000186C32A10 
 
         // Nested types
         public struct MarkMainThread : IDisposable // TypeDefIndex: 7460
