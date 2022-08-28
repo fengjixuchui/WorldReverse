@@ -85,8 +85,23 @@ namespace MoleMole
             StatCommandBootstrap.RegisterCommands();
         } // 0x0000000181F864A0-0x0000000181F86590
           // [XID] // 0x0000000189600E40-0x0000000189600E60
-        private void InitObjectPool() { } // 0x0000000181F85E80-0x0000000181F86030
-                                          // [XID] // 0x00000001896087B0-0x00000001896087D0
+        private void InitObjectPool()
+        {
+            ObjectPoolUtility.Init();
+            SECTR_Utils.InitObjectPool();
+            ObjectPoolWarmupNoGen.WarmupObjectPool();
+            IEnumerator warmupCallback = default;
+            if (GlobalVars.UseLegacyGenericObjectPool)
+            {
+                warmupCallback = ObjectPoolWarmup.WarmupObjectPoolLegacy(new Func<bool>(() => _shouldForceFinishObjectPoolWarmUp));
+            }
+            else
+            {
+                warmupCallback = ObjectPoolWarmup.WarmupObjectPool(new Func<bool>(() => _shouldForceFinishObjectPoolWarmUp));
+            }
+            StartCoroutine(warmupCallback);
+        } // 0x0000000181F85E80-0x0000000181F86030
+          // [XID] // 0x00000001896087B0-0x00000001896087D0
         private void FixedUpdate() { } // 0x0000000181F83750-0x0000000181F83810
                                        // [XID] // 0x000000018960FF90-0x000000018960FFB0
         private void Update()
