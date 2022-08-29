@@ -252,8 +252,69 @@ namespace MoleMole
             _curGameWorld.worldType = worldType;
         } // 0x0000000181F84B40-0x0000000181F84FD0
           // [XID] // 0x00000001896CA690-0x00000001896CA6B0
-        private void CreateGlobalManagers() { } // 0x0000000181F81620-0x0000000181F81A50
-                                                // [XID] // 0x00000001896D1D20-0x00000001896D1D40
+        private void CreateGlobalManagers()
+        {
+            ManagerController.CreateGlobalManager<WorldShiftManager>();
+            ManagerController.CreateGlobalManager<IFixManager>();
+            ManagerController.CreateGlobalManager<TimerManager>();
+            ManagerController.CreateGlobalManager<MEventMgr>();
+            ManagerController.CreateGlobalManager<CoroutineManager>();
+            ManagerController.CreateGlobalManager<ResourcesManager>();
+            SchedulerConfigUtils.LoadScheduleConfig();
+            SchedulerGlobalMgr.Create();
+            SchedulerGlobalMgr.SwitchThread(GlobalVars.lockScene);
+            SchedulerConfigUtils.StartConfigThreadTasks();
+            ManagerController.CreateGlobalManager<NetworkManager>();
+            ManagerController.CreateGlobalManager<LuaManager>();
+            ManagerController.CreateGlobalManager<LuaShellManager>();
+            ManagerController.CreateGlobalManager<ActorManager>();
+            ManagerController.CreateGlobalManager<UIManager>();
+            ManagerController.CreateGlobalManager<AudioManager>();
+            ManagerController.CreateGlobalManager<NotifyManager>();
+            ManagerController.CreateGlobalManager<CutsceneManager>();
+            ManagerController.CreateGlobalManager<BagManager>();
+            ManagerController.CreateGlobalManager<WidgetSystemManager>();
+            ManagerController.CreateGlobalManager<StoreManager>();
+            ManagerController.CreateGlobalManager<TipsManager>();
+            ManagerController.CreateGlobalManager<DataItemManager>();
+            ManagerController.CreateGlobalManager<SocketManager>();
+            ManagerController.CreateGlobalManager<TeamManager>();
+            ManagerController.CreateGlobalManager<WorldInfoManager>();
+            ManagerController.CreateGlobalManager<QAManager>();
+            ManagerController.CreateGlobalManager<InputManager>();
+            ManagerController.CreateGlobalManager<LocalizationManager>();
+            ManagerController.CreateGlobalManager<VideoManager>();
+            ManagerController.CreateGlobalManager<BanManager>();
+            ManagerController.CreateGlobalManager<GalleryManager>();
+            ManagerController.CreateGlobalManager<ChatDataManager>();
+            ManagerController.CreateGlobalManager<ChatResManager>();
+            ManagerController.CreateGlobalManager<TextMapManager>();
+            ManagerController.CreateGlobalManager<MiHoYoSDKManager>();
+            ManagerController.CreateGlobalManager<BuriedPointReportManager>();
+            ManagerController.CreateGlobalManager<OperationSDKManager>();
+            ManagerController.CreateGlobalManager<SilenceDataManager>();
+            ManagerController.CreateGlobalManager<BlackScreenManager>();
+            ManagerController.CreateGlobalManager<NpcManager>();
+            ManagerController.CreateGlobalManager<SocialManager>();
+            ManagerController.CreateGlobalManager<DownloadSizeManager>();
+            ManagerController.CreateGlobalManager<LoadingManager>();
+            ManagerController.CreateGlobalManager<CoopManager>();
+            ManagerController.CreateGlobalManager<CameraManager>();
+            ManagerController.CreateGlobalManager<TheWorldLockManager>();
+            ManagerController.CreateGlobalManager<MTRManager>();
+            ManagerController.CreateGlobalManager<CustomEventManager>();
+            ManagerController.CreateGlobalManager<SECTR_Manager>();
+            /* 自定义引擎代码
+            if (DeformationManager.IsDeformationEnabled())
+            {
+                ManagerController.CreateGlobalManager<DeformationProfileManager>();
+            }
+            */
+            var Inst = SchedulerGlobalMgr.Inst;
+            Inst.Start();
+            Inst.CheckStarted();
+        } // 0x0000000181F81620-0x0000000181F81A50
+          // [XID] // 0x00000001896D1D20-0x00000001896D1D40
         private void DestroyGlobalManagers() { } // 0x0000000181F81FA0-0x0000000181F82360
                                                  // [XID] // 0x00000001896D95B0-0x00000001896D95D0
         public void SwitchMemInfo() { } // 0x0000000181F86590-0x0000000181F866D0
