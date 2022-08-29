@@ -107,8 +107,15 @@ namespace MoleMole
             StartCoroutine(warmupCallback);
         } // 0x0000000181F85E80-0x0000000181F86030
           // [XID] // 0x00000001896087B0-0x00000001896087D0
-        private void FixedUpdate() { } // 0x0000000181F83750-0x0000000181F83810
-                                       // [XID] // 0x000000018960FF90-0x000000018960FFB0
+        private void FixedUpdate()
+        {
+            if (_curGameWorld != null)
+            {
+                _curGameWorld.FixedTick();
+                _lastFixedUpdateFrameCount = Time.frameCount;
+            }
+        } // 0x0000000181F83750-0x0000000181F83810
+          // [XID] // 0x000000018960FF90-0x000000018960FFB0
         private void Update()
         {
             if (Time.frameCount > _lastFixedUpdateFrameCount) Physics.SyncTransforms();
