@@ -95,6 +95,19 @@ public class MiHoYoGameData // TypeDefIndex: 19577
                                                    // [XID] // 0x000000018990E4D0-0x000000018990E4F0
     private void PlayerPrefsSave() { } // 0x0000000182127E80-0x0000000182128240
                                        // [XID] // 0x0000000189915BA0-0x0000000189915BC0
-    private void PlayerPrefsSetString(string key, string val) { } // 0x00000001821288C0-0x00000001821289E0
+    private void PlayerPrefsSetString(string key, string val)
+    {
+        if (Miscs.IsCloudGame())
+        {
+            if (_cloudSaveData != null)
+            {
+                _cloudSaveData[key] = val;
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetString(key, val);
+        }
+    } // 0x00000001821288C0-0x00000001821289E0
 }
 
