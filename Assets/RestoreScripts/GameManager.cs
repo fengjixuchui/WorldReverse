@@ -118,6 +118,7 @@ namespace MoleMole
           // [XID] // 0x000000018960FF90-0x000000018960FFB0
         private void Update()
         {
+            ObjectPoolUtility.isMainThread = true;
             if (Time.frameCount > _lastFixedUpdateFrameCount) Physics.SyncTransforms();
             BeforeUpdateSchedule();
             UpdateSchedule();
