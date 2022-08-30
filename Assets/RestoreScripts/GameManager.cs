@@ -417,8 +417,17 @@ namespace MoleMole
             if (_curGameWorld != null) _curGameWorld.EndUpdateSchedule();
         } // 0x0000000181F81AB0-0x0000000181F81DF0
           // [XID] // 0x000000018975AB80-0x000000018975ABA0
-        private void BeforeLateUpdatePreSchedule() { } // 0x0000000181F842F0-0x0000000181F844D0
-                                                       // [XID] // 0x00000001897626B0-0x00000001897626D0
+        private void BeforeLateUpdatePreSchedule()
+        {
+            SchedulerUtils.SchedulerWaitFlush(_schedulerMgr, SchedulerType.LATE_POST_UPDATE_TO_NEXT_BEFORE_LATE_UPDATE, false);
+            SchedulerUtils.SchedulerWaitFlush(_schedulerMgr, SchedulerType.RENDER_TO_NEXT_BEFORE_LATE_UPDATE, false);
+            SchedulerUtils.SchedulerGlobalWaitFlush(_schedulerGlobalMgr, SchedulerGlobalType.RENDER_TO_NEXT_BEFORE_LATE_UPDATE);
+            if (_curGameWorld != null) _curGameWorld.BeforeLateUpdatePreSchedule();
+            //Singleton<QAManager>.Instance.LateTick();
+            Singleton<ResourcesManager>.Instance.LateTick();
+            Singleton<CutsceneManager>.Instance.LateTick();
+        } // 0x0000000181F842F0-0x0000000181F844D0
+          // [XID] // 0x00000001897626B0-0x00000001897626D0
         private void LateUpdatePreSchedule() { } // 0x0000000181F846E0-0x0000000181F84890
                                                  // [XID] // 0x0000000189769D30-0x0000000189769D50
         private void AfterLateUpdatePreSchedule() { } // 0x0000000181F853B0-0x0000000181F85480
