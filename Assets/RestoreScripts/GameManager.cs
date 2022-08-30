@@ -402,8 +402,20 @@ namespace MoleMole
             SchedulerUtils.SchedulerWaitFlush(_schedulerMgr, SchedulerType.UPDATE, GlobalVars.lockScene);
         } // 0x0000000181F83A00-0x0000000181F83C30
           // [XID] // 0x0000000189753680-0x00000001897536A0
-        private void AfterUpdateSchedule() { } // 0x0000000181F81AB0-0x0000000181F81DF0
-                                               // [XID] // 0x000000018975AB80-0x000000018975ABA0
+        private void AfterUpdateSchedule()
+        {
+            _curGameWorld.AfterUpdateSchedule();
+            Singleton<CutsceneManager>.Instance.Tick();
+            Singleton<UIManager>.Instance.Tick();
+            Singleton<WorldInfoManager>.Instance.Tick();
+            Singleton<VideoManager>.Instance.Tick();
+            Singleton<SilenceDataManager>.Instance.Tick();
+            Singleton<LocalizationManager>.Instance.Tick();
+            Singleton<BlackScreenManager>.Instance.Tick();
+            Singleton<DownloadSizeManager>.Instance.Tick();
+            if (_curGameWorld != null) _curGameWorld.EndUpdateSchedule();
+        } // 0x0000000181F81AB0-0x0000000181F81DF0
+          // [XID] // 0x000000018975AB80-0x000000018975ABA0
         private void BeforeLateUpdatePreSchedule() { } // 0x0000000181F842F0-0x0000000181F844D0
                                                        // [XID] // 0x00000001897626B0-0x00000001897626D0
         private void LateUpdatePreSchedule() { } // 0x0000000181F846E0-0x0000000181F84890
