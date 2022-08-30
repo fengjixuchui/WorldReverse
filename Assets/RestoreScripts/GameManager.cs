@@ -436,8 +436,16 @@ namespace MoleMole
             SchedulerUtils.SchedulerWaitFlush(_schedulerMgr, SchedulerType.LATE_PRE_UPDATE, GlobalVars.lockScene);
         } // 0x0000000181F846E0-0x0000000181F84890
           // [XID] // 0x0000000189769D30-0x0000000189769D50
-        private void AfterLateUpdatePreSchedule() { } // 0x0000000181F853B0-0x0000000181F85480
-                                                      // [XID] // 0x0000000189771320-0x0000000189771340
+        private void AfterLateUpdatePreSchedule()
+        {
+            if (_curGameWorld != null)
+            {
+                _curGameWorld.AfterLateUpdatePreSchedule();
+                _curGameWorld.EndLateUpdatePreSchedule();
+            }
+
+        } // 0x0000000181F853B0-0x0000000181F85480
+          // [XID] // 0x0000000189771320-0x0000000189771340
         private void BeforeLateUpdatePostSchedule() { } // 0x0000000181F81570-0x0000000181F81620
                                                         // [XID] // 0x0000000189778B80-0x0000000189778BA0
         private void LateUpdatePostSchedule() { } // 0x0000000181F82AD0-0x0000000181F82C50
