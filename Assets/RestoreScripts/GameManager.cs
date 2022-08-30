@@ -128,8 +128,22 @@ namespace MoleMole
           // [XID] // 0x00000001896172F0-0x0000000189617310
         private void HandleStatDebugCommand() { } // 0x0000000181F82FB0-0x0000000181F83390
                                                   // [XID] // 0x000000018961EEE0-0x000000018961EF00
-        private void LateUpdate() { } // 0x0000000181F849F0-0x0000000181F84B40
-                                      // [XID] // 0x00000001896262A0-0x00000001896262C0
+        private void LateUpdate()
+        {
+            BalanceTickUtility.SetEngineTickStageLateUpdate(true);
+            if (_curGameWorld != null)
+            {
+                _curGameWorld.LateTick();
+            }
+            LateUpdatePreSchedule();
+            AfterLateUpdatePreSchedule();
+            BeforeLateUpdatePostSchedule();
+            LateUpdatePostSchedule();
+            AfterLateUpdatePostSchedule();
+            ObjectPoolUtility.MarkMainThread mainThread;
+            mainThread.Dispose();
+        } // 0x0000000181F849F0-0x0000000181F84B40
+          // [XID] // 0x00000001896262A0-0x00000001896262C0
         private void OnApplicationQuit() { } // 0x0000000181F85B90-0x0000000181F85D90
                                              // [XID] // 0x00000001897E37F0-0x00000001897E3810
         public void TryGoBackHome() { } // 0x0000000181F866D0-0x0000000181F86810
