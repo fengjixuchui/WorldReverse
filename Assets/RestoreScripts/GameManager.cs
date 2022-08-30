@@ -446,8 +446,11 @@ namespace MoleMole
 
         } // 0x0000000181F853B0-0x0000000181F85480
           // [XID] // 0x0000000189771320-0x0000000189771340
-        private void BeforeLateUpdatePostSchedule() { } // 0x0000000181F81570-0x0000000181F81620
-                                                        // [XID] // 0x0000000189778B80-0x0000000189778BA0
+        private void BeforeLateUpdatePostSchedule()
+        {
+            if (_curGameWorld != null) _curGameWorld.BeforeLateUpdatePostSchedule();
+        } // 0x0000000181F81570-0x0000000181F81620
+          // [XID] // 0x0000000189778B80-0x0000000189778BA0
         private void LateUpdatePostSchedule() { } // 0x0000000181F82AD0-0x0000000181F82C50
                                                   // [XID] // 0x0000000189780120-0x0000000189780140
         private void AfterLateUpdatePostSchedule() { } // 0x0000000181F83570-0x0000000181F83750
