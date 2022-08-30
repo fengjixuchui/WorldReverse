@@ -24,8 +24,6 @@ public sealed class LogoPageContext : BasePageContext // TypeDefIndex: 30020
     // Properties
     private static string TITLE_CONFIG_PATH { /* [XID] */ /* 0x00000001897475E0-0x0000000189747600 */ get => default; } // 0x0000000181EE6910-0x0000000181EE69B0 
 
-    // Constructors
-    public LogoPageContext() { } // Dummy constructor
     public LogoPageContext(Action closeCallBack = null) { } // 0x0000000181EE8140-0x0000000181EE8260
 
     // Methods
