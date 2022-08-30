@@ -428,8 +428,14 @@ namespace MoleMole
             Singleton<CutsceneManager>.Instance.LateTick();
         } // 0x0000000181F842F0-0x0000000181F844D0
           // [XID] // 0x00000001897626B0-0x00000001897626D0
-        private void LateUpdatePreSchedule() { } // 0x0000000181F846E0-0x0000000181F84890
-                                                 // [XID] // 0x0000000189769D30-0x0000000189769D50
+        private void LateUpdatePreSchedule()
+        {
+            SchedulerUtils.ScheduleEntry(_schedulerMgr, SchedulerType.LATE_PRE_UPDATE, GlobalVars.lockScene);
+            Singleton<AudioManager>.Instance.LateTick();
+            if (_curGameWorld != null) _curGameWorld.LateUpdatePreSchedule();
+            SchedulerUtils.SchedulerWaitFlush(_schedulerMgr, SchedulerType.LATE_PRE_UPDATE, GlobalVars.lockScene);
+        } // 0x0000000181F846E0-0x0000000181F84890
+          // [XID] // 0x0000000189769D30-0x0000000189769D50
         private void AfterLateUpdatePreSchedule() { } // 0x0000000181F853B0-0x0000000181F85480
                                                       // [XID] // 0x0000000189771320-0x0000000189771340
         private void BeforeLateUpdatePostSchedule() { } // 0x0000000181F81570-0x0000000181F81620
