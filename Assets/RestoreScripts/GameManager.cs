@@ -451,8 +451,14 @@ namespace MoleMole
             if (_curGameWorld != null) _curGameWorld.BeforeLateUpdatePostSchedule();
         } // 0x0000000181F81570-0x0000000181F81620
           // [XID] // 0x0000000189778B80-0x0000000189778BA0
-        private void LateUpdatePostSchedule() { } // 0x0000000181F82AD0-0x0000000181F82C50
-                                                  // [XID] // 0x0000000189780120-0x0000000189780140
+        private void LateUpdatePostSchedule()
+        {
+            SchedulerUtils.ScheduleEntry(_schedulerMgr, SchedulerType.LATE_POST_UPDATE, GlobalVars.lockScene);
+            SchedulerUtils.ScheduleEntry(_schedulerMgr, SchedulerType.LATE_POST_UPDATE_TO_NEXT_BEFORE_LATE_UPDATE, false);
+            if (_curGameWorld != null) _curGameWorld.LateUpdatePostSchedule();
+            SchedulerUtils.SchedulerWaitFlush(_schedulerMgr, SchedulerType.LATE_POST_UPDATE, GlobalVars.lockScene);
+        } // 0x0000000181F82AD0-0x0000000181F82C50
+          // [XID] // 0x0000000189780120-0x0000000189780140
         private void AfterLateUpdatePostSchedule() { } // 0x0000000181F83570-0x0000000181F83750
     }
 }
