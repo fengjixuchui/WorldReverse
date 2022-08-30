@@ -233,8 +233,25 @@ namespace MoleMole
                                               // [XID] // 0x000000018969EAF0-0x000000018969EB10
         private void OnPSNPStateChange(int userID, int state) { } // 0x0000000181F82830-0x0000000181F828F0
                                                                   // [XID] // 0x00000001896A5C60-0x00000001896A5C80
-        public void StartHome() { } // 0x0000000181F86180-0x0000000181F863E0
-                                    // [XID] // 0x00000001896AD350-0x00000001896AD370
+        public void StartHome()
+        {
+            GlobalDataManager.Init();
+            GeneralLogicManager.InitAll();
+            if (isDevLevel)
+            {
+                MonoDevLevelQuickStart dev = gameObject.GetComponent<MonoDevLevelQuickStart>();
+                if (dev)
+                {
+                    dev.OnGameStart();
+                }
+            }
+            else
+            {
+                ChangeGameWorld(GlobalVars.WorldType.Home, 0, null, FirstChangeToHomeCallback);
+            }
+            UnityEngine.Debug.Log("StartHome end at " + Time.realtimeSinceStartup);
+        } // 0x0000000181F86180-0x0000000181F863E0
+          // [XID] // 0x00000001896AD350-0x00000001896AD370
         private void FirstChangeToHomeCallback() { } // 0x0000000181F828F0-0x0000000181F82AD0
                                                      // [XID] // 0x00000001896B4AB0-0x00000001896B4AD0
         private void InitEmbeddedData()
