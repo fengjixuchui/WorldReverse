@@ -459,6 +459,23 @@ namespace MoleMole
             SchedulerUtils.SchedulerWaitFlush(_schedulerMgr, SchedulerType.LATE_POST_UPDATE, GlobalVars.lockScene);
         } // 0x0000000181F82AD0-0x0000000181F82C50
           // [XID] // 0x0000000189780120-0x0000000189780140
-        private void AfterLateUpdatePostSchedule() { } // 0x0000000181F83570-0x0000000181F83750
+        private void AfterLateUpdatePostSchedule()
+        {
+            if (_curGameWorld != null) _curGameWorld.AfterLateUpdatePostSchedule();
+            Singleton<UIManager>.Instance.LateTick();
+            Singleton<InputManager>.Instance.LateTick();
+            Singleton<LuaManager>.Instance.LateTick();
+            if (_curGameWorld != null) _curGameWorld.EndLateUpdatePostSchedule();
+            if (_schedulerMgr != null)
+            {
+                _schedulerMgr.CheckStarted();
+            }
+            else
+            {
+                /// 自定义引擎代码 和碰撞体相关 获取坐标啥的都会影响 但游戏看不出区别
+                //Physics.lockScene = false;
+            }
+            _schedulerMgr = null;
+        } // 0x0000000181F83570-0x0000000181F83750
     }
 }
