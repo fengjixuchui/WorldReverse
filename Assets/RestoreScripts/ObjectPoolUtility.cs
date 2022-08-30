@@ -28,7 +28,10 @@ namespace MoleMole
         {
             // Methods
             // [XID] // 0x0000000189B73970-0x0000000189B73990
-            public void Dispose() { } // 0x0000000186C22760-0x0000000186C22770
+            public void Dispose()
+            {
+                ObjectPoolUtility.isMainThread = false;
+            } // 0x0000000186C22760-0x0000000186C22770
         }
 
         // Methods
