@@ -259,8 +259,12 @@ namespace MoleMole
             GlobalDataManager.InitEmbeddedData();
         } // 0x0000000181F84090-0x0000000181F84150
           // [XID] // 0x00000001896BBCC0-0x00000001896BBCE0
-        public void ShowLogo() { } // 0x0000000181F86030-0x0000000181F86180
-                                   // [XID] // 0x00000001896C3180-0x00000001896C31A0
+        public void ShowLogo()
+        {
+            LogoPageContext logoPage = new LogoPageContext(StartHome);
+            Singleton<UIManager>.Instance.ShowPage(logoPage, true, UIShowPriority.Init);
+        } // 0x0000000181F86030-0x0000000181F86180
+          // [XID] // 0x00000001896C3180-0x00000001896C31A0
         private void CreateNewGameWorld(GlobalVars.WorldType worldType, uint token, string levelInfo = null, string overloadDefaultWeatherProfile = null)
         {
             switch (worldType)
