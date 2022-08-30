@@ -393,8 +393,15 @@ namespace MoleMole
             Singleton<TimerManager>.Instance.Tick();
         } // 0x0000000181F80D60-0x0000000181F81210
           // [XID] // 0x000000018974C3D0-0x000000018974C3F0
-        private void UpdateSchedule() { } // 0x0000000181F83A00-0x0000000181F83C30
-                                          // [XID] // 0x0000000189753680-0x00000001897536A0
+        private void UpdateSchedule()
+        {
+            SchedulerUtils.ScheduleEntry(_schedulerMgr, SchedulerType.UPDATE, GlobalVars.lockScene);
+            Singleton<AudioManager>.Instance.Tick();
+            if (Singleton<CameraManager>.Instance != null) Singleton<CameraManager>.Instance.Tick();
+            if (_curGameWorld != null) _curGameWorld.UpdateSchedule();
+            SchedulerUtils.SchedulerWaitFlush(_schedulerMgr, SchedulerType.UPDATE, GlobalVars.lockScene);
+        } // 0x0000000181F83A00-0x0000000181F83C30
+          // [XID] // 0x0000000189753680-0x00000001897536A0
         private void AfterUpdateSchedule() { } // 0x0000000181F81AB0-0x0000000181F81DF0
                                                // [XID] // 0x000000018975AB80-0x000000018975ABA0
         private void BeforeLateUpdatePreSchedule() { } // 0x0000000181F842F0-0x0000000181F844D0
