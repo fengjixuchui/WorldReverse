@@ -132,6 +132,7 @@ namespace MoleMole
         private void LateUpdate()
         {
             BalanceTickUtility.SetEngineTickStageLateUpdate(true);
+            BeforeLateUpdatePreSchedule();
             if (_curGameWorld != null)
             {
                 _curGameWorld.LateTick();
