@@ -252,8 +252,13 @@ namespace MoleMole
             UnityEngine.Debug.Log("StartHome end at " + Time.realtimeSinceStartup);
         } // 0x0000000181F86180-0x0000000181F863E0
           // [XID] // 0x00000001896AD350-0x00000001896AD370
-        private void FirstChangeToHomeCallback() { } // 0x0000000181F828F0-0x0000000181F82AD0
-                                                     // [XID] // 0x00000001896B4AB0-0x00000001896B4AD0
+        private void FirstChangeToHomeCallback()
+        {
+            GraphicsSettingData.ApplySettingConfig();
+            Singleton<ResourcesManager>.Instance.WarmupShaders();
+            UnityEngine.Debug.Log("FirstChangeToHomeCallback end at " + Time.realtimeSinceStartup);
+        } // 0x0000000181F828F0-0x0000000181F82AD0
+          // [XID] // 0x00000001896B4AB0-0x00000001896B4AD0
         private void InitEmbeddedData()
         {
             GlobalDataManager.InitEmbeddedData();
