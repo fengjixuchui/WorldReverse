@@ -993,7 +993,7 @@ namespace MoleMole
           // [XID] // 0x0000000189B14000-0x0000000189B14020
         protected virtual ComponentHelper.ComponentMetaInfo GetMetaInfo()
         {
-            ComponentHelper.ComponentMetaInfo retMeta = default;
+            ComponentHelper.ComponentMetaInfo retMeta = new ComponentHelper.ComponentMetaInfo();
             ComponentHelper.ComponentMetaInfo metaInfo;
             if (ComponentHelper.HasMetaInfo(GetType()))
             {

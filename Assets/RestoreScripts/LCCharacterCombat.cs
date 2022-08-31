@@ -41,10 +41,10 @@ public class LCCharacterCombat : LCBaseCombat // TypeDefIndex: 11724
       // [XID] // 0x0000000189709C40-0x0000000189709C60
     protected void InitSummonInfos()
     {
-        _summonInfos = default;
+        _summonInfos = new Dictionary<uint, SummonInfo>();
         if (_entity.jsonConfig == null)
         {
-            _entity.jsonConfig = default;
+            _entity.jsonConfig = new ConfigEntity();
         }
         else
         {
@@ -55,7 +55,7 @@ public class LCCharacterCombat : LCBaseCombat // TypeDefIndex: 11724
                 {
                     foreach (var tag in configCombat.summon.summonTags)
                     {
-                        SummonInfo summonInfo = default;
+                        SummonInfo summonInfo = new SummonInfo();
                         summonInfo.summonTag = tag.summonTag;
                         summonInfo.maxNum = tag.maxNum;
                         summonInfo.curNum = 0;

@@ -1192,8 +1192,8 @@ namespace MoleMole
             var state = _humanoidMoveFSM.GetCurrentState();
             if (state == null)
             {
-                roll = default;
-                pitch = default;
+                roll = 0f;
+                pitch = 0f;
 
             }
             (state as HumanoidMoveFSMFlyState).GetCurrentFlyPose(out roll, out pitch);
