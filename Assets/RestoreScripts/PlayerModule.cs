@@ -915,11 +915,5 @@ public sealed class PlayerModule : CharacterModule // TypeDefIndex: 21567
     public void RequestGetNextResourceInfo() { } // 0x00000001811AADA0-0x00000001811AAEC0
                                                  // [XID] // 0x000000018985F110-0x000000018985F130
     private void OnGetNextResourceInfoRsp(GetNextResourceInfoRsp rsp) { } // 0x00000001811A95C0-0x00000001811A98D0
-    private void __iFixBaseProxy_RegisterModulesPkt(NotifyManager P0) { } // 0x00000001811AE3A0-0x00000001811AE420
-    private bool __iFixBaseProxy_OnPacket(Packet P0) => default; // 0x0000000181192E30-0x0000000181192EB0
-    private void __iFixBaseProxy_EntityAppear(SceneEntityInfo P0, VisionType P1, uint P2) { } // 0x00000001811A8420-0x00000001811A84C0
-    private void __iFixBaseProxy_EntityDisappear(uint P0, VisionType P1) { } // 0x000000018118C2C0-0x000000018118C340
-    private void __iFixBaseProxy_InitOnLevelInit() { } // 0x00000001811BD5C0-0x00000001811BD620
-    private void __iFixBaseProxy_ClearOnBackHome() { } // 0x00000001811B08C0-0x00000001811B0920
 }
 

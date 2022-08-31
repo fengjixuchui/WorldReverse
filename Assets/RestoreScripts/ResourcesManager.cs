@@ -226,8 +226,5 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
     public static void StartReportFileWrite() { } // 0x0000000181F147E0-0x0000000181F149B0
                                                   // [XID] // 0x0000000189A9AFC0-0x0000000189A9AFE0
     public static void StopReportFileWrite() { } // 0x0000000181F13F70-0x0000000181F14010
-    private void __iFixBaseProxy_Tick() { } // 0x0000000181F14220-0x0000000181F14280
-    private void __iFixBaseProxy_LateTick() { } // 0x0000000181F13C90-0x0000000181F13CF0
-    private string __iFixBaseProxy_Dump(string P0) => default; // 0x0000000181F14670-0x0000000181F146F0
 }
 

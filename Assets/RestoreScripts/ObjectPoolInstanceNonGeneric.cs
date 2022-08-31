@@ -52,7 +52,5 @@ namespace MoleMole
         public int CachePoolCount() => default; // 0x0000000186C2F4D0-0x0000000186C2F590
                                                 // [XID] // 0x0000000189A8E910-0x0000000189A8E930
         public override string ToString() => default; // 0x0000000186C2FB60-0x0000000186C2FC80
-        private void __iFixBaseProxy_Init(System.Type P0, bool P1) { } // 0x0000000186C2FC80-0x0000000186C2FD10
-        private string __iFixBaseProxy_ToString() => default; // 0x0000000186C2FD10-0x0000000186C2FD80
     }
 }

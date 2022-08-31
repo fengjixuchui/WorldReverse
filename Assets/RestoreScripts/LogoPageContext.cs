@@ -45,8 +45,5 @@ public sealed class LogoPageContext : BasePageContext // TypeDefIndex: 30020
     private void SetKoranTipsView() { } // 0x0000000181EE7B30-0x0000000181EE7CD0
                                         // [XID] // 0x000000018977B3C0-0x000000018977B3E0
     private string GetLogoPath(LanguageType langType) => default; // 0x0000000181EE7A30-0x0000000181EE7B30
-    private void __iFixBaseProxy_SetupView() { } // 0x0000000181EE7970-0x0000000181EE79D0
-    private void __iFixBaseProxy_ClearView() { } // 0x0000000181EE79D0-0x0000000181EE7A30
-    private void __iFixBaseProxy_ClosePage() { } // 0x0000000181EE7910-0x0000000181EE7970
 }
 

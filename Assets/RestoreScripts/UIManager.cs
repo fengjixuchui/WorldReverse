@@ -779,11 +779,5 @@ public sealed class UIManager : GlobalManager // TypeDefIndex: 21353
     public bool IsUIBan(UIBanType type) => default; // 0x00000001812B0060-0x00000001812B0130
                                                     // [XID] // 0x000000018988B900-0x000000018988B920
     public bool TryCheckUIBan(UIBanType type) => default; // 0x00000001812B5950-0x00000001812B5A50
-    private void __iFixBaseProxy_InitByLocalData() { } // 0x00000001812AF430-0x00000001812AF490
-    private void __iFixBaseProxy_Tick() { } // 0x00000001812A7490-0x00000001812A74F0
-    private void __iFixBaseProxy_LateTick() { } // 0x00000001812A38D0-0x00000001812A3930
-    private void __iFixBaseProxy_ClearOnDisconnect() { } // 0x00000001812B64D0-0x00000001812B6530
-    private void __iFixBaseProxy_ClearOnBackHome(bool P0) { } // 0x00000001812AE800-0x00000001812AE880
-    private string __iFixBaseProxy_Dump(string P0) => default; // 0x00000001812A99C0-0x00000001812A9A40
 }
 

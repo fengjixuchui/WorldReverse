@@ -434,16 +434,5 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
     public override void AfterLateUpdatePostSchedule() { } // 0x00000001814EBC80-0x00000001814EBF70
                                                            // [XID] // 0x00000001896ABD30-0x00000001896ABD50
     public override void EndLateUpdatePostSchedule() { } // 0x00000001814E9C20-0x00000001814E9D90
-    private void __iFixBaseProxy_BeforeUpdateSchedule() { } // 0x00000001814EA060-0x00000001814EA0C0
-    private void __iFixBaseProxy_UpdateSchedule() { } // 0x00000001814E9E80-0x00000001814E9EE0
-    private void __iFixBaseProxy_AfterUpdateSchedule() { } // 0x00000001814F0040-0x00000001814F00A0
-    private void __iFixBaseProxy_EndUpdateSchedule() { } // 0x00000001814EFB50-0x00000001814EFBB0
-    private void __iFixBaseProxy_BeforeLateUpdatePreSchedule() { } // 0x00000001814ECEE0-0x00000001814ECF40
-    private void __iFixBaseProxy_LateUpdatePreSchedule() { } // 0x00000001814F0980-0x00000001814F09E0
-    private void __iFixBaseProxy_AfterLateUpdatePreSchedule() { } // 0x00000001814F0D80-0x00000001814F0DE0
-    private void __iFixBaseProxy_BeforeLateUpdatePostSchedule() { } // 0x00000001814EFC90-0x00000001814EFCF0
-    private void __iFixBaseProxy_LateUpdatePostSchedule() { } // 0x00000001814ED470-0x00000001814ED4D0
-    private void __iFixBaseProxy_AfterLateUpdatePostSchedule() { } // 0x00000001814E8370-0x00000001814E83D0
-    private void __iFixBaseProxy_EndLateUpdatePostSchedule() { } // 0x00000001814EE070-0x00000001814EE0D0
 }
 
