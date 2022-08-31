@@ -1296,8 +1296,25 @@ namespace MoleMole
           // [XID] // 0x000000018986C050-0x000000018986C070
         public bool CanChangAvatarToTarget(float targetHeight, float targetModelHeight, out Vector3 position)
         {
-            position = default;
-            return default;
+            bool flag = false;
+            position = WorldShiftManager.GetAbsolutePosition(_transform.position);
+            Vector3 vector3 = _transform.position + (Vector3.up * 0.7f);
+            if (Physics.Raycast(vector3, Vector3.down, out var hitInfo, 1.7f, Miscs.GetSceneLayerMask()))
+            {
+                Vector3 targetPos = _transform.position;
+                if (hitInfo.point.y > _transform.position.y)
+                {
+                    targetPos.y = hitInfo.point.y;
+                }
+                Vector3 pos2 = targetPos + new Vector3(0.0f, ((targetModelHeight * 0.6f) + targetHeight) - targetModelHeight, 0.0f);
+                Vector3 pos3 = targetPos + new Vector3(0.0f, targetModelHeight, 0.0f);
+                if (Physics.OverlapCapsuleNonAlloc(pos2, pos3, (targetModelHeight * 0.125f) * 0.8f, tempCollider, Miscs.GetSceneLayerMask()) <= 0)
+                {
+                    position = WorldShiftManager.GetAbsolutePosition(targetPos);
+                    flag = true;
+                }
+            }
+            return flag;
         } // 0x0000000183BF3200-0x0000000183BF3760
           // [XID] // 0x00000001898734F0-0x0000000189873510
         public static Vector3 GetSafeAppearPos(Vector3 checkPosition, BaseEntity checkAvatarEntity)
