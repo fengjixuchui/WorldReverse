@@ -169,7 +169,6 @@ public class SerializationUtils // TypeDefIndex: 19572
         }
         if (binKey == 0) binKey++;
     } // 0x00000001815A86C0-0x00000001815A9D00
-    public SerializationUtils() { } // 0x00000001815A9D00-0x00000001815A9D60
 
     // Methods
     // [XID] // 0x00000001896D0980-0x00000001896D09A0
