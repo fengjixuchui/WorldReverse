@@ -84,5 +84,17 @@ public static class BinaryTool // TypeDefIndex: 14767
         val = 0;
         return flag;
     }
+    public static bool FromBinary(ByteArray byteArray, out EmbeddedTextMapConfig data, int threadFlag = 0 /* Metadata: 0x00AEBED4 */, bool useObjectPool = false /* Metadata: 0x00AEBED8 */)
+    {
+        if (useObjectPool)
+        {
+            data = ObjectPoolUtility.Allocate<EmbeddedTextMapConfig>();
+        }
+        else
+        {
+            data = new EmbeddedTextMapConfig();
+        }
+        return data.FromBinary(byteArray, threadFlag, useObjectPool);
+    }
 }
 
