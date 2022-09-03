@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Security;
 using IFix.Core;
+using MoleMole;
 using SimpleJSON;
 
 // Image 60: Assembly-CSharp.dll - Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 10700-32500
@@ -23,7 +24,7 @@ public static class EmbeddedTextMapConfigLoader // TypeDefIndex: 15566
 
     // Properties
     public static Dictionary<string, EmbeddedTextMapConfig> dataDict { /* [XID] */ /* 0x0000000189757000-0x0000000189757020 */ get; } // 0x0000000184D27F80-0x0000000184D28030 
-    private static string FILE_LOCATION { /* [XID] */ /* 0x0000000189765C50-0x0000000189765C70 */ get; } // 0x0000000184D26DE0-0x0000000184D26E80 
+    private static string FILE_LOCATION { /* [XID] */ /* 0x0000000189765C50-0x0000000189765C70 */ get => "Data/_ExcelBinOutput/EmbeddedTextMapConfigData"; } // 0x0000000184D26DE0-0x0000000184D26E80 
 
     // Methods
     // [XID] // 0x000000018974F9F0-0x000000018974FA10
@@ -65,9 +66,23 @@ public static class EmbeddedTextMapConfigLoader // TypeDefIndex: 15566
     private static bool ValidateHotfix(List<DataHotfixMeta> metaList, List<EmbeddedTextMapConfig> configList) => default; // 0x0000000184D27640-0x0000000184D278E0
                                                                                                                           // [IDTag] // 0x00000001897A7BC0-0x00000001897A7C00
                                                                                                                           // [XID] // 0x00000001897A7BC0-0x00000001897A7C00
-    public static bool FromBinary(int threadFlag = 0 /* Metadata: 0x00AF1F43 */, bool useObjectPool = false /* Metadata: 0x00AF1F47 */) => default; // 0x0000000184D27D30-0x0000000184D27F80
-                                                                                                                                                    // [IDTag] // 0x00000001897B26F0-0x00000001897B2730
-                                                                                                                                                    // [XID] // 0x00000001897B26F0-0x00000001897B2730
+    public static bool FromBinary(int threadFlag = 0 /* Metadata: 0x00AF1F43 */, bool useObjectPool = false /* Metadata: 0x00AF1F47 */)
+    {
+        bool flag = false;
+        ByteArray packedBin = SerializationUtils.ReadPackedBin(FILE_LOCATION);
+        if (packedBin != null && packedBin.bytes != null && FromBinary(packedBin, threadFlag, useObjectPool))
+        {
+            flag = true;
+        }
+        else
+        {
+            SuperDebug.LogError("EmbeddedTextMapConfigLoader failed to LoadData from path:" + FILE_LOCATION);
+            flag = false;
+        }
+        return flag;
+    }// 0x0000000184D27D30-0x0000000184D27F80
+     // [IDTag] // 0x00000001897B26F0-0x00000001897B2730
+     // [XID] // 0x00000001897B26F0-0x00000001897B2730
     public static bool FromBinary(ByteArray byteArray, int threadFlag = 0 /* Metadata: 0x00AF1F48 */, bool useObjectPool = false /* Metadata: 0x00AF1F4C */) => default; // 0x0000000184D279E0-0x0000000184D27D30
 }
 
