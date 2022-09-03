@@ -1004,7 +1004,7 @@ namespace MoleMole
             }
             else
             {
-                var handle = System.Type.GetTypeFromHandle(System.Type.GetTypeHandle(this));
+                var handle = System.Type.GetTypeFromHandle(typeof(BaseComponent).TypeHandle);
                 metaInfo = ComponentHelper.FillComponentMetaInfo(GetType(), handle);
                 retMeta.hasTick = metaInfo.hasTick;
                 retMeta.selfOnEventResolvedIDs = metaInfo.selfOnEventResolvedIDs;
