@@ -49,6 +49,30 @@ public static class TextMapConfigLoader // TypeDefIndex: 31987
      // [XID] // 0x00000001898857F0-0x0000000189885810
     public static void FromBinaryAsync(string path, Action<IDictionary<uint, string>> callback) { } // 0x000000018289EA60-0x000000018289EBF0
                                                                                                     // [XID] // 0x000000018988CB20-0x000000018988CB40
-    private static bool BinaryToDic(ByteArray byteArray, ref IDictionary<uint, string> dataDic) => default; // 0x000000018289E390-0x000000018289E670
+    private static bool BinaryToDic(ByteArray byteArray, ref IDictionary<uint, string> dataDic)
+    {
+        bool flag = true;
+        while (true)
+        {
+            if (byteArray.pos >= byteArray.bytes.Length) return true;
+            if (!BinaryTool.FromBinary(byteArray, out TextMapConfig data)) break;
+            if (!uint.TryParse(data.textMapId, out uint result))
+            {
+                SuperDebug.LogError("FromBinary TextMap: ID fails!");
+                return false;
+            }
+            if (dataDic.ContainsKey(result))
+            {
+                SuperDebug.LogError("The TextMap already contains a key named" + result);
+            }
+            else
+            {
+                dataDic.Add(result, data.textMapContent);
+            }
+        }
+        SuperDebug.LogError("FromBinary for: TextMapConfig fails!");
+        flag = false;
+        return flag;
+    }// 0x000000018289E390-0x000000018289E670
 }
 
