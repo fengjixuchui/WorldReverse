@@ -51,7 +51,6 @@ public static class TextMapConfigLoader // TypeDefIndex: 31987
                                                                                                     // [XID] // 0x000000018988CB20-0x000000018988CB40
     private static bool BinaryToDic(ByteArray byteArray, ref IDictionary<uint, string> dataDic)
     {
-        bool flag = true;
         while (true)
         {
             if (byteArray.pos >= byteArray.bytes.Length) return true;
@@ -71,8 +70,7 @@ public static class TextMapConfigLoader // TypeDefIndex: 31987
             }
         }
         SuperDebug.LogError("FromBinary for: TextMapConfig fails!");
-        flag = false;
-        return flag;
+        return false;
     }// 0x000000018289E390-0x000000018289E670
 }
 
