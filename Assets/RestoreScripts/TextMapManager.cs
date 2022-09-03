@@ -68,8 +68,54 @@ public sealed class TextMapManager : GlobalManager // TypeDefIndex: 21325
                                                                   // [XID] // 0x0000000189A42330-0x0000000189A42350
     private string GetFilePathByFileId(uint fileId) => default; // 0x00000001836F32B0-0x00000001836F33B0
                                                                 // [XID] // 0x0000000189A49940-0x0000000189A49960
-    private string GetFileFolderPath() => default; // 0x00000001836F2CE0-0x00000001836F3100
-                                                   // [XID] // 0x0000000189A51290-0x0000000189A512B0
+    private string GetFileFolderPath()
+    {
+        string ret = "";
+        switch (LocalizationVars.languageType)
+        {
+            case LanguageType.LanguageEn:
+                ret = GlobalExcelConfig.pathHashFolderEN;
+                break;
+            case LanguageType.LanguageSc:
+                ret = GlobalExcelConfig.pathHashFolderCHS;
+                break;
+            case LanguageType.LanguageTc:
+                ret = GlobalExcelConfig.pathHashFolderCHT;
+                break;
+            case LanguageType.LanguageFr:
+                ret = GlobalExcelConfig.pathHashFolderFR;
+                break;
+            case LanguageType.LanguageDe:
+                ret = GlobalExcelConfig.pathHashFolderDE;
+                break;
+            case LanguageType.LanguageEs:
+                ret = GlobalExcelConfig.pathHashFolderES;
+                break;
+            case LanguageType.LanguagePt:
+                ret = GlobalExcelConfig.pathHashFolderPT;
+                break;
+            case LanguageType.LanguageRu:
+                ret = GlobalExcelConfig.pathHashFolderRU;
+                break;
+            case LanguageType.LanguageJp:
+                ret = GlobalExcelConfig.pathHashFolderJP;
+                break;
+            case LanguageType.LanguageKr:
+                ret = GlobalExcelConfig.pathHashFolderKR;
+                break;
+            case LanguageType.LanguageTh:
+                ret = GlobalExcelConfig.pathHashFolderTH;
+                break;
+            case LanguageType.LanguageVn:
+                ret = GlobalExcelConfig.pathHashFolderVI;
+                break;
+            case LanguageType.LanguageId:
+                ret = GlobalExcelConfig.pathHashFolderID;
+                break;
+        }
+        return ret;
+    }// 0x00000001836F2CE0-0x00000001836F3100
+     // [XID] // 0x0000000189A51290-0x0000000189A512B0
     private IDictionary<uint, string> LoadDataByPathReuse(string path) => default; // 0x00000001836F2C00-0x00000001836F2CE0
                                                                                    // [XID] // 0x0000000189A588E0-0x0000000189A58900
     private bool LoadDataByPath(string path, ref IDictionary<uint, string> dataDic) => default; // 0x00000001836F1F00-0x00000001836F1FF0
