@@ -118,8 +118,11 @@ public sealed class TextMapManager : GlobalManager // TypeDefIndex: 21325
      // [XID] // 0x0000000189A51290-0x0000000189A512B0
     private IDictionary<uint, string> LoadDataByPathReuse(string path) => default; // 0x00000001836F2C00-0x00000001836F2CE0
                                                                                    // [XID] // 0x0000000189A588E0-0x0000000189A58900
-    private bool LoadDataByPath(string path, ref IDictionary<uint, string> dataDic) => default; // 0x00000001836F1F00-0x00000001836F1FF0
-                                                                                                // [XID] // 0x0000000189A603C0-0x0000000189A603E0
+    private bool LoadDataByPath(string path, ref IDictionary<uint, string> dataDic)
+    {
+        return TextMapConfigLoader.FromBinary(path, ref dataDic);
+    }// 0x00000001836F1F00-0x00000001836F1FF0
+     // [XID] // 0x0000000189A603C0-0x0000000189A603E0
     public void ReloadTextMap() { } // 0x00000001836F3C40-0x00000001836F3CF0
                                     // [XID] // 0x0000000189A67F50-0x0000000189A67F70
     private void ClearLRUTextMap() { } // 0x00000001836F26D0-0x00000001836F29B0
