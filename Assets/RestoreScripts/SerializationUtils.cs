@@ -40,9 +40,15 @@ public class SerializationUtils // TypeDefIndex: 19572
                                                             // [XID] // 0x0000000189A7B030-0x0000000189A7B050
     public static string ToJsonPath(string binPath) => default; // 0x00000001815A8220-0x00000001815A82E0
                                                                 // [XID] // 0x000000018972A8A0-0x000000018972A8C0
-    public static void DecodeBin(ByteArray byteArr) { } // 0x00000001815A7500-0x00000001815A7650
-                                                        // [IDTag] // 0x00000001896E6B40-0x00000001896E6B80
-                                                        // [XID] // 0x00000001896E6B40-0x00000001896E6B80
+    public static void DecodeBin(ByteArray byteArr)
+    {
+        for (int i = 0; i < byteArr.bytes.Length; i++)
+        {
+            byteArr.bytes[i] ^= binKey;
+        }
+    } // 0x00000001815A7500-0x00000001815A7650
+      // [IDTag] // 0x00000001896E6B40-0x00000001896E6B80
+      // [XID] // 0x00000001896E6B40-0x00000001896E6B80
     public static ByteArray ReadPackedBin(string sourcePath)
     {
         var binData = CommonMiscs.LoadBinData(sourcePath);
