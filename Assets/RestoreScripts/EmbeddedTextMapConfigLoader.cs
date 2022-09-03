@@ -83,6 +83,29 @@ public static class EmbeddedTextMapConfigLoader // TypeDefIndex: 15566
     }// 0x0000000184D27D30-0x0000000184D27F80
      // [IDTag] // 0x00000001897B26F0-0x00000001897B2730
      // [XID] // 0x00000001897B26F0-0x00000001897B2730
-    public static bool FromBinary(ByteArray byteArray, int threadFlag = 0 /* Metadata: 0x00AF1F48 */, bool useObjectPool = false /* Metadata: 0x00AF1F4C */) => default; // 0x0000000184D279E0-0x0000000184D27D30
+    public static bool FromBinary(ByteArray byteArray, int threadFlag = 0 /* Metadata: 0x00AF1F48 */, bool useObjectPool = false /* Metadata: 0x00AF1F4C */)
+    {
+        if (BinaryTool.FromBinary(byteArray, out int val, threadFlag, useObjectPool))
+        {
+            _dataDict = new Dictionary<string, EmbeddedTextMapConfig>();
+            while (true)
+            {
+                if (byteArray.pos >= byteArray.bytes.Length - 1)
+                {
+                    return true;
+                }
+                if (!BinaryTool.FromBinary(byteArray, out EmbeddedTextMapConfig data, threadFlag, useObjectPool)) break;
+                _dataDict.Add(data.textMapId, data);
+            }
+            SuperDebug.LogError("FromBinary for: EmbeddedTextMapConfig fails!");
+            return false;
+        }
+        else
+        {
+
+            SuperDebug.LogError("FromBinary:read count For EmbeddedTextMapConfig fails!");
+            return false;
+        }
+    }// 0x0000000184D279E0-0x0000000184D27D30
 }
 
