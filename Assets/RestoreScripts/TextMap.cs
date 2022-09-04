@@ -32,17 +32,17 @@ public static class TextMap // TypeDefIndex: 31985
         if (textMapID != 0)
         {
             var textMap = Singleton<TextMapManager>.Instance;
-            string text1 = textMap.GetDataInFullDic(textMapID);
-            if (text1 == null)
+            string hotFixText = textMap.GetDataInFullDic(textMapID);
+            if (hotFixText == null)
             {
-                text1 = textMap.GetData(textMapID);
-                if (text1 == null)
+                hotFixText = textMap.GetData(textMapID);
+                if (hotFixText == null)
                 {
                     SuperDebug.LogWarning(SuperDebug.UI, "Can't find textMapID:" + textMapID);
                     return "";
                 }
-                if (text1.StartsWith("#")) return text1;
-                return UIUtil.FilterRegexContent(text1.Substring(1));
+                if (hotFixText.StartsWith("#")) return hotFixText;
+                return UIUtil.FilterRegexContent(hotFixText.Substring(1));
             }
         }
         return "";
