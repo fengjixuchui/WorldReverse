@@ -62,7 +62,7 @@ public sealed class TextMapManager : GlobalManager // TypeDefIndex: 21325
     {
         if (_autoChangeLevel > 0)
         {
-            return GetDataWithLRU(textMapId);
+            return GetDataWithLRU(textMapId); //不调用
         }
         else
         {
@@ -72,12 +72,12 @@ public sealed class TextMapManager : GlobalManager // TypeDefIndex: 21325
      // [XID] // 0x0000000189A2BB50-0x0000000189A2BB70
     public string GetDataInFullDic(uint textMapId)
     {
-        string fixText = DataHotfixUtil.GetHotfixText(textMapId);
-        if (fixText != null)
+        string text = DataHotfixUtil.GetHotfixText(textMapId);
+        if (text == null)
         {
-            _textMapFullDic.Add(textMapId, fixText);
+            _textMapFullDic.TryGetValue(textMapId, out text);
         }
-        return fixText;
+        return text;
     }// 0x00000001836F3F20-0x00000001836F40B0
      // [XID] // 0x0000000189A33110-0x0000000189A33130
     private string GetDataWithLRU(uint textMapId) => default; // 0x00000001836F33B0-0x00000001836F3840
