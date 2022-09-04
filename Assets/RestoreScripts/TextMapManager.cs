@@ -60,8 +60,16 @@ public sealed class TextMapManager : GlobalManager // TypeDefIndex: 21325
       // [XID] // 0x0000000189A246B0-0x0000000189A246D0
     public string GetData(uint textMapId) => default; // 0x00000001836F20F0-0x00000001836F21B0
                                                       // [XID] // 0x0000000189A2BB50-0x0000000189A2BB70
-    public string GetDataInFullDic(uint textMapId) => default; // 0x00000001836F3F20-0x00000001836F40B0
-                                                               // [XID] // 0x0000000189A33110-0x0000000189A33130
+    public string GetDataInFullDic(uint textMapId)
+    {
+        string fixText = DataHotfixUtil.GetHotfixText(textMapId);
+        if (fixText != null)
+        {
+            _textMapFullDic.Add(textMapId, fixText);
+        }
+        return fixText;
+    }// 0x00000001836F3F20-0x00000001836F40B0
+     // [XID] // 0x0000000189A33110-0x0000000189A33130
     private string GetDataWithLRU(uint textMapId) => default; // 0x00000001836F33B0-0x00000001836F3840
                                                               // [XID] // 0x0000000189A3AA40-0x0000000189A3AA60
     private uint GetFileIdByTextMapId(uint textMapId) => default; // 0x00000001836F2620-0x00000001836F26D0
