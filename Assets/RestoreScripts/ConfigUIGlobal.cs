@@ -80,8 +80,211 @@ public class ConfigUIGlobal : IEmptyInitable, IHashable, IAutoAllocRecycle // Ty
         }
     }// 0x000000018285D180-0x000000018285D500
      // [XID] // 0x00000001896785D0-0x00000001896785F0
-    private bool InternalFromJson(JSONNode node) => default; // 0x000000018285A9B0-0x000000018285B800
-                                                             // [XID] // 0x00000001899C1F50-0x00000001899C1F70
+    private bool InternalFromJson(JSONNode node)
+    {
+        var inputAction = node["inputActions"];
+        if (inputAction == null)
+        {
+            JsonTool.GetEmptyValue(out _inputActions);
+        }
+        else
+        {
+            if (!JsonTool.DictFromJson(inputAction, out _inputActions))
+            {
+                SuperDebug.LogError("FromJson for: inputActions fails!" + inputAction.ToString());
+                return false;
+            }
+        }
+        var inputEvent = node["inputEvents"];
+        if (inputEvent == null)
+        {
+            JsonTool.GetEmptyValue(out _inputEvents);
+        }
+        else
+        {
+            if (!JsonTool.DictFromJson(inputEvent, out _inputEvents))
+            {
+                SuperDebug.LogError("FromJson for: inputEvents fails!" + inputEvent.ToString());
+                return false;
+            }
+        }
+        var actionGroups = node["actionGroups"];
+        if (actionGroups == null)
+        {
+            JsonTool.GetEmptyValue(out _actionGroups);
+        }
+        else
+        {
+            if (!JsonTool.DictFromJson(actionGroups, out _actionGroups))
+            {
+                SuperDebug.LogError("FromJson for: actionGroups fails!" + actionGroups.ToString());
+                return false;
+            }
+        }
+        var inputModes = node["inputModes"];
+        if (inputModes == null)
+        {
+            JsonTool.GetEmptyValue(out _inputModes);
+        }
+        else
+        {
+            if (!JsonTool.DictFromJson(inputModes, out _inputModes))
+            {
+                SuperDebug.LogError("FromJson for: inputModes fails!" + inputModes.ToString());
+                return false;
+            }
+        }
+        var joypadChangeViewScale = node["joypadChangeViewScale"];
+        if (joypadChangeViewScale == null)
+        {
+            JsonTool.GetEmptyValue(out _joypadChangeViewScale);
+        }
+        else
+        {
+            _joypadChangeViewScale = new Point2D();
+            if (!_joypadChangeViewScale.FromJson(joypadChangeViewScale))
+            {
+                SuperDebug.LogError("FromJson for: joypadChangeViewScale fails!" + joypadChangeViewScale.ToString());
+                return false;
+            }
+        }
+        float num;
+        var joypadLongPressDuration = node["joypadLongPressDuration"];
+        if (joypadLongPressDuration == null)
+        {
+            num = 0f;
+        }
+        else
+        {
+            if (!JsonTool.FromJson(joypadLongPressDuration, out num))
+            {
+                SuperDebug.LogError("FromJson for: joypadLongPressDuration fails!" + num.ToString());
+                return false;
+            }
+        }
+        joypadLongPressDurationRawNum = num;
+        var joypadSenseScales = node["joypadSenseScales"];
+        if (joypadSenseScales == null)
+        {
+            JsonTool.GetEmptyValue(out _joypadSenseScales);
+        }
+        else
+        {
+            if (!JsonTool.ArrayFromJson(joypadSenseScales, out _joypadSenseScales))
+            {
+                SuperDebug.LogError("FromJson for: joypadSenseScales fails!" + joypadSenseScales.ToString());
+                return false;
+            }
+        }
+        var joypadFocusSenseScales = node["joypadFocusSenseScales"];
+        if (joypadFocusSenseScales == null)
+        {
+            JsonTool.GetEmptyValue(out _joypadFocusSenseScales);
+        }
+        else
+        {
+            if (!JsonTool.ArrayFromJson(joypadFocusSenseScales, out _joypadFocusSenseScales))
+            {
+                SuperDebug.LogError("FromJson for: joypadFocusSenseScales fails!" + joypadFocusSenseScales.ToString());
+                return false;
+            }
+        }
+        var mouseSenseScales = node["mouseSenseScales"];
+        if (mouseSenseScales == null)
+        {
+            JsonTool.GetEmptyValue(out _mouseSenseScales);
+        }
+        else
+        {
+            if (!JsonTool.ArrayFromJson(mouseSenseScales, out _mouseSenseScales))
+            {
+                SuperDebug.LogError("FromJson for: mouseSenseScales fails!" + mouseSenseScales.ToString());
+                return false;
+            }
+        }
+        var mouseFocusSenseScales = node["mouseFocusSenseScales"];
+        if (mouseFocusSenseScales == null)
+        {
+            JsonTool.GetEmptyValue(out _mouseFocusSenseScales);
+        }
+        else
+        {
+            if (!JsonTool.ArrayFromJson(mouseFocusSenseScales, out _mouseFocusSenseScales))
+            {
+                SuperDebug.LogError("FromJson for: mouseFocusSenseScales fails!" + mouseFocusSenseScales.ToString());
+                return false;
+            }
+        }
+        var touchpadSenseScales = node["touchpadSenseScales"];
+        if (touchpadSenseScales == null)
+        {
+            JsonTool.GetEmptyValue(out _touchpadSenseScales);
+        }
+        else
+        {
+            if (!JsonTool.ArrayFromJson(touchpadSenseScales, out _touchpadSenseScales))
+            {
+                SuperDebug.LogError("FromJson for: touchpadSenseScales fails!" + touchpadSenseScales.ToString());
+                return false;
+            }
+        }
+        var touchpadFocusSenseScales = node["touchpadFocusSenseScales"];
+        if (touchpadFocusSenseScales == null)
+        {
+            JsonTool.GetEmptyValue(out _touchpadFocusSenseScales);
+        }
+        else
+        {
+            if (!JsonTool.ArrayFromJson(touchpadFocusSenseScales, out _touchpadFocusSenseScales))
+            {
+                SuperDebug.LogError("FromJson for: touchpadSenseScales fails!" + touchpadFocusSenseScales.ToString());
+                return false;
+            }
+        }
+        var touchpadFocusAccelerationScales = node["touchpadFocusAccelerationScales"];
+        if (touchpadFocusAccelerationScales == null)
+        {
+            JsonTool.GetEmptyValue(out _touchpadFocusAccelerationScales);
+        }
+        else
+        {
+            if (!JsonTool.ArrayFromJson(touchpadFocusAccelerationScales, out _touchpadFocusAccelerationScales))
+            {
+                SuperDebug.LogError("FromJson for: touchpadSenseScales fails!" + touchpadFocusAccelerationScales.ToString());
+                return false;
+            }
+        }
+        var touchpadFocusAccelerationPara = node["touchpadFocusAccelerationPara"];
+        if (touchpadFocusAccelerationPara == null)
+        {
+            JsonTool.GetEmptyValue(out _touchpadFocusAccelerationPara);
+        }
+        else
+        {
+            _touchpadFocusAccelerationPara = new TouchpadFocusAccelerationSigmoidPara();
+            if (!_touchpadFocusAccelerationPara.FromJson(touchpadFocusAccelerationPara))
+            {
+                SuperDebug.LogError("FromJson for: touchpadFocusAccelerationPara fails!" + touchpadFocusAccelerationPara.ToString());
+                return false;
+            }
+        }
+        var configUIPhotograph = node["configUIPhotograph"];
+        if (configUIPhotograph == null)
+        {
+            JsonTool.GetEmptyValue(out _configUIPhotograph);
+        }
+        else
+        {
+            _configUIPhotograph = new ConfigUIPhotograph();
+            if (!_configUIPhotograph.FromJson(configUIPhotograph))
+            {
+                SuperDebug.LogError("FromJson for: touchpadFocusAccelerationPara fails!" + configUIPhotograph.ToString());
+                return false;
+            }
+        }
+        return true;
+    }// 0x000000018285A9B0-0x000000018285B800
+     // [XID] // 0x00000001899C1F50-0x00000001899C1F70
     public bool FromBinary(ByteArray byteArray, int threadFlag = 0 /* Metadata: 0x00AFC201 */, bool useObjectPool = false /* Metadata: 0x00AFC205 */) => default; // 0x000000018285DAD0-0x000000018285DDD0
                                                                                                                                                                   // [XID] // 0x0000000189A1A2F0-0x0000000189A1A310
     private bool InternalFromBinary(ByteArray byteArray, int threadFlag = 0 /* Metadata: 0x00AFC206 */, bool useObjectPool = false /* Metadata: 0x00AFC20A */) => default; // 0x000000018285C330-0x000000018285CEF0
