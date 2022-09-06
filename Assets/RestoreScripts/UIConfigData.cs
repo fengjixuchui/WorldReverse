@@ -44,13 +44,13 @@ public static class UIConfigData // TypeDefIndex: 19250
     {
         _globalConfig = new ConfigUIGlobal();
         bool loaded = false;
-        if (!InLevelData.loadInLevelFromBin)
+        if (InLevelData.loadInLevelFromBin)
         {
-            loaded = _globalConfig.FromJson(JsonTool.LoadJSONConfig(SerializationUtils.ToJsonPath(GLOBAL_CONFIG_PATH)));
+            loaded = _globalConfig.FromBinary(SerializationUtils.ReadPackedBin(GLOBAL_CONFIG_PATH));
         }
         else
         {
-            loaded = _globalConfig.FromBinary(SerializationUtils.ReadPackedBin(GLOBAL_CONFIG_PATH));
+            loaded = _globalConfig.FromJson(JsonTool.LoadJSONConfig(SerializationUtils.ToJsonPath(GLOBAL_CONFIG_PATH)));
         }
         if (!loaded)
         {
