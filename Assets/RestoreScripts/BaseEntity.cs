@@ -1302,8 +1302,53 @@ public abstract class BaseEntity : IAmortizedTickEntity, IAutoAllocRecycle, IEve
                                                                                                   // [XID] // 0x00000001898BEE80-0x00000001898BEEA0
     public static bool IsEntityValid(ref ECPDebugInfo e) => default; // 0x00000001826A8F30-0x00000001826A9000
                                                                      // [XID] // 0x00000001896F90C0-0x00000001896F90E0
-    public static void ClearStats() { } // 0x000000018268B6B0-0x000000018268B820
-                                        // [XID] // 0x0000000189700AD0-0x0000000189700AF0
+    public static void ClearStats()
+    {
+        totalEdi._edi.lastToLocalDistanceXYZ = default;
+        totalEdi._edi.lastToLocalDistanceXZ = default;
+        totalEdi._edi.bPause = default;
+        totalEdi._edi._count = default;
+        totalEdi._edi._totalTime = default;
+        totalEdi._edi._tickTime = default;
+        totalEdi._edi.tokenPriorityScore = default;
+        totalEdi._edi.idealTickLOD = default;
+        totalEdi._edi.idealTokenBudget = default;
+        totalEdi._edi.currentTickLOD = default;
+        totalEdi._edi.currentTokenBudget = default;
+        totalEdi._edi.debugName = default;
+        totalEdi._edi.owner = default;
+        totalEdi._edi.categoryName = default;
+        totalEdi._edi.entityType = default;
+        totalEdi._edi.configID = default;
+        totalEdi._edi.rtServerEntity = default;
+        totalEdi._edi.rtEntityType = default;
+        totalEdi._edi.rtCategory = default;
+        totalEdi._edi.staticBudget = default;
+        totalEdi._edi.componentCount = default;
+        totalEdi._edi.tickableComponentCount = default;
+        totalEdi._edi.lateTickableComponentCount = default;
+        totalEdi._edi.fixTickableComponentCount = default;
+        totalEdi._edi.pluginCount = default;
+        totalEdi._edi.tickablePluginCount = default;
+        totalEdi._edi.lateTickablePluginCount = default;
+        totalEdi._edi.fixTickablePluginCount = default;
+        totalEdi._edi._gameObjectCount = default;
+        totalEdi._edi._animatorCount = default;
+        totalEdi._edi._particleCount = default;
+        totalEdi._edi._renderCount = default;
+        totalEdi._edi._colliderCount = default;
+        totalEdi._edi._rigidbodyCount = default;
+        totalEdi._edi.debugInfo = default;
+        totalEdi.totalEntityCount = default;
+        totalEdi.totalMassiveEntityCount = default;
+        totalEdi.totalEntityBudget = default;
+        totalEdi.EntityCount_Monster = default;
+        totalEdi.EntityCount_Animal = default;
+        totalEdi.EntityCount_NPC = default;
+        totalEdi.totalAppliedModifiersCount = default;
+        totalEdi.timerCount = default;
+    } // 0x000000018268B6B0-0x000000018268B820
+      // [XID] // 0x0000000189700AD0-0x0000000189700AF0
     public virtual uint GetGroupIDForStat() => default; // 0x0000000182683A60-0x0000000182683B00
                                                         // [XID] // 0x0000000189708120-0x0000000189708140
     public void AccumulateThisFrameTickMS(long startTick, EntityManager.TickType tickType) { } // 0x0000000182695070-0x00000001826951F0
