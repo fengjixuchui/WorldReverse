@@ -322,6 +322,9 @@ namespace MoleMole
                                                                                                  // [XID] // 0x000000018985C100-0x000000018985C120
         public void DismissResource(uint handle, bool async) { } // 0x00000001858F8D00-0x00000001858F8DF0
                                                                  // [XID] // 0x00000001896B3DF0-0x00000001896B3E10
-        public void SwitchUnlimitedMode(bool on) { } // 0x00000001858F9E40-0x00000001858F9F10
+        public void SwitchUnlimitedMode(bool on)
+        {
+            _runtime.SwitchUnlimitedMode(on);
+        } // 0x00000001858F9E40-0x00000001858F9F10
     }
 }
