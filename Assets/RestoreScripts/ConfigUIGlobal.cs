@@ -285,8 +285,11 @@ public class ConfigUIGlobal : IEmptyInitable, IHashable, IAutoAllocRecycle // Ty
         return true;
     }// 0x000000018285A9B0-0x000000018285B800
      // [XID] // 0x00000001899C1F50-0x00000001899C1F70
-    public bool FromBinary(ByteArray byteArray, int threadFlag = 0 /* Metadata: 0x00AFC201 */, bool useObjectPool = false /* Metadata: 0x00AFC205 */) => default; // 0x000000018285DAD0-0x000000018285DDD0
-                                                                                                                                                                  // [XID] // 0x0000000189A1A2F0-0x0000000189A1A310
+    public bool FromBinary(ByteArray byteArray, int threadFlag = 0 /* Metadata: 0x00AFC201 */, bool useObjectPool = false /* Metadata: 0x00AFC205 */)
+    {
+        return InternalFromBinary(byteArray, threadFlag, useObjectPool);
+    }// 0x000000018285DAD0-0x000000018285DDD0
+     // [XID] // 0x0000000189A1A2F0-0x0000000189A1A310
     private bool InternalFromBinary(ByteArray byteArray, int threadFlag = 0 /* Metadata: 0x00AFC206 */, bool useObjectPool = false /* Metadata: 0x00AFC20A */) => default; // 0x000000018285C330-0x000000018285CEF0
     [BlackList] // 0x0000000189A21870-0x0000000189A218B0
                 // [XID] // 0x0000000189A21870-0x0000000189A218B0
