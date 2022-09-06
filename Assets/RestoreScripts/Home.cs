@@ -11,6 +11,7 @@ using System.Security;
 using IFix.Core;
 using MoleMole;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Image 60: Assembly-CSharp.dll - Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 10700-32500
 
@@ -42,7 +43,22 @@ public sealed class Home : GameWorld // TypeDefIndex: 19919
       // [XID] // 0x0000000189A8A820-0x0000000189A8A840
     public void DestroyHomeManager() { } // 0x00000001836065E0-0x00000001836066F0
                                          // [XID] // 0x0000000189A92100-0x0000000189A92120
-    private void LoadScene() { } // 0x0000000183605FB0-0x00000001836061C0
+    private void LoadScene()
+    {
+        SceneManager.LoadScene(scenePath);
+        Singleton<AudioManager>.Instance.EnterHomeWorld(isFirstLoad);
+        IEnumerator loadTask;
+        if (isFirstLoad)
+        {
+            isFirstLoad = false;
+            loadTask = OnSceneLoaded();
+        }
+        else
+        {
+            loadTask = OnSceneLoadedAynsc();
+        }
+        curCoroutine = Singleton<CoroutineManager>.Instance.StartCoroutine(loadTask);
+    } // 0x0000000183605FB0-0x00000001836061C0
     [DebuggerHidden] // 0x0000000189A99AC0-0x0000000189A99B00
                      // [XID] // 0x0000000189A99AC0-0x0000000189A99B00
     private IEnumerator OnSceneLoaded() => default; // 0x0000000183605CC0-0x0000000183605DC0
