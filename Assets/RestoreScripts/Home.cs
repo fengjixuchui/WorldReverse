@@ -24,8 +24,13 @@ public sealed class Home : GameWorld // TypeDefIndex: 19919
 
     // Methods
     // [XID] // 0x0000000189A7B7A0-0x0000000189A7B7C0
-    public override void Init(uint token) { } // 0x00000001836061C0-0x0000000183606290
-                                              // [XID] // 0x0000000189A82FE0-0x0000000189A83000
+    public override void Init(uint token)
+    {
+        scenePath = "Home";
+        InitHomeManager();
+        LoadScene();
+    } // 0x00000001836061C0-0x0000000183606290
+      // [XID] // 0x0000000189A82FE0-0x0000000189A83000
     public void InitHomeManager() { } // 0x0000000183606890-0x00000001836069A0
                                       // [XID] // 0x0000000189A8A820-0x0000000189A8A840
     public void DestroyHomeManager() { } // 0x00000001836065E0-0x00000001836066F0
