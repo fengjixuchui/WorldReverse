@@ -21,22 +21,125 @@ public static class UIConfigData // TypeDefIndex: 19250
     private static ConfigUIGlobal _globalConfig; // 0x08
 
     // Properties
-    private static string GLOBAL_CONFIG_PATH { /* [XID] */ /* 0x0000000189AF4290-0x0000000189AF42B0 */ get; } // 0x0000000183148EA0-0x0000000183148F40 
-    private static string LOGIN_PAGE_CONFIG_PATH { /* [XID] */ /* 0x0000000189928B70-0x0000000189928B90 */ get; } // 0x0000000183149060-0x0000000183149100 
-    public static ConfigUIGlobal globalConfig { /* [XID] */ /* 0x0000000189B03190-0x0000000189B031B0 */ get; } // 0x0000000183149100-0x00000001831491D0 
-    public static Vector2 joypadChangeViewScale { /* [XID] */ /* 0x00000001896FAD70-0x00000001896FAD90 */ get; } // 0x0000000183146530-0x00000001831466D0 
-    public static float joypadLongPressDuration { /* [XID] */ /* 0x0000000189B6FB80-0x0000000189B6FBA0 */ get; } // 0x0000000183148F40-0x0000000183149060 
-    public static SimpleSafeFloat[] joypadSensitivityScales { /* [XID] */ /* 0x0000000189B77050-0x0000000189B77070 */ get; } // 0x0000000183147500-0x0000000183147610 
-    public static SimpleSafeFloat[] joypadFocusSensitivityScales { /* [XID] */ /* 0x000000018967E3E0-0x000000018967E400 */ get; } // 0x00000001831491D0-0x00000001831492E0 
-    public static SimpleSafeFloat[] mouseSensitivityScales { /* [XID] */ /* 0x000000018996BAB0-0x000000018996BAD0 */ get; } // 0x0000000183147F50-0x0000000183148060 
-    public static SimpleSafeFloat[] mouseFocusSensitivityScales { /* [XID] */ /* 0x0000000189B80A90-0x0000000189B80AB0 */ get; } // 0x00000001831492E0-0x00000001831493F0 
-    public static SimpleSafeFloat[] touchpadSensitivityScales { /* [XID] */ /* 0x0000000189727A60-0x0000000189727A80 */ get; } // 0x0000000183147610-0x0000000183147720 
-    public static SimpleSafeFloat[] touchpadFocusSensitivityScales { /* [XID] */ /* 0x0000000189625850-0x0000000189625870 */ get; } // 0x00000001831468C0-0x00000001831469D0 
-    public static SimpleSafeFloat[] touchpadFocusAccelerationScales { /* [XID] */ /* 0x0000000189A73400-0x0000000189A73420 */ get; } // 0x00000001831469D0-0x0000000183146AE0 
-    public static TouchpadFocusAccelerationSigmoidPara tuchpadFocusAccelerationSigmoidPara { /* [XID] */ /* 0x0000000189BAAD00-0x0000000189BAAD20 */ get; } // 0x0000000183148D90-0x0000000183148EA0 
+    private static string GLOBAL_CONFIG_PATH { /* [XID] */ /* 0x0000000189AF4290-0x0000000189AF42B0 */ get => "Data/_BinOutput/Global/Embeded/UI/ConfigUIGlobal"; } // 0x0000000183148EA0-0x0000000183148F40 
+    private static string LOGIN_PAGE_CONFIG_PATH { /* [XID] */ /* 0x0000000189928B70-0x0000000189928B90 */ get => "Data/_BinOutput/UI/Embeded/LoginMainPage"; } // 0x0000000183149060-0x0000000183149100 
+    public static ConfigUIGlobal globalConfig { /* [XID] */ /* 0x0000000189B03190-0x0000000189B031B0 */ get => _globalConfig; } // 0x0000000183149100-0x00000001831491D0 
+    public static Vector2 joypadChangeViewScale
+    { /* [XID] */ /* 0x00000001896FAD70-0x00000001896FAD90 */
+        get
+        {
+            if (_globalConfig != null)
+            {
+                return new Vector2(_globalConfig.joypadChangeViewScale.x, _globalConfig.joypadChangeViewScale.y);
+            }
+            return new Vector2(1.62f, 2.4f);
+        }
+    } // 0x0000000183146530-0x00000001831466D0 
+    public static float joypadLongPressDuration
+    { /* [XID] */ /* 0x0000000189B6FB80-0x0000000189B6FBA0 */
+        get
+        {
+            if (_globalConfig != null)
+            {
+                return _globalConfig.joypadLongPressDuration;
+            }
+            return 1f;
+        }
+    } // 0x0000000183148F40-0x0000000183149060 
+    public static SimpleSafeFloat[] joypadSensitivityScales
+    { /* [XID] */ /* 0x0000000189B77050-0x0000000189B77070 */
+        get
+        {
+            if (_globalConfig != null)
+            {
+                return _globalConfig.joypadSenseScales;
+            }
+            return null;
+        }
+    } // 0x0000000183147500-0x0000000183147610 
+    public static SimpleSafeFloat[] joypadFocusSensitivityScales
+    { /* [XID] */ /* 0x000000018967E3E0-0x000000018967E400 */
+        get
+        {
+            if (_globalConfig != null)
+            {
+                return _globalConfig.joypadFocusSenseScales;
+            }
+            return null;
+        }
+    } // 0x00000001831491D0-0x00000001831492E0 
+    public static SimpleSafeFloat[] mouseSensitivityScales
+    { /* [XID] */ /* 0x000000018996BAB0-0x000000018996BAD0 */
+        get
+        {
+            if (_globalConfig != null)
+            {
+                return _globalConfig.mouseSenseScales;
+            }
+            return null;
+        }
+    } // 0x0000000183147F50-0x0000000183148060 
+    public static SimpleSafeFloat[] mouseFocusSensitivityScales
+    { /* [XID] */ /* 0x0000000189B80A90-0x0000000189B80AB0 */
+        get
+        {
+            if (_globalConfig != null)
+            {
+                return _globalConfig.mouseFocusSenseScales;
+            }
+            return null;
+        }
+    } // 0x00000001831492E0-0x00000001831493F0 
+    public static SimpleSafeFloat[] touchpadSensitivityScales
+    { /* [XID] */ /* 0x0000000189727A60-0x0000000189727A80 */
+        get
+        {
+            if (_globalConfig != null)
+            {
+                return _globalConfig.touchpadSenseScales;
+            }
+            return null;
+        }
+    } // 0x0000000183147610-0x0000000183147720 
+    public static SimpleSafeFloat[] touchpadFocusSensitivityScales
+    { /* [XID] */ /* 0x0000000189625850-0x0000000189625870 */
+        get
+        {
+            if (_globalConfig != null)
+            {
+                return _globalConfig.touchpadFocusSenseScales;
+            }
+            return null;
+        }
+    } // 0x00000001831468C0-0x00000001831469D0 
+    public static SimpleSafeFloat[] touchpadFocusAccelerationScales
+    { /* [XID] */ /* 0x0000000189A73400-0x0000000189A73420 */
+        get
+        {
+            if (_globalConfig != null)
+            {
+                return _globalConfig.touchpadFocusAccelerationScales;
+            }
+            return null;
+        }
+    } // 0x00000001831469D0-0x0000000183146AE0 
+    public static TouchpadFocusAccelerationSigmoidPara tuchpadFocusAccelerationSigmoidPara
+    { /* [XID] */ /* 0x0000000189BAAD00-0x0000000189BAAD20 */
+        get
+        {
+            if (_globalConfig != null)
+            {
+                return _globalConfig.touchpadFocusAccelerationPara;
+            }
+            return null;
+        }
+    } // 0x0000000183148D90-0x0000000183148EA0 
 
     // Constructors
-    static UIConfigData() { } // 0x0000000183149650-0x00000001831496F0
+    static UIConfigData()
+    {
+        _uiConfigs = new List<ConfigUI>();
+    } // 0x0000000183149650-0x00000001831496F0
 
     // Methods
     // [XID] // 0x0000000189B0A890-0x0000000189B0A8B0
