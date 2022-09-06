@@ -87,9 +87,12 @@ namespace MoleMole
         // Methods
         // [IDTag] // 0x0000000189AA1800-0x0000000189AA1840
         // [XID] // 0x0000000189AA1800-0x0000000189AA1840
-        public static byte[] LoadBinData(ulong pathHash, int offset = 0 /* Metadata: 0x00AE7711 */, int length = 0 /* Metadata: 0x00AE7715 */) => default; // 0x00000001858E3110-0x00000001858E3210
-                                                                                                                                                           // [IDTag] // 0x0000000189AAC1F0-0x0000000189AAC230
-                                                                                                                                                           // [XID] // 0x0000000189AAC1F0-0x0000000189AAC230
+        public static byte[] LoadBinData(ulong pathHash, int offset = 0 /* Metadata: 0x00AE7711 */, int length = 0 /* Metadata: 0x00AE7715 */)
+        {
+            return MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().LoadBinData(pathHash, offset, length);
+        }// 0x00000001858E3110-0x00000001858E3210
+         // [IDTag] // 0x0000000189AAC1F0-0x0000000189AAC230
+         // [XID] // 0x0000000189AAC1F0-0x0000000189AAC230
         public static byte[] LoadLua(ulong pathHash, out bool recycleBytes, int offset = 0 /* Metadata: 0x00AE7719 */, int length = 0 /* Metadata: 0x00AE771D */)
         {
             recycleBytes = default;
