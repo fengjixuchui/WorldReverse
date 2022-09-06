@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Security;
 using IFix.Core;
+using MoleMole;
 using UnityEngine;
 
 // Image 60: Assembly-CSharp.dll - Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 10700-32500
@@ -31,8 +32,14 @@ public sealed class Home : GameWorld // TypeDefIndex: 19919
         LoadScene();
     } // 0x00000001836061C0-0x0000000183606290
       // [XID] // 0x0000000189A82FE0-0x0000000189A83000
-    public void InitHomeManager() { } // 0x0000000183606890-0x00000001836069A0
-                                      // [XID] // 0x0000000189A8A820-0x0000000189A8A840
+    public void InitHomeManager()
+    {
+        Singleton<BundleDownloadWorld>.Create();
+        ManagerController.CreateInLevelManager<LevelTimeManager>();
+        ManagerController.CreateInLevelManager<EffectManager>();
+        ManagerController.CreateInLevelManager<EnviroManager>();
+    } // 0x0000000183606890-0x00000001836069A0
+      // [XID] // 0x0000000189A8A820-0x0000000189A8A840
     public void DestroyHomeManager() { } // 0x00000001836065E0-0x00000001836066F0
                                          // [XID] // 0x0000000189A92100-0x0000000189A92120
     private void LoadScene() { } // 0x0000000183605FB0-0x00000001836061C0
