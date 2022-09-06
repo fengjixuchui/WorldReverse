@@ -9149,8 +9149,7 @@ public static class JsonTool // TypeDefIndex: 14784
                 // [XID] // 0x000000018986A6E0-0x000000018986A730
     public static bool DictFromJson(JSONNode node, out Dictionary<InputActionType, ConfigBaseInputAction> dict)
     {
-        dict = default;
-        return default;
+        return InternalDictFromJson(node, out dict);
     } // 0x0000000180CE2E20-0x0000000180CE31A0
       // [IDTag] // 0x0000000189877890-0x00000001898778D0
       // [XID] // 0x0000000189877890-0x00000001898778D0
