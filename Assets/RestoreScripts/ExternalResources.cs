@@ -180,7 +180,13 @@ namespace MoleMole
               // [XID] // 0x00000001899B3270-0x00000001899B3290
             public virtual void DismissResource(uint handle, bool async) { } // 0x0000000189BFE930-0x0000000189BFEA30
                                                                              // [XID] // 0x00000001897BC810-0x00000001897BC830
-            public void SwitchUnlimitedMode(bool on) { } // 0x0000000189BFFA60-0x0000000189BFFB40
+            public void SwitchUnlimitedMode(bool on)
+            {
+                if (provider != null)
+                {
+                    provider.SwitchUnlimitedMode(on);
+                }
+            } // 0x0000000189BFFA60-0x0000000189BFFB40
             protected abstract ExternalResourceProvider CreateProvider();
         }
 
