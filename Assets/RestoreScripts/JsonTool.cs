@@ -8,7 +8,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Security;
+using System.Linq;
 using IFix.Core;
+using MoleMole;
 using MoleMole.Config;
 using SimpleJSON;
 using XLua;
@@ -9176,8 +9178,55 @@ public static class JsonTool // TypeDefIndex: 14784
       // [XID] // 0x000000018989C6A0-0x000000018989C6E0
     private static bool InternalDictFromJson(JSONNode node, out Dictionary<InputEventType, ConfigBaseInputEvent> dict)
     {
-        dict = default;
-        return default;
+        var e = InputEventType.Invalid;
+        if (node.Count > 0)
+        {
+            var json = node as JSONClass;
+            if (json == 0)
+            {
+                JsonTool.GetEmptyValue(out dict);
+                SuperDebug.LogError("node is not JSONClass for map: Dictionary<InputEventType, ConfigBaseInputEvent>");
+                return false;
+            }
+            var val = MoleMole.Lazy<InputEventTypeComparer>.Get<InputEventTypeComparer>();
+            dict = new Dictionary<InputEventType, ConfigBaseInputEvent>(val);
+
+            foreach (JSONNode j in json)
+            {
+                string cnm = null;
+                foreach (var key in j.Keys)//获取0x00的key 之后换个更好的方法
+                {
+                    if (cnm == null)
+                    {
+                        cnm = key;
+                        break;
+                    }
+                }
+                if (!EnumStrToVal(cnm, out e))
+                {
+                    SuperDebug.LogError("convert key:" + j + "to InputEventType fails");
+                    return false;
+                }
+                if (dict.ContainsKey(e))
+                {
+
+                    SuperDebug.LogError("Dictionary<InputEventType, ConfigBaseInputEvent> already contains key:" + e);
+                    return false;
+                }
+                var configEvent = new ConfigBaseInputEvent();
+                if (!configEvent.FromJson(j.Value))
+                {
+                    SuperDebug.LogError("FromJson for: ConfigBaseInputEvent fails! in:" + e);
+                    return false;
+                }
+                dict[e] = configEvent;
+            }
+        }
+        else
+        {
+            GetEmptyValue(out dict);
+        }
+        return true;
     } // 0x0000000180D0A710-0x0000000180D0AD10
     [BlackList] // 0x00000001898A6DC0-0x00000001898A6E10
                 // [IDTag] // 0x00000001898A6DC0-0x00000001898A6E10
