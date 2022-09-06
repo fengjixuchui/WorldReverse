@@ -61,7 +61,20 @@ public sealed class Home : GameWorld // TypeDefIndex: 19919
     } // 0x0000000183605FB0-0x00000001836061C0
     [DebuggerHidden] // 0x0000000189A99AC0-0x0000000189A99B00
                      // [XID] // 0x0000000189A99AC0-0x0000000189A99B00
-    private IEnumerator OnSceneLoaded() => default; // 0x0000000183605CC0-0x0000000183605DC0
+    private IEnumerator OnSceneLoaded()
+    {
+        GraphicsSettingData.ApplyCameraSettingConfig(StageType.World);
+        var director = GamePlayDirector.Instance;
+        director.curLevelConfig = null;
+        Singleton<LuaManager>.Instance.PrintMemoryLeakReport(10);
+        Singleton<LuaManager>.Instance.StopMemoryLeakCheck();
+        yield return null;
+
+        var ui = Singleton<UIManager>.Instance;
+        ui.InitUICamera();
+        Singleton<InputManager>.Instance.InitOnSceneLoaded();
+        ui.Init(GlobalVars.WorldType.Home);
+    }// 0x0000000183605CC0-0x0000000183605DC0
     [DebuggerHidden] // 0x0000000189AA3E40-0x0000000189AA3E80
                      // [XID] // 0x0000000189AA3E40-0x0000000189AA3E80
     private IEnumerator OnSceneLoadedAynsc() => default; // 0x0000000183606790-0x0000000183606890
