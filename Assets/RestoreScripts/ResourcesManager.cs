@@ -199,8 +199,13 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
                                     // [XID] // 0x0000000189A40AD0-0x0000000189A40AF0
     public void DropUnstartedLoads() { } // 0x0000000181F14280-0x0000000181F14340
                                          // [XID] // 0x0000000189A48170-0x0000000189A48190
-    public void RegisterQuietDownCallback(QuietDownCallback callback) { } // 0x0000000181F136E0-0x0000000181F137D0
-                                                                          // [XID] // 0x0000000189A4FA40-0x0000000189A4FA60
+    public void RegisterQuietDownCallback(QuietDownCallback callback)
+    {
+        _quietDownCallback = callback;
+        _quietDownTimeOutDue = Time.realtimeSinceStartup + 10f;
+        MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().SwitchUnlimitedMode(true);
+    } // 0x0000000181F136E0-0x0000000181F137D0
+      // [XID] // 0x0000000189A4FA40-0x0000000189A4FA60
     public ExternalResources GetExternalResources() => default; // 0x0000000181F17C30-0x0000000181F17CE0
                                                                 // [XID] // 0x0000000189689160-0x0000000189689180
     private int ReadInRevision(string filePath) => default; // 0x0000000181F17DA0-0x0000000181F17FA0
