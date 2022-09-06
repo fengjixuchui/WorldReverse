@@ -100,9 +100,19 @@ public static class JsonTool // TypeDefIndex: 14784
     }
     // [IDTag] // 0x0000000189ADFBB0-0x0000000189ADFBF0
     // [XID] // 0x0000000189ADFBB0-0x0000000189ADFBF0
-    public static JSONNode LoadJSONConfig(string filePath, bool overrideDefault = false /* Metadata: 0x00AEF59D */, bool noError = false /* Metadata: 0x00AEF59E */) => default; // 0x0000000180CE9100-0x0000000180CE9430
-                                                                                                                                                                                 // [IDTag] // 0x0000000189AEA060-0x0000000189AEA0A0
-                                                                                                                                                                                 // [XID] // 0x0000000189AEA060-0x0000000189AEA0A0
+    public static JSONNode LoadJSONConfig(string filePath, bool overrideDefault = false /* Metadata: 0x00AEF59D */, bool noError = false /* Metadata: 0x00AEF59E */)
+    {
+        CurFilePath = filePath;
+        var jsonText = CommonMiscs.LoadTextFileToString(filePath, noError);
+        var jsonNode = JSONNode.Parse(jsonText);
+        if (overrideDefault)
+        {
+            OverrideDefault(jsonNode);
+        }
+        return jsonNode;
+    }// 0x0000000180CE9100-0x0000000180CE9430
+     // [IDTag] // 0x0000000189AEA060-0x0000000189AEA0A0
+     // [XID] // 0x0000000189AEA060-0x0000000189AEA0A0
     public static JSONNode LoadJSONConfig(ulong filePathHash, bool overrideDefault = false /* Metadata: 0x00AEF59F */, bool noError = false /* Metadata: 0x00AEF5A0 */) => default; // 0x0000000180CE9430-0x0000000180CE9820
                                                                                                                                                                                     // [XID] // 0x0000000189AF49D0-0x0000000189AF49F0
     public static string[] GetOriginPathsFromHashes(ConfigMetaConfig.PathHash[] pathHashes) => default; // 0x0000000180D9E260-0x0000000180D9E3F0
