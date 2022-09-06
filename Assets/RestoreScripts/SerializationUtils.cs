@@ -174,8 +174,15 @@ public class SerializationUtils // TypeDefIndex: 19572
     // [XID] // 0x00000001896D0980-0x00000001896D09A0
     public static ulong GetHash(string binPath) => default; // 0x00000001815A80D0-0x00000001815A8220
                                                             // [XID] // 0x0000000189A7B030-0x0000000189A7B050
-    public static string ToJsonPath(string binPath) => default; // 0x00000001815A8220-0x00000001815A82E0
-                                                                // [XID] // 0x000000018972A8A0-0x000000018972A8C0
+    public static string ToJsonPath(string binPath)
+    {
+        if (binPath != null)
+        {
+            binPath = binPath.Replace("_BinOutput", "_JsonOutput");
+        }
+        return binPath;
+    }// 0x00000001815A8220-0x00000001815A82E0
+     // [XID] // 0x000000018972A8A0-0x000000018972A8C0
     public static void DecodeBin(ByteArray byteArr)
     {
         for (int i = 0; i < byteArr.bytes.Length; i++)
