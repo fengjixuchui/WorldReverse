@@ -142,8 +142,7 @@ namespace MoleMole
             BeforeLateUpdatePostSchedule();
             LateUpdatePostSchedule();
             AfterLateUpdatePostSchedule();
-            ObjectPoolUtility.MarkMainThread mainThread;
-            mainThread.Dispose();
+            ObjectPoolUtility.isMainThread = false;
         } // 0x0000000181F849F0-0x0000000181F84B40
           // [XID] // 0x00000001896262A0-0x00000001896262C0
         private void OnApplicationQuit() { } // 0x0000000181F85B90-0x0000000181F85D90
