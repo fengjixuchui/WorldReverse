@@ -199,8 +199,17 @@ namespace MoleMole
             }
         } // 0x0000000181F82360-0x0000000181F82830
           // [XID] // 0x0000000189671880-0x00000001896718A0
-        public void DestroyCurLevel() { } // 0x0000000181F82C50-0x0000000181F82D90
-                                          // [XID] // 0x0000000189679090-0x00000001896790B0
+        public void DestroyCurLevel()
+        {
+            Singleton<NetworkManager>.Instance.HandleAllCachedEvent();
+            if (_curGameWorld != null)
+            {
+                _curGameWorld.Destroy();
+                _curGameWorld = null;
+                ClearOtherOnLevelDestroy();
+            }
+        } // 0x0000000181F82C50-0x0000000181F82D90
+          // [XID] // 0x0000000189679090-0x00000001896790B0
         private void ClearOtherOnLevelDestroy() { } // 0x0000000181F82D90-0x0000000181F82E80
                                                     // [XID] // 0x00000001896807B0-0x00000001896807D0
         public void HandleWrongDataVersion() { } // 0x0000000181F84210-0x0000000181F842F0
