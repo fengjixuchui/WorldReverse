@@ -11,6 +11,7 @@ using System.Text;
 using IFix.Core;
 using MoleMole;
 using MoleMole.Config;
+using UnityEngine;
 using XLua;
 
 // Image 60: Assembly-CSharp.dll - Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 10700-32500
@@ -42,9 +43,9 @@ public static class BinaryTool // TypeDefIndex: 14767
         if (byteArray != null && byteArray.bytes != null && byteArray.bytes.Length > 0) return true;
         SuperDebug.LogError("Parsing invalid byteArray: null or empty.");
         return false;
-    }; // 0x00000001809FC170-0x00000001809FC260
-       // [IDTag] // 0x000000018974BC30-0x000000018974BC70
-       // [XID] // 0x000000018974BC30-0x000000018974BC70
+    } // 0x00000001809FC170-0x00000001809FC260
+      // [IDTag] // 0x000000018974BC30-0x000000018974BC70
+      // [XID] // 0x000000018974BC30-0x000000018974BC70
     public static bool FromBinary(ByteArray byteArray, ByteArrayEncode encode)
     {
         bool flag = false;
