@@ -536,8 +536,15 @@ namespace MoleMole
         }// 0x00000001853F0260-0x00000001853F0520
          // [IDTag] // 0x000000018993DA10-0x000000018993DA50
          // [XID] // 0x000000018993DA10-0x000000018993DA50
-        private byte[] LoadBinData(ResourceIdentifier request, int offset = 0 /* Metadata: 0x00ADEC34 */, int length = 0 /* Metadata: 0x00ADEC38 */) => default; // 0x00000001853F00E0-0x00000001853F0260
-                                                                                                                                                                 // [XID] // 0x00000001896A0D20-0x00000001896A0D40
+        private byte[] LoadBinData(ResourceIdentifier request, int offset = 0 /* Metadata: 0x00ADEC34 */, int length = 0 /* Metadata: 0x00ADEC38 */)
+        {
+            if (_loadedResources.HasBundleLoaded(request.bundleHash) || SyncLoadBundle(request.bundleHash))
+            {
+                return _loadedResources.LoadBinData(request, offset, length);
+            }
+            return null;
+        }// 0x00000001853F00E0-0x00000001853F0260
+         // [XID] // 0x00000001896A0D20-0x00000001896A0D40
         private bool SyncLoadBundle(int bundleHash) => default; // 0x00000001853F4700-0x00000001853F4C90
                                                                 // [XID] // 0x0000000189699870-0x0000000189699890
         private bool SyncPrepareAsset(ResourceIdentifier request) => default; // 0x00000001853F4C90-0x00000001853F4FB0
