@@ -254,8 +254,26 @@ public static class GraphicsSettingData // TypeDefIndex: 19236
                                                                                                // [XID] // 0x00000001897F63A0-0x00000001897F63C0
     public static void ApplySettingConfig() { } // 0x0000000182665E20-0x0000000182665F00
                                                 // [XID] // 0x00000001897FDA80-0x00000001897FDAA0
-    public static void ApplyCameraSettingConfig(StageType stageType = StageType.World /* Metadata: 0x00AFC632 */) { } // 0x000000018265D260-0x000000018265D470
-                                                                                                                      // [XID] // 0x0000000189805270-0x0000000189805290
+    public static void ApplyCameraSettingConfig(StageType stageType = StageType.World /* Metadata: 0x00AFC632 */)
+    {
+        ApplyQualityLevel();
+        GraphicsSettingUtil.SetGlobalShaderParams();
+        GraphicsSettingUtil.SetTargetFrameRate(targetFrameRate);
+        GraphicsSettingUtil.InitDPISetting();
+        GraphicsSettingUtil.InitScreenResolution();
+        GraphicsSettingUtil.InitPostProcessResolution();
+        GraphicsSettingUtil.InitLightSetting();
+        GraphicsSettingUtil.InitComprehensiveSetting();
+        GraphicsSettingUtil.InitRenderSetting(CameraManager.mainCamera, true, stageType);
+        GraphicsSettingUtil.InitAvatarGraphicsThresh();
+        GraphicsSettingUtil.InitVSyncSetting();
+        var curGameWorld = GameManager.Instance.GetCurGameWorld();
+        if (curGameWorld.worldType == GlobalVars.WorldType.TestCutscene)
+        {
+            GraphicsSettingUtil.EnableDoF(true);
+        }
+    } // 0x000000018265D260-0x000000018265D470
+      // [XID] // 0x0000000189805270-0x0000000189805290
     public static void Reset() { } // 0x000000018265FE50-0x000000018265FF10
                                    // [XID] // 0x000000018980C7F0-0x000000018980C810
     public static bool IsEnableGyroscope() => default; // 0x0000000182665260-0x0000000182665300
