@@ -298,8 +298,24 @@ public static class GraphicsSettingData // TypeDefIndex: 19236
       // [XID] // 0x0000000189994B60-0x0000000189994B80
     public static int GetVolatileSettingEntryGrade(GraphicsSettingEntryType entryType) => default; // 0x00000001826640E0-0x0000000182664450
                                                                                                    // [XID] // 0x00000001898D4A70-0x00000001898D4A90
-    private static void ApplyQualityLevel() { } // 0x00000001826636D0-0x0000000182663920
-                                                // [XID] // 0x00000001898DC490-0x00000001898DC4B0
+    private static void ApplyQualityLevel()
+    {
+        if (deviceSetting != null)
+        {
+            if (!string.IsNullOrEmpty(deviceSetting.qualityLevel))
+            {
+                for (int i = 0; i < QualitySettings.names.Length; i++)
+                {
+                    if (deviceSetting.qualityLevel.Equals(QualitySettings.names[i], StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        QualitySettings.SetQualityLevel(i, true);
+                        break;
+                    }
+                }
+            }
+        }
+    } // 0x00000001826636D0-0x0000000182663920
+      // [XID] // 0x00000001898DC490-0x00000001898DC4B0
     private static float GetPerfRatioSafe(SimpleSafeFloat[] costRatioGrade, int gradeIndex) => default; // 0x000000018265E870-0x000000018265E980
                                                                                                         // [XID] // 0x00000001898E3EE0-0x00000001898E3F00
     public static float GetDefaultPerfCost() => default; // 0x0000000182660F80-0x00000001826616B0
