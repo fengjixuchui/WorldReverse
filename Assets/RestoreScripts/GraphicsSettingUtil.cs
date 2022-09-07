@@ -143,8 +143,30 @@ public static class GraphicsSettingUtil // TypeDefIndex: 31556
     } // 0x00000001811E4210-0x00000001811E4CF0
       // [IDTag] // 0x0000000189BCB6E0-0x0000000189BCB720
       // [XID] // 0x0000000189BCB6E0-0x0000000189BCB720
-    public static void SetShadowDistanceQuality(bool isHigh = false /* Metadata: 0x00B12941 */) { } // 0x00000001811E6EA0-0x00000001811E7120
-                                                                                                    // [XID] // 0x0000000189BD59E0-0x0000000189BD5A00
+    public static void SetShadowDistanceQuality(bool isHigh = false /* Metadata: 0x00B12941 */)
+    {
+        if (isHigh)
+        {
+            QualitySettings.shadowDistance = 300f;
+            QualitySettings.shadowResolution = ShadowResolution.Medium;
+            QualitySettings.shadowCascade4Split = new Vector3(0.025f, 0.15f, 0.5f);
+            Shader.SetGlobalVector("_mhyShadowDistParams", new Vector4(350f, 3f, 4f, 5f));
+            Shader.EnableKeyword("PER_OBJECT_PCF");
+            //自定义引擎字段
+            //QualitySettings.perObjectShadowQuality = 2;
+        }
+        else
+        {
+            QualitySettings.shadowDistance = 110f;
+            QualitySettings.shadowResolution = ShadowResolution.Medium;
+            QualitySettings.shadowCascade4Split = new Vector3(0.07f, 0.2f, 0.5f);
+            Shader.SetGlobalVector("_mhyShadowDistParams", new Vector4(130f, 1f, 1f, 1f));
+            Shader.DisableKeyword("PER_OBJECT_PCF");
+            //自定义引擎字段
+            //QualitySettings.perObjectShadowQuality = 0;
+        }
+    } // 0x00000001811E6EA0-0x00000001811E7120
+      // [XID] // 0x0000000189BD59E0-0x0000000189BD5A00
     public static void SetLoginShadowDistanceQuality(float distance, Vector4 disVec, Vector3 splitVec, ShadowResolution type) { } // 0x00000001811E32B0-0x00000001811E3420
                                                                                                                                   // [IDTag] // 0x0000000189BDD5C0-0x0000000189BDD600
                                                                                                                                   // [XID] // 0x0000000189BDD5C0-0x0000000189BDD600
