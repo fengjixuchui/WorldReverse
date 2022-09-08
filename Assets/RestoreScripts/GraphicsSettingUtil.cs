@@ -81,8 +81,15 @@ public static class GraphicsSettingUtil // TypeDefIndex: 31556
     // [XID] // 0x0000000189BB4B10-0x0000000189BB4B30
     private static Dictionary<int, ShadowCascadeParam> GetShadowDistanceParamMap() => default; // 0x00000001811E3630-0x00000001811E3B00
                                                                                                // [XID] // 0x0000000189BBC0C0-0x0000000189BBC0E0
-    public static void SetTargetFrameRate(int targetFrameRate) { } // 0x00000001811E5800-0x00000001811E5930
-                                                                   // [XID] // 0x0000000189BC3E00-0x0000000189BC3E20
+    public static void SetTargetFrameRate(int targetFrameRate)
+    {
+        int fps = 30;
+        if (targetFrameRate > 0) fps = targetFrameRate;
+        _lastTargetFrameRate = fps;
+        Application.targetFrameRate = fps;
+        GlobalVars.forcePhysicsSimulateBetweenUpdate = fps <= 30;
+    } // 0x00000001811E5800-0x00000001811E5930
+      // [XID] // 0x0000000189BC3E00-0x0000000189BC3E20
     public static void SetGlobalShaderParams()
     {
         //自定义引擎字段
