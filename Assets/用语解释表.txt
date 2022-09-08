@@ -1,3 +1,5 @@
+从GameManager开始初始化,按这个脚本看下去就对了
+
 MP+(Level)				= Multi Player
 多人场景
 LC+(Component)			= Logic Component
