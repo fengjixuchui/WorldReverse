@@ -1,0 +1,29 @@
+﻿/*
+ * Generated code file by Il2CppInspector - http://www.djkaty.com - https://github.com/djkaty
+ */
+
+using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Security;
+
+// Image 60: Assembly-CSharp.dll - Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 10700-32500
+
+public enum ProudLifeEffectType // TypeDefIndex: 15240
+{
+	PROUD_EFFECT_NONE = 0,
+	PROUD_EFFECT_COMBINE_RETURN_MATERIAL = 1,
+	PROUD_EFFECT_COMBINE_MULTIPLY_OUTPUT = 2,
+	PROUD_EFFECT_COMBINE_EXTRA_OUTPUT = 3,
+	PROUD_EFFECT_COMBINE_ADD_EXTRA_PROB = 4,
+	PROUD_EFFECT_COOK_EXTRA_PROFICIENCY = 101,
+	PROUD_EFFECT_COOK_WIDEN_JUDGE_AREA = 102,
+	PROUD_EFFECT_COOK_ADD_BONUS_PROB = 103,
+	PROUD_EFFECT_COOK_PERFECT_MULTI_OUTPUT = 104,
+	PROUD_EFFECT_COOK_PROB_MULTI_OUTPUT = 105,
+	PROUD_EFFECT_FORGE_REDUCE_TIME = 203,
+	PROUD_EFFECT_FORGE_ADD_EXTRA_PROB = 204,
+	PROUD_EFFECT_FORGE_RETURN_MATERIAL = 205,
+	PROUD_EFFECT_EXPEDITION_SHORTEN_TIME = 301
+}
+

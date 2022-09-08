@@ -1,0 +1,185 @@
+﻿/*
+ * Generated code file by Il2CppInspector - http://www.djkaty.com - https://github.com/djkaty
+ */
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using IFix.Core;
+using UnityEngine;
+using UnityEngine.Serialization;
+
+// Image 59: Assembly-CSharp-firstpass.dll - Assembly: Assembly-CSharp-firstpass, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null - Types 6705-10699
+
+namespace UnityEngine.AI
+{
+	// [AddComponentMenu] // 0x0000000189946510-0x00000001899465A0
+	// [DefaultExecutionOrder] // 0x0000000189946510-0x00000001899465A0
+	[ExecuteInEditMode] // 0x0000000189946510-0x00000001899465A0
+	// [HelpURL] // 0x0000000189946510-0x00000001899465A0
+	public class NavMeshSurface : MonoBehaviour, NavMeshSurfaceProvider // TypeDefIndex: 9412
+	{
+		// Fields
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private int m_AgentTypeID; // 0x18
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private CollectObjects m_CollectObjects; // 0x1C
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private Vector3 m_Size; // 0x20
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private Vector3 m_Center; // 0x2C
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private LayerMask m_LayerMask; // 0x38
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private NavMeshCollectGeometry m_UseGeometry; // 0x3C
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private int m_DefaultArea; // 0x40
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private bool m_IgnoreNavMeshAgent; // 0x44
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private bool m_IgnoreNavMeshObstacle; // 0x45
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private bool m_OverrideTileSize; // 0x46
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private int m_TileSize; // 0x48
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private bool m_OverrideVoxelSize; // 0x4C
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private float m_VoxelSize; // 0x50
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private bool m_BuildHeightMesh; // 0x54
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private bool m_OverrideMinRegionArea; // 0x55
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private float m_MinRegionArea; // 0x58
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private bool m_OverrideBuildDetailMesh; // 0x5C
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private bool m_BuildDetailMesh; // 0x5D
+		// [FormerlySerializedAs] // 0x00000001899DF830-0x00000001899DF880
+		[SerializeField] // 0x00000001899DF830-0x00000001899DF880
+		private NavMeshData m_NavMeshData; // 0x60
+		private NavMeshDataInstance m_NavMeshDataInstance; // 0x68
+		private Vector3 m_LastPosition; // 0x6C
+		private Quaternion m_LastRotation; // 0x78
+		private static readonly List<NavMeshSurface> s_NavMeshSurfaces; // 0x00
+		private bool m_IsDynamicSurface; // 0x88
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private bool m_ClipNavMeshUnderWater; // 0x89
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private float m_ClipNavMeshUnderWaterDepth; // 0x8C
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private bool m_NeedCullingBound; // 0x90
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private bool m_NeedPostUpdateNavMesh; // 0x91
+		[SerializeField] // 0x0000000189BC8500-0x0000000189BC8510
+		private bool m_IsBigWorld; // 0x92
+		private List<NavMeshAgent> _linkAgents; // 0x98
+	
+		// Properties
+		public int agentTypeID { /* [XID] */ /* 0x0000000189A3D1D0-0x0000000189A3D1F0 */ get => default; /* [XID] */ /* 0x0000000189BD4170-0x0000000189BD4190 */ set {} } // 0x0000000186072B00-0x0000000186072BA0 0x0000000186073BA0-0x0000000186073C50
+		public CollectObjects collectObjects { /* [XID] */ /* 0x0000000189A4C120-0x0000000189A4C140 */ get => default; /* [XID] */ /* 0x0000000189A538F0-0x0000000189A53910 */ set {} } // 0x0000000186072F20-0x0000000186072FC0 0x0000000186073FE0-0x0000000186074090
+		public Vector3 size { /* [XID] */ /* 0x0000000189A5B040-0x0000000189A5B060 */ get => default; /* [XID] */ /* 0x0000000189A62860-0x0000000189A62880 */ set {} } // 0x00000001860738D0-0x00000001860739B0 0x0000000186074A30-0x0000000186074B00
+		public Vector3 center { /* [XID] */ /* 0x0000000189A252F0-0x0000000189A25310 */ get => default; /* [XID] */ /* 0x0000000189A71A10-0x0000000189A71A30 */ set {} } // 0x0000000186072CE0-0x0000000186072DC0 0x0000000186073DB0-0x0000000186073E80
+		public LayerMask layerMask { /* [XID] */ /* 0x0000000189A3A0B0-0x0000000189A3A0D0 */ get => default; /* [XID] */ /* 0x0000000189A80CA0-0x0000000189A80CC0 */ set {} } // 0x0000000186073300-0x00000001860733A0 0x0000000186074400-0x00000001860744B0
+		public NavMeshCollectGeometry useGeometry { /* [XID] */ /* 0x0000000189A88600-0x0000000189A88620 */ get => default; /* [XID] */ /* 0x0000000189A8FF70-0x0000000189A8FF90 */ set {} } // 0x0000000186073A50-0x0000000186073AF0 0x0000000186074BB0-0x0000000186074C60
+		public int defaultArea { /* [XID] */ /* 0x0000000189A97730-0x0000000189A97750 */ get => default; /* [XID] */ /* 0x0000000189929460-0x0000000189929480 */ set {} } // 0x0000000186072FC0-0x0000000186073060 0x0000000186074090-0x0000000186074140
+		public bool ignoreNavMeshAgent { /* [XID] */ /* 0x0000000189AA6420-0x0000000189AA6440 */ get => default; /* [XID] */ /* 0x0000000189893070-0x0000000189893090 */ set {} } // 0x0000000186073060-0x0000000186073100 0x0000000186074140-0x00000001860741F0
+		public bool ignoreNavMeshObstacle { /* [XID] */ /* 0x0000000189AB52A0-0x0000000189AB52C0 */ get => default; /* [XID] */ /* 0x0000000189ABCE70-0x0000000189ABCE90 */ set {} } // 0x0000000186073100-0x00000001860731A0 0x00000001860741F0-0x00000001860742A0
+		public bool overrideTileSize { /* [XID] */ /* 0x0000000189B19E40-0x0000000189B19E60 */ get => default; /* [XID] */ /* 0x0000000189A3B6D0-0x0000000189A3B6F0 */ set {} } // 0x0000000186073790-0x0000000186073830 0x00000001860748D0-0x0000000186074980
+		public int tileSize { /* [XID] */ /* 0x0000000189AC1370-0x0000000189AC1390 */ get => default; /* [XID] */ /* 0x0000000189ADB3D0-0x0000000189ADB3F0 */ set {} } // 0x00000001860739B0-0x0000000186073A50 0x0000000186074B00-0x0000000186074BB0
+		public bool overrideVoxelSize { /* [XID] */ /* 0x0000000189B571E0-0x0000000189B57200 */ get => default; /* [XID] */ /* 0x0000000189AEA680-0x0000000189AEA6A0 */ set {} } // 0x0000000186073830-0x00000001860738D0 0x0000000186074980-0x0000000186074A30
+		public float voxelSize { /* [XID] */ /* 0x0000000189B5EC00-0x0000000189B5EC20 */ get => default; /* [XID] */ /* 0x00000001897099A0-0x00000001897099C0 */ set {} } // 0x0000000186073AF0-0x0000000186073BA0 0x0000000186074C60-0x0000000186074D10
+		public bool buildHeightMesh { /* [XID] */ /* 0x0000000189B00D60-0x0000000189B00D80 */ get => default; /* [XID] */ /* 0x00000001899D8520-0x00000001899D8540 */ set {} } // 0x0000000186072C40-0x0000000186072CE0 0x0000000186073D00-0x0000000186073DB0
+		public bool overrideMinRegionArea { /* [XID] */ /* 0x00000001899E7620-0x00000001899E7640 */ get => default; /* [XID] */ /* 0x0000000189B16E80-0x0000000189B16EA0 */ set {} } // 0x00000001860736F0-0x0000000186073790 0x0000000186074820-0x00000001860748D0
+		public float minRegionArea { /* [XID] */ /* 0x0000000189B1E680-0x0000000189B1E6A0 */ get => default; /* [XID] */ /* 0x00000001896FAC50-0x00000001896FAC70 */ set {} } // 0x00000001860733A0-0x0000000186073450 0x00000001860744B0-0x0000000186074560
+		public bool overrideBuildDetailMesh { /* [XID] */ /* 0x0000000189B2D320-0x0000000189B2D340 */ get => default; /* [XID] */ /* 0x0000000189B34870-0x0000000189B34890 */ set {} } // 0x0000000186073650-0x00000001860736F0 0x0000000186074770-0x0000000186074820
+		public bool buildDetailMesh { /* [XID] */ /* 0x00000001895E8350-0x00000001895E8370 */ get => default; /* [XID] */ /* 0x0000000189B43CD0-0x0000000189B43CF0 */ set {} } // 0x0000000186072BA0-0x0000000186072C40 0x0000000186073C50-0x0000000186073D00
+		public NavMeshData navMeshData { /* [XID] */ /* 0x0000000189B4B2C0-0x0000000189B4B2E0 */ get => default; /* [XID] */ /* 0x0000000189A4A710-0x0000000189A4A730 */ set {} } // 0x0000000186073450-0x00000001860734F0 0x0000000186074560-0x0000000186074610
+		public bool isDynamicSurface { /* [XID] */ /* 0x00000001898BECE0-0x00000001898BED00 */ get => default; /* [XID] */ /* 0x0000000189B61900-0x0000000189B61920 */ set {} } // 0x0000000186073250-0x0000000186073300 0x0000000186074350-0x0000000186074400
+		public bool clipNavMeshUnderWater { /* [XID] */ /* 0x0000000189B694F0-0x0000000189B69510 */ get => default; /* [XID] */ /* 0x00000001899199E0-0x0000000189919A00 */ set {} } // 0x0000000186072E70-0x0000000186072F20 0x0000000186073F30-0x0000000186073FE0
+		public float clipNavMeshUnderWaterDepth { /* [XID] */ /* 0x0000000189BD4930-0x0000000189BD4950 */ get => default; /* [XID] */ /* 0x0000000189B7F4E0-0x0000000189B7F500 */ set {} } // 0x0000000186072DC0-0x0000000186072E70 0x0000000186073E80-0x0000000186073F30
+		public static List<NavMeshSurface> activeSurfaces { /* [XID] */ /* 0x0000000189B87110-0x0000000189B87130 */ get => default; } // 0x0000000186072A30-0x0000000186072B00 
+		public bool needCullingBound { /* [XID] */ /* 0x0000000189B8E2A0-0x0000000189B8E2C0 */ get => default; /* [XID] */ /* 0x0000000189B957E0-0x0000000189B95800 */ set {} } // 0x00000001860734F0-0x00000001860735A0 0x0000000186074610-0x00000001860746C0
+		public bool needPostUpdateNavMesh { /* [XID] */ /* 0x0000000189B9CCE0-0x0000000189B9CD00 */ get => default; /* [XID] */ /* 0x0000000189BA4470-0x0000000189BA4490 */ set {} } // 0x00000001860735A0-0x0000000186073650 0x00000001860746C0-0x0000000186074770
+		public bool isBigWorld { /* [XID] */ /* 0x0000000189BAB9F0-0x0000000189BABA10 */ get => default; /* [XID] */ /* 0x0000000189988230-0x0000000189988250 */ set {} } // 0x00000001860731A0-0x0000000186073250 0x00000001860742A0-0x0000000186074350
+	
+		// Constructors
+		public NavMeshSurface() {} // 0x0000000186072860-0x0000000186072A30
+		static NavMeshSurface() {} // 0x00000001860727D0-0x0000000186072860
+	
+		// Methods
+		// [XID] // 0x0000000189BBA4C0-0x0000000189BBA4E0
+		private void OnEnable() {} // 0x00000001860709E0-0x0000000186070A80
+		// [XID] // 0x0000000189BC24A0-0x0000000189BC24C0
+		private void OnDisable() {} // 0x0000000186070910-0x00000001860709E0
+		// [XID] // 0x0000000189BC9AA0-0x0000000189BC9AC0
+		public void ResetSurface() {} // 0x0000000186071990-0x0000000186071AB0
+		// [XID] // 0x000000018995D7C0-0x000000018995D7E0
+		public void AddData() {} // 0x000000018606CF60-0x000000018606D240
+		// [XID] // 0x0000000189BD88D0-0x0000000189BD88F0
+		public void AddDataAsync() {} // 0x000000018606CEA0-0x000000018606CF60
+		[DebuggerHidden] // 0x0000000189BE0010-0x0000000189BE0050
+		// [XID] // 0x0000000189BE0010-0x0000000189BE0050
+		private IEnumerator AddDataAsyncInternal() => default; // 0x000000018606CD90-0x000000018606CEA0
+		// [XID] // 0x0000000189B2F0D0-0x0000000189B2F0F0
+		public void RemoveData() {} // 0x0000000186071810-0x0000000186071990
+		// [XID] // 0x00000001895F7690-0x00000001895F76B0
+		public NavMeshBuildSettings GetBuildSettings() => default; // 0x000000018606F7F0-0x000000018606FA50
+		// [XID] // 0x00000001895FEA30-0x00000001895FEA50
+		public void BuildNavMeshSync() {} // 0x000000018606DD50-0x000000018606E070
+		// [XID] // 0x0000000189606430-0x0000000189606450
+		public AsyncOperation UpdateNavMesh(NavMeshData data) => default; // 0x00000001860725C0-0x00000001860727D0
+		// [XID] // 0x0000000189661150-0x0000000189661170
+		public bool UpdateNavMeshSync(NavMeshData data) => default; // 0x00000001860723B0-0x00000001860725C0
+		// [XID] // 0x00000001899C6600-0x00000001899C6620
+		private Bounds CalculateSourceBounds(List<NavMeshBuildSource> sources) => default; // 0x000000018606E070-0x000000018606E250
+		// [XID] // 0x000000018961CC80-0x000000018961CCA0
+		private void ProcessSources(List<NavMeshBuildSource> sources) {} // 0x0000000186070C30-0x0000000186071550
+		// [XID] // 0x00000001896240C0-0x00000001896240E0
+		private float ParseWaterDeep(string name) => default; // 0x0000000186070A80-0x0000000186070C30
+		// [XID] // 0x000000018962B970-0x000000018962B990
+		public static void Register(NavMeshSurface surface) {} // 0x0000000186071550-0x0000000186071810
+		// [XID] // 0x000000018998A8A0-0x000000018998A8C0
+		public static void Unregister(NavMeshSurface surface) {} // 0x0000000186071EC0-0x0000000186072110
+		// [XID] // 0x000000018963AC90-0x000000018963ACB0
+		private static void UpdateActive() {} // 0x0000000186072110-0x0000000186072260
+		// [XID] // 0x00000001896422F0-0x0000000189642310
+		private void AppendModifierVolumes(ref List<NavMeshBuildSource> sources) {} // 0x000000018606D240-0x000000018606DC30
+		// [XID] // 0x0000000189649B30-0x0000000189649B50
+		private List<NavMeshBuildSource> CollectSources() => default; // 0x000000018606EE40-0x000000018606F7F0
+		// [XID] // 0x00000001895F8770-0x00000001895F8790
+		private static Vector3 Abs(Vector3 v) => default; // 0x000000018606CC20-0x000000018606CD90
+		// [XID] // 0x0000000189629550-0x0000000189629570
+		private static Bounds GetWorldBounds(Matrix4x4 mat, Bounds bounds) => default; // 0x000000018606FB10-0x000000018606FFC0
+		// [XID] // 0x000000018965FF90-0x000000018965FFB0
+		private Bounds CalculateWorldBounds(List<NavMeshBuildSource> sources) => default; // 0x000000018606E250-0x000000018606EE40
+		// [XID] // 0x0000000189667A70-0x0000000189667A90
+		private bool HasTransformChanged() => default; // 0x000000018606FFC0-0x0000000186070190
+		// [XID] // 0x000000018966F260-0x000000018966F280
+		private void UpdateDataIfTransformChanged() {} // 0x0000000186072260-0x00000001860723B0
+		// [XID] // 0x0000000189676D50-0x0000000189676D70
+		public void BindAgent(NavMeshAgent agent) {} // 0x000000018606DC30-0x000000018606DD50
+		// [XID] // 0x0000000189B206B0-0x0000000189B206D0
+		public int GetSurfaceID() => default; // 0x000000018606FA50-0x000000018606FB10
+		// [XID] // 0x0000000189BDE560-0x0000000189BDE580
+		public void UnbindAgent(NavMeshAgent agent) {} // 0x0000000186071DF0-0x0000000186071EC0
+		// [XID] // 0x0000000189BBFEF0-0x0000000189BBFF10
+		private void OnDestroy() {} // 0x0000000186070750-0x0000000186070910
+		// [IDTag] // 0x0000000189695210-0x0000000189695250
+		// [XID] // 0x0000000189695210-0x0000000189695250
+		public bool IntersectWith(Vector3 center, Vector3 extend, int areaMask) => default; // 0x0000000186070470-0x00000001860705D0
+		// [IDTag] // 0x000000018969F860-0x000000018969F8A0
+		// [XID] // 0x000000018969F860-0x000000018969F8A0
+		public bool IntersectWithFast(Vector3 center, Vector3 extend, int areaMask) => default; // 0x0000000186070190-0x00000001860702F0
+		// [IDTag] // 0x00000001896A9CF0-0x00000001896A9D30
+		// [XID] // 0x00000001896A9CF0-0x00000001896A9D30
+		public bool IntersectWith(Vector3 center, Vector3 extend, NavMeshQueryFilter filter) => default; // 0x00000001860705D0-0x0000000186070750
+		// [IDTag] // 0x00000001896B3FA0-0x00000001896B3FE0
+		// [XID] // 0x00000001896B3FA0-0x00000001896B3FE0
+		public bool IntersectWithFast(Vector3 center, Vector3 extend, NavMeshQueryFilter filter) => default; // 0x00000001860702F0-0x0000000186070470
+	}
+}

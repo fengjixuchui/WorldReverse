@@ -1,0 +1,137 @@
+﻿/*
+ * Generated code file by Il2CppInspector - http://www.djkaty.com - https://github.com/djkaty
+ */
+
+using System;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using IFix.Core;
+
+// Image 59: Assembly-CSharp-firstpass.dll - Assembly: Assembly-CSharp-firstpass, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null - Types 6705-10699
+
+namespace miHoYoTools
+{
+	public class Device // TypeDefIndex: 8453
+	{
+		// Fields
+		private static Device _instance; // 0x00
+		private static object _lock; // 0x08
+	
+		// Properties
+		public static Device instance { /* [XID] */ /* 0x0000000189B78030-0x0000000189B78050 */ get => default; } // 0x0000000185400E80-0x0000000185401080 
+	
+		// Constructors
+		private Device() {} // 0x0000000185400E10-0x0000000185400E80
+		static Device() {} // 0x0000000185400D70-0x0000000185400E10
+	
+		// Methods
+		// [XID] // 0x0000000189B7F5C0-0x0000000189B7F5E0
+		private void Initialize() {} // 0x0000000185400C30-0x0000000185400CD0
+		// [XID] // 0x00000001896A0CA0-0x00000001896A0CC0
+		public int GetCpuCount() => default; // 0x00000001853FF060-0x00000001853FF100
+		// [XID] // 0x0000000189B8E340-0x0000000189B8E360
+		public int GetCpuMaxFreq(int core) => default; // 0x00000001853FF320-0x00000001853FF3D0
+		// [XID] // 0x00000001896AF5A0-0x00000001896AF5C0
+		public int GetCpuMinFreq(int core) => default; // 0x00000001853FF3D0-0x00000001853FF480
+		// [XID] // 0x00000001896B6C80-0x00000001896B6CA0
+		public int GetCpuCurFreq(int core) => default; // 0x00000001853FF100-0x00000001853FF1C0
+		// [XID] // 0x00000001896BDEC0-0x00000001896BDEE0
+		public int GetCpuTemp() => default; // 0x00000001853FF520-0x00000001853FF5C0
+		// [XID] // 0x0000000189BABA30-0x0000000189BABA50
+		public long GetCpuTimeTotal() => default; // 0x00000001853FF660-0x00000001853FF700
+		// [XID] // 0x00000001896E3180-0x00000001896E31A0
+		public long GetCpuTimeUsed() => default; // 0x00000001853FF700-0x00000001853FF7A0
+		// [XID] // 0x0000000189BBA560-0x0000000189BBA580
+		public long GetCpuTimeApp() => default; // 0x00000001853FF5C0-0x00000001853FF660
+		// [XID] // 0x0000000189BC2560-0x0000000189BC2580
+		public int GetCpuUsage() => default; // 0x00000001853FF840-0x00000001853FF8E0
+		// [XID] // 0x0000000189734C10-0x0000000189734C30
+		public int GetCpuUsageApp() => default; // 0x00000001853FF7A0-0x00000001853FF840
+		// [XID] // 0x00000001896F90E0-0x00000001896F9100
+		public int GetGpuMaxFreq() => default; // 0x00000001853FF980-0x00000001853FFA20
+		// [XID] // 0x0000000189BD89A0-0x0000000189BD89C0
+		public int GetGpuMinFreq() => default; // 0x00000001853FFAD0-0x00000001853FFB70
+		// [XID] // 0x0000000189708140-0x0000000189708160
+		public int GetGpuCurFreq() => default; // 0x00000001853FF8E0-0x00000001853FF980
+		// [XID] // 0x00000001895ECE80-0x00000001895ECEA0
+		public long GetMemoryTotalSize() => default; // 0x00000001853FFD80-0x00000001853FFE30
+		// [XID] // 0x0000000189716D90-0x0000000189716DB0
+		public long GetMemoryAvailableSize() => default; // 0x00000001853FFC40-0x00000001853FFCE0
+		// [XID] // 0x0000000189746F60-0x0000000189746F80
+		public long GetMemoryAppSize() => default; // 0x00000001853FFB70-0x00000001853FFC40
+		// [XID] // 0x0000000189603600-0x0000000189603620
+		public long GetGpuMemorySize() => default; // 0x00000001853FFA20-0x00000001853FFAD0
+		// [XID] // 0x000000018960B040-0x000000018960B060
+		public int GetMemoryCurFreq() => default; // 0x00000001853FFCE0-0x00000001853FFD80
+		// [XID] // 0x0000000189612440-0x0000000189612460
+		public int GetBatteryStatus() => default; // 0x00000001853FEE80-0x00000001853FEF20
+		// [XID] // 0x0000000189619D90-0x0000000189619DB0
+		public int GetBatteryMaxLevel() => default; // 0x00000001853FECA0-0x00000001853FED40
+		// [XID] // 0x000000018976C340-0x000000018976C360
+		public int GetBatteryLevel() => default; // 0x00000001853FEBF0-0x00000001853FECA0
+		// [XID] // 0x0000000189628AC0-0x0000000189628AE0
+		public int GetBatteryTemperature() => default; // 0x00000001853FEF20-0x00000001853FEFC0
+		// [XID] // 0x000000018977AF30-0x000000018977AF50
+		public int GetBatteryVoltage() => default; // 0x00000001853FEFC0-0x00000001853FF060
+		// [XID] // 0x0000000189638040-0x0000000189638060
+		public int GetBatteryCapacity() => default; // 0x00000001853FEAB0-0x00000001853FEB50
+		// [XID] // 0x000000018963F230-0x000000018963F250
+		public int GetBatteryCurrent() => default; // 0x00000001853FEB50-0x00000001853FEBF0
+		// [XID] // 0x0000000189646A80-0x0000000189646AA0
+		public int GetCpuCurrent(int index) => default; // 0x00000001853FF270-0x00000001853FF320
+		// [XID] // 0x0000000189994900-0x0000000189994920
+		public double GetCpuCurrentTotal() => default; // 0x00000001853FF1C0-0x00000001853FF270
+		// [XID] // 0x00000001897A0AF0-0x00000001897A0B10
+		public long GetCpuPowerTimeTotal() => default; // 0x00000001853FF480-0x00000001853FF520
+		// [XID] // 0x000000018965D3A0-0x000000018965D3C0
+		public int GetBatteryPower() => default; // 0x00000001853FEDE0-0x00000001853FEE80
+		// [XID] // 0x00000001896649B0-0x00000001896649D0
+		public int GetBatteryPowerCurrent() => default; // 0x00000001853FED40-0x00000001853FEDE0
+		// [XID] // 0x00000001897B7950-0x00000001897B7970
+		public bool IsNetworkAvailable() => default; // 0x0000000185400CD0-0x0000000185400D70
+		// [XID] // 0x0000000189673DE0-0x0000000189673E00
+		public int GetNetworkType() => default; // 0x0000000185400870-0x0000000185400910
+		// [XID] // 0x00000001897C7050-0x00000001897C7070
+		public int GetNetworkSignal() => default; // 0x00000001854004B0-0x0000000185400550
+		// [XID] // 0x00000001897CE660-0x00000001897CE680
+		public int GetNetworkStrength() => default; // 0x0000000185400550-0x00000001854005F0
+		// [XID] // 0x000000018968A900-0x000000018968A920
+		public int GetNetworkWifiState() => default; // 0x00000001854009B0-0x0000000185400A50
+		// [XID] // 0x00000001897DD490-0x00000001897DD4B0
+		public int GetNetworkWifiRssi() => default; // 0x0000000185400910-0x00000001854009B0
+		// [XID] // 0x00000001897E4DF0-0x00000001897E4E10
+		public int GetNetworkWifiStrength() => default; // 0x0000000185400A50-0x0000000185400AF0
+		// [XID] // 0x00000001896A0F90-0x00000001896A0FB0
+		public long GetNetworkTotalRxBytes() => default; // 0x00000001854005F0-0x0000000185400690
+		// [XID] // 0x00000001896A8410-0x00000001896A8430
+		public long GetNetworkTotalTxBytes() => default; // 0x0000000185400730-0x00000001854007D0
+		// [XID] // 0x00000001897FBCA0-0x00000001897FBCC0
+		public long GetNetworkTotalRxRate() => default; // 0x0000000185400690-0x0000000185400730
+		// [XID] // 0x0000000189803190-0x00000001898031B0
+		public long GetNetworkTotalTxRate() => default; // 0x00000001854007D0-0x0000000185400870
+		// [XID] // 0x000000018980A620-0x000000018980A640
+		public long GetNetworkMobileRxBytes() => default; // 0x0000000185400230-0x00000001854002D0
+		// [XID] // 0x00000001896C5990-0x00000001896C59B0
+		public long GetNetworkMobileTxBytes() => default; // 0x0000000185400370-0x0000000185400410
+		// [XID] // 0x00000001896CD000-0x00000001896CD020
+		public long GetNetworkMobileRxRate() => default; // 0x00000001854002D0-0x0000000185400370
+		// [XID] // 0x00000001896D44A0-0x00000001896D44C0
+		public long GetNetworkMobileTxRate() => default; // 0x0000000185400410-0x00000001854004B0
+		// [XID] // 0x000000018982F9D0-0x000000018982F9F0
+		public long GetNetworkAppRxBytes() => default; // 0x00000001853FFFB0-0x0000000185400050
+		// [XID] // 0x00000001898372B0-0x00000001898372D0
+		public long GetNetworkAppTxBytes() => default; // 0x00000001854000F0-0x0000000185400190
+		// [XID] // 0x000000018983E810-0x000000018983E830
+		public long GetNetworkAppRxRate() => default; // 0x0000000185400050-0x00000001854000F0
+		// [XID] // 0x00000001896F1930-0x00000001896F1950
+		public long GetNetworkAppTxRate() => default; // 0x0000000185400190-0x0000000185400230
+		// [XID] // 0x00000001896F9370-0x00000001896F9390
+		public string GetNetworkAddress() => default; // 0x00000001853FFF10-0x00000001853FFFB0
+		// [XID] // 0x0000000189854530-0x0000000189854550
+		public long GetStorageAvailableSize() => default; // 0x0000000185400AF0-0x0000000185400B90
+		// [XID] // 0x00000001897083D0-0x00000001897083F0
+		public long GetStorageTotalSize() => default; // 0x0000000185400B90-0x0000000185400C30
+		private static extern int GetMemoryUsageForProcessKB(); // 0x00000001853FFE30-0x00000001853FFF10
+	}
+}

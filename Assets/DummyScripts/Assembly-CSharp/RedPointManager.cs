@@ -1,0 +1,339 @@
+﻿/*
+ * Generated code file by Il2CppInspector - http://www.djkaty.com - https://github.com/djkaty
+ */
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Security;
+using IFix.Core;
+using MoleMole;
+using UnityEngine;
+
+// Image 60: Assembly-CSharp.dll - Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 10700-32500
+
+public sealed class RedPointManager : InLevelManager // TypeDefIndex: 20993
+{
+	// Fields
+	private static string NOTICE_CONTAINER_PATH; // 0x00
+	private Dictionary<uint, RedPoint> _redPointDic; // 0x10
+	private GameObject _ncPrefab; // 0x18
+
+	// Constructors
+	public RedPointManager() {} // 0x00000001829F05C0-0x00000001829F0660
+	static RedPointManager() {} // 0x00000001829F0550-0x00000001829F05C0
+
+	// Methods
+	// [XID] // 0x000000018990AF70-0x000000018990AF90
+	public override void Init() {} // 0x00000001829E8EB0-0x00000001829E9000
+	// [XID] // 0x0000000189912C20-0x0000000189912C40
+	public override void Destroy() {} // 0x00000001829E36F0-0x00000001829E3820
+	// [XID] // 0x000000018991A570-0x000000018991A590
+	private void ClearAllRedPoint() {} // 0x00000001829E1AF0-0x00000001829E1BA0
+	// [XID] // 0x0000000189921D00-0x0000000189921D20
+	public static GameObject GetOrCreateNoticeContainerObject(Transform trans) => default; // 0x00000001829EFBC0-0x00000001829EFEB0
+	// [XID] // 0x00000001899293C0-0x00000001899293E0
+	public static MonoNoticeContainer GetMonoNoticeContainer(Transform trans) => default; // 0x00000001829E4DF0-0x00000001829E4F10
+	// [XID] // 0x0000000189930AE0-0x0000000189930B00
+	public GameObject CreatNoticeContainerObject(Transform rootTrans) => default; // 0x00000001829EEFD0-0x00000001829EF1A0
+	// [XID] // 0x0000000189937EB0-0x0000000189937ED0
+	public void CreatRedPoint(uint redPointId, GameObject gameObject, RedPointType type, uint parentId = 0 /* Metadata: 0x00AFEB6D */) {} // 0x00000001829E5350-0x00000001829E5620
+	// [XID] // 0x000000018993F940-0x000000018993F960
+	public void SetRedPointShow(uint redPointId, bool active, uint num = 0 /* Metadata: 0x00AFEB71 */) {} // 0x00000001829E8860-0x00000001829E8DB0
+	// [XID] // 0x0000000189947020-0x0000000189947040
+	public bool ContainsRedPointID(uint redPointId) => default; // 0x00000001829ECDC0-0x00000001829ECE90
+	// [XID] // 0x000000018994E660-0x000000018994E680
+	public bool CheckCharacterIconRPShow() => default; // 0x00000001829E43A0-0x00000001829E4500
+	// [XID] // 0x0000000189955CA0-0x0000000189955CC0
+	public bool CheckAvatarTabRPShow(List<ulong> teamList) => default; // 0x00000001829EC550-0x00000001829EC760
+	// [XID] // 0x000000018995D780-0x000000018995D7A0
+	private void SetAvatarTabRPShow(int index, bool active) {} // 0x00000001829E3C20-0x00000001829E3D00
+	// [XID] // 0x0000000189964E10-0x0000000189964E30
+	public bool CheckCharacterSelectRPShow() => default; // 0x00000001829E16B0-0x00000001829E1790
+	// [XID] // 0x000000018996C370-0x000000018996C390
+	public bool CheckAvatarFashionRPShow() => default; // 0x00000001829E7B40-0x00000001829E7CE0
+	// [XID] // 0x0000000189973EB0-0x0000000189973ED0
+	private bool CheckAvatarFlyCloakRPShow() => default; // 0x00000001829DFFE0-0x00000001829E0230
+	// [XID] // 0x000000018997B650-0x000000018997B670
+	public bool CheckRelicTabRPShow(ulong guid) => default; // 0x00000001829E99F0-0x00000001829E9E50
+	// [XID] // 0x00000001899830F0-0x0000000189983110
+	public void SetRelicRPShow(EquipType type, bool active, bool isSelect) {} // 0x00000001829E73E0-0x00000001829E7580
+	// [XID] // 0x000000018998A840-0x000000018998A860
+	private void SetRelicTabRPShow(EquipType type, bool active, bool isSelect) {} // 0x00000001829E0A50-0x00000001829E0BF0
+	// [XID] // 0x0000000189992120-0x0000000189992140
+	public bool CheckMainPageBagIconRPShow() => default; // 0x00000001829ED6B0-0x00000001829ED7A0
+	// [XID] // 0x0000000189999E70-0x0000000189999E90
+	private bool CheckMainPageBagIconRPShow_UnOpenedChest() => default; // 0x00000001829E14D0-0x00000001829E15E0
+	// [XID] // 0x00000001899A1530-0x00000001899A1550
+	private bool CheckMainPageBagIconRPShow_UnLearnedFurnitureFormula() => default; // 0x00000001829ECE90-0x00000001829ECFA0
+	// [XID] // 0x00000001899A8F40-0x00000001899A8F60
+	private bool CheckMainPageBagIconRPShow_NewWidget() => default; // 0x00000001829E7770-0x00000001829E7A30
+	// [XID] // 0x00000001899B0990-0x00000001899B09B0
+	public void SetBagWidgetTabItemsClicked() {} // 0x00000001829E2E80-0x00000001829E3180
+	// [XID] // 0x00000001899B7D10-0x00000001899B7D30
+	public bool CheckBagPageTabRPShow(uint index, BagTab tabType) => default; // 0x00000001829DFEC0-0x00000001829DFFE0
+	// [XID] // 0x00000001899BF710-0x00000001899BF730
+	private bool CheckMainPageBagPageTabRPShow_UnOpenedChest() => default; // 0x00000001829ECB10-0x00000001829ECC20
+	// [XID] // 0x00000001899C70D0-0x00000001899C70F0
+	private bool CheckMainPageBagPageTabRPShow_UnLearnedFurnitureFormula() => default; // 0x00000001829E72D0-0x00000001829E73E0
+	// [XID] // 0x00000001899CE570-0x00000001899CE590
+	private bool CheckMainPageBagPageTabRPShow_NewWidget() => default; // 0x00000001829EA020-0x00000001829EA0D0
+	// [XID] // 0x00000001899D5CB0-0x00000001899D5CD0
+	public void CheckAvatarInfoRPShow(ulong avatarGuid) {} // 0x00000001829E4500-0x00000001829E4670
+	// [XID] // 0x00000001899DD0A0-0x00000001899DD0C0
+	public bool CheckMailRPShow() => default; // 0x00000001829E3820-0x00000001829E3B10
+	// [XID] // 0x00000001899E4CA0-0x00000001899E4CC0
+	public bool CheckBulletinRPShow() => default; // 0x00000001829E0BF0-0x00000001829E0D00
+	// [XID] // 0x00000001899EC170-0x00000001899EC190
+	public bool CheckNameCardRPShow() => default; // 0x00000001829E20D0-0x00000001829E21E0
+	// [XID] // 0x00000001899F3B90-0x00000001899F3BB0
+	public bool CheckSetBirthdayRPShow() => default; // 0x00000001829E22F0-0x00000001829E2420
+	// [XID] // 0x00000001899FB450-0x00000001899FB470
+	public void HideEditProfileRP() {} // 0x00000001829EEB30-0x00000001829EEC90
+	// [XID] // 0x0000000189A026B0-0x0000000189A026D0
+	public bool CheckSetEditProfileRPShow() => default; // 0x00000001829EB370-0x00000001829EB4A0
+	// [XID] // 0x0000000189A09E80-0x0000000189A09EA0
+	public bool CheckPaimonIconRPShow() => default; // 0x00000001829E8410-0x00000001829E8530
+	// [XID] // 0x0000000189A116E0-0x0000000189A11700
+	public bool CheckAvatarRPShow() => default; // 0x00000001829E6370-0x00000001829E6450
+	// [XID] // 0x0000000189A18A50-0x0000000189A18A70
+	public bool CheckNewAvatarRPShow() => default; // 0x00000001829EC240-0x00000001829EC3D0
+	// [XID] // 0x0000000189A20110-0x0000000189A20130
+	public bool CheckAvatarTalentUpgradeableRPShow() => default; // 0x00000001829E3430-0x00000001829E35E0
+	// [XID] // 0x0000000189A27480-0x0000000189A274A0
+	public bool CheckTalentTabRPShow(ulong guid) => default; // 0x00000001829EA1E0-0x00000001829EA5A0
+	// [XID] // 0x0000000189A2ECC0-0x0000000189A2ECE0
+	public bool CheckTalentCanUpgradeForAvatarPreview(ulong guid) => default; // 0x00000001829E9750-0x00000001829E99F0
+	// [XID] // 0x0000000189A365B0-0x0000000189A365D0
+	public bool CheckTalentCanUpgrade(uint talentId, AvatarDataItem avatarData) => default; // 0x00000001829E5050-0x00000001829E5350
+	// [XID] // 0x0000000189A3DBB0-0x0000000189A3DBD0
+	public bool CheckHandbookRPShow() => default; // 0x00000001829F0470-0x00000001829F0550
+	// [XID] // 0x0000000189A45330-0x0000000189A45350
+	public bool CheckHandbookDungeonRPShow() => default; // 0x00000001829E2D60-0x00000001829E2E80
+	// [XID] // 0x0000000189A4CA20-0x0000000189A4CA40
+	public bool CheckHandbookInvestigationRPShow() => default; // 0x00000001829E3B10-0x00000001829E3C20
+	// [XID] // 0x0000000189A54250-0x0000000189A54270
+	public bool CheckHandbookTrialRPShow() => default; // 0x00000001829EC0B0-0x00000001829EC240
+	// [XID] // 0x0000000189A5BC60-0x0000000189A5BC80
+	public bool CheckHomeworldHandbookRPShow() => default; // 0x00000001829EA0D0-0x00000001829EA1E0
+	// [XID] // 0x0000000189A633B0-0x0000000189A633D0
+	public bool CheckHomeworldHandbookNextChapterBtnRPShow(int currChapterIndex) => default; // 0x00000001829ECC20-0x00000001829ECDC0
+	// [XID] // 0x0000000189A6AF10-0x0000000189A6AF30
+	public bool CheckActivityRPShow() => default; // 0x00000001829E7CE0-0x00000001829E7E00
+	// [XID] // 0x0000000189A725C0-0x0000000189A725E0
+	public bool CheckActivitySeaLampPhaseRewardRPShow() => default; // 0x00000001829E5620-0x00000001829E5780
+	// [XID] // 0x0000000189A7A210-0x0000000189A7A230
+	public bool CheckActivitySeaLampContriRPShow() => default; // 0x00000001829E0230-0x00000001829E0340
+	// [XID] // 0x0000000189A816B0-0x0000000189A816D0
+	public bool CheckActivitySeaLampTab1RPShow() => default; // 0x00000001829E8530-0x00000001829E86A0
+	// [XID] // 0x0000000189A890D0-0x0000000189A890F0
+	public bool CheckActivitySeaLampTab2RPShow() => default; // 0x00000001829EC760-0x00000001829EC8E0
+	// [XID] // 0x0000000189A908B0-0x0000000189A908D0
+	public bool CheckActivitySeaLampTab3RPShow() => default; // 0x00000001829EAA80-0x00000001829EAC00
+	// [XID] // 0x0000000189A980F0-0x0000000189A98110
+	public bool CheckActivityNormalRPShow() => default; // 0x00000001829ED7A0-0x00000001829EDE50
+	// [XID] // 0x0000000189A9F4D0-0x0000000189A9F4F0
+	public bool CheckActivityNormalTABRPShow() => default; // 0x00000001829E0EC0-0x00000001829E14D0
+	// [XID] // 0x0000000189AA6CE0-0x0000000189AA6D00
+	public bool CheckActivityArenaChallengeNewLevel(uint levelId = 0 /* Metadata: 0x00AFEB75 */, bool isMap = false /* Metadata: 0x00AFEB79 */) => default; // 0x00000001829E6540-0x00000001829E6A50
+	// [XID] // 0x0000000189AAE450-0x0000000189AAE470
+	public bool CheckActivityExpeditionRedPoint() => default; // 0x00000001829E8120-0x00000001829E8330
+	// [XID] // 0x0000000189AB5CC0-0x0000000189AB5CE0
+	public void CheckActivityExpeditionHasReward() {} // 0x00000001829EA980-0x00000001829EAA80
+	// [XID] // 0x0000000189ABD750-0x0000000189ABD770
+	public void CheckActivityExpeditionChallenge() {} // 0x00000001829E9F20-0x00000001829EA020
+	// [XID] // 0x0000000189AC51B0-0x0000000189AC51D0
+	public bool CheckReunionButtonRedPoint() => default; // 0x00000001829E70B0-0x00000001829E72D0
+	// [XID] // 0x0000000189ACC700-0x0000000189ACC720
+	public void CheckAsterPageButtonRedPoint() {} // 0x00000001829E4750-0x00000001829E4B20
+	// [XID] // 0x0000000189AD43F0-0x0000000189AD4410
+	public bool CheckFoodDeliveryClickedRedPoint() => default; // 0x00000001829EEC90-0x00000001829EEE90
+	// [XID] // 0x0000000189ADBDE0-0x0000000189ADBE00
+	public bool CheckFlightChallengeClickedRedPoint() => default; // 0x00000001829EDF60-0x00000001829EE160
+	// [XID] // 0x0000000189AE3710-0x0000000189AE3730
+	public bool CheckTowerResetClickedRedPoint() => default; // 0x00000001829E0D00-0x00000001829E0EC0
+	// [XID] // 0x0000000189AEB070-0x0000000189AEB090
+	public bool CheckTreasureHuntClickedRedPoint() => default; // 0x00000001829E18E0-0x00000001829E1AF0
+	// [XID] // 0x0000000189AF2940-0x0000000189AF2960
+	public bool CheckActivityBlessingClickedRedPoint() => default; // 0x00000001829EF520-0x00000001829EF760
+	// [XID] // 0x0000000189AFA240-0x0000000189AFA260
+	public bool CheckActivityFleurFairRedPoint(uint activity) => default; // 0x00000001829EE390-0x00000001829EE440
+	// [XID] // 0x0000000189B017C0-0x0000000189B017E0
+	public void CheckActivityBlessingReceivePicRPShow() {} // 0x00000001829E5F80-0x00000001829E6150
+	// [XID] // 0x0000000189B08D10-0x0000000189B08D30
+	public void CheckOperationBonusActivityRPShow(uint activityId) {} // 0x00000001829EE160-0x00000001829EE2D0
+	// [XID] // 0x0000000189B10830-0x0000000189B10850
+	public void CheckEffigyRewardRPShow() {} // 0x00000001829EB270-0x00000001829EB370
+	// [XID] // 0x0000000189B178E0-0x0000000189B17900
+	public void CheckActivityHideAndSeekReward(uint activityId) {} // 0x00000001829EDE50-0x00000001829EDF60
+	// [XID] // 0x0000000189B1F220-0x0000000189B1F240
+	public void CheckActivityHideAndSeekScoreRewardDiolog(uint activityId) {} // 0x00000001829E8010-0x00000001829E8120
+	// [XID] // 0x0000000189B26A70-0x0000000189B26A90
+	public void CheckActivityHideAndSeekWatcherRewardDialog(uint activityId) {} // 0x00000001829E9000-0x00000001829E9110
+	// [XID] // 0x0000000189B2DC40-0x0000000189B2DC60
+	public void CheckActivityHideAndSeekSkillClicked(uint activityId) {} // 0x00000001829E7A30-0x00000001829E7B40
+	// [XID] // 0x0000000189B350B0-0x0000000189B350D0
+	public void CheckH5ActivityRPShow(uint activityId) {} // 0x00000001829E5CF0-0x00000001829E5E10
+	// [XID] // 0x0000000189B3C960-0x0000000189B3C980
+	public bool CheckCookCompoundRPShow() => default; // 0x00000001829E35E0-0x00000001829E36F0
+	// [XID] // 0x0000000189B446D0-0x0000000189B446F0
+	public bool CheckBattlePassIconRPShow() => default; // 0x00000001829EE850-0x00000001829EE9E0
+	// [XID] // 0x0000000189B4BEA0-0x0000000189B4BEC0
+	public bool CheckBattlePassRewardRPShow() => default; // 0x00000001829ED080-0x00000001829ED190
+	// [XID] // 0x0000000189B533E0-0x0000000189B53400
+	public bool CheckBattlePassMissionRPShow() => default; // 0x00000001829EE9E0-0x00000001829EEB30
+	// [XID] // 0x0000000189B5ACF0-0x0000000189B5AD10
+	public bool CheckBattlePassMissionTodayRPShow() => default; // 0x00000001829E25B0-0x00000001829E2710
+	// [XID] // 0x0000000189B62130-0x0000000189B62150
+	public bool CheckBattlePassMissionWeekRPShow() => default; // 0x00000001829EE440-0x00000001829EE5A0
+	// [XID] // 0x0000000189B69D90-0x0000000189B69DB0
+	public bool CheckBattlePassMissionScheduleRPShow() => default; // 0x00000001829E2A20-0x00000001829E2B80
+	// [XID] // 0x0000000189B712C0-0x0000000189B712E0
+	public bool CheckFriendRPShow() => default; // 0x00000001829E9E50-0x00000001829E9F20
+	// [XID] // 0x0000000189B78920-0x0000000189B78940
+	public bool CheckFriendRequestRPShow() => default; // 0x00000001829E6150-0x00000001829E6260
+	// [XID] // 0x0000000189B7FE50-0x0000000189B7FE70
+	public bool CheckSettingRPShow() => default; // 0x00000001829E2850-0x00000001829E2930
+	// [XID] // 0x0000000189B87920-0x0000000189B87940
+	public bool CheckSettingAccountRPShow() => default; // 0x00000001829EBDF0-0x00000001829EBEB0
+	// [XID] // 0x0000000189B8EA60-0x0000000189B8EA80
+	public bool CheckSettingAccountBindAccountRPShow() => default; // 0x00000001829EE2D0-0x00000001829EE390
+	// [XID] // 0x0000000189B95F00-0x0000000189B95F20
+	public bool CheckSettingOtherRPShow() => default; // 0x00000001829EA8B0-0x00000001829EA980
+	// [XID] // 0x0000000189B9D4C0-0x0000000189B9D4E0
+	public bool CheckSettingOtherPreDownloadRPShow() => default; // 0x00000001829E0340-0x00000001829E0720
+	// [XID] // 0x0000000189BA4EF0-0x0000000189BA4F10
+	public bool CheckFetterRewardRPShow() => default; // 0x00000001829E5780-0x00000001829E58E0
+	// [XID] // 0x0000000189BAC0F0-0x0000000189BAC110
+	public bool CheckAvatarRewardRPShow(ulong guid) => default; // 0x00000001829E3180-0x00000001829E3430
+	// [XID] // 0x0000000189BB38B0-0x0000000189BB38D0
+	public bool CheckCharacterPagePropRPShow(AvatarDataItem dataItem) => default; // 0x00000001829E8DB0-0x00000001829E8EB0
+	// [XID] // 0x0000000189BBAE80-0x0000000189BBAEA0
+	public bool CheckCharacterPageFetterRPShow(AvatarDataItem avatarData) => default; // 0x00000001829E2C60-0x00000001829E2D60
+	// [XID] // 0x0000000189BC2E70-0x0000000189BC2E90
+	public bool CheckFetterStoryButtonRPShow(AvatarDataItem avatarData) => default; // 0x00000001829E6A50-0x00000001829E6D30
+	// [XID] // 0x0000000189BCA5F0-0x0000000189BCA610
+	public bool CheckFetterVoiceButtonRPShow(AvatarDataItem avatarData) => default; // 0x00000001829DFA60-0x00000001829DFDE0
+	// [XID] // 0x0000000189BD1C00-0x0000000189BD1C20
+	public bool CheckAchievementInsidePageRPShow(uint goalId) => default; // 0x00000001829E8330-0x00000001829E8410
+	// [XID] // 0x0000000189BD91F0-0x0000000189BD9210
+	public bool CheckAchievementOverviewRPShow(uint goalId) => default; // 0x00000001829EF1A0-0x00000001829EF520
+	// [XID] // 0x00000001895E5DB0-0x00000001895E5DD0
+	public bool CheckAchievementGoalRewardBtnRPShow(uint goalId) => default; // 0x00000001829E40A0-0x00000001829E43A0
+	// [XID] // 0x00000001895ED790-0x00000001895ED7B0
+	public bool CheckAchievementEntryRPShow() => default; // 0x00000001829E9500-0x00000001829E9750
+	// [XID] // 0x00000001895F4DC0-0x00000001895F4DE0
+	private bool CheckQuestRedPoint() => default; // 0x00000001829EE5A0-0x00000001829EE850
+	// [XID] // 0x00000001895FC510-0x00000001895FC530
+	public bool CheckPersonalLineQuestEntryRPShow(bool checkQuestBook = true /* Metadata: 0x00AFEB7A */) => default; // 0x00000001829E0720-0x00000001829E0A50
+	// [XID] // 0x0000000189603ED0-0x0000000189603EF0
+	public bool CheckPersonalLineInQuestPageEntryRPShow() => default; // 0x00000001829EA5A0-0x00000001829EA8B0
+	// [XID] // 0x000000018960B7F0-0x000000018960B810
+	public bool CheckPersonalLineFetchKeyRPShow() => default; // 0x00000001829E21E0-0x00000001829E22F0
+	// [XID] // 0x0000000189612C80-0x0000000189612CA0
+	public bool CheckPersonalLineChapterRPShow(uint id) => default; // 0x00000001829EAD00-0x00000001829EAE90
+	// [XID] // 0x000000018961A520-0x000000018961A540
+	public bool CheckFlightRewardShow() => default; // 0x00000001829ECFA0-0x00000001829ED080
+	// [XID] // 0x0000000189621AC0-0x0000000189621AE0
+	public void CheckFlightRewardDetailsBtn() {} // 0x00000001829E9210-0x00000001829E92D0
+	// [XID] // 0x00000001896293F0-0x0000000189629410
+	public bool CheckDragonSpineRewardOrNewOpenRedPoint() => default; // 0x00000001829E6E30-0x00000001829E6F00
+	// [XID] // 0x0000000189630D20-0x0000000189630D40
+	public void RefreshDragonSpineChapterRedpoint() {} // 0x00000001829E5E10-0x00000001829E5F80
+	// [XID] // 0x0000000189638780-0x00000001896387A0
+	public bool IsDragonSpineHasRewardOrNewChapterOpen() => default; // 0x00000001829EC3D0-0x00000001829EC550
+	// [XID] // 0x000000018963FBD0-0x000000018963FBF0
+	private bool IsDragonSpineChapterOpen(uint chapterId, ActivityInfo activityInfo) => default; // 0x00000001829EAFB0-0x00000001829EB270
+	// [XID] // 0x00000001896473B0-0x00000001896473D0
+	public bool IsDragonSpineChapterHasReward(uint chapterId, ActivityInfo activityInfo = null) => default; // 0x00000001829E1BA0-0x00000001829E1F70
+	// [XID] // 0x000000018964EAE0-0x000000018964EB00
+	public void CheckReunionSignRP() {} // 0x00000001829E4B20-0x00000001829E4CE0
+	// [XID] // 0x00000001896563D0-0x00000001896563F0
+	public void CheckReunionTaskRP() {} // 0x00000001829E86A0-0x00000001829E8860
+	// [XID] // 0x000000018965DB30-0x000000018965DB50
+	public bool CheckWaterSpriteExploreBtnRPShow() => default; // 0x00000001829EB4A0-0x00000001829EBA30
+	// [XID] // 0x0000000189665180-0x00000001896651A0
+	public bool CheckWaterSpriteStoryBtnRPShow() => default; // 0x00000001829E3D00-0x00000001829E40A0
+	// [XID] // 0x000000018966C8A0-0x000000018966C8C0
+	public bool CheckWaterSpriteFinalQuestBtnRPShow() => default; // 0x00000001829EFFA0-0x00000001829F0470
+	// [XID] // 0x00000001896746D0-0x00000001896746F0
+	public bool CheckWaterSpriteCourseBtnRPShow() => default; // 0x00000001829EF760-0x00000001829EFA00
+	// [XID] // 0x000000018967C000-0x000000018967C020
+	private bool IsWaterSpriteActivityFinalQuestFinish() => default; // 0x00000001829E5960-0x00000001829E5AC0
+	// [XID] // 0x00000001896835B0-0x00000001896835D0
+	public void CheckTreasureHuntBtnShow() {} // 0x00000001829E2420-0x00000001829E24E0
+	// [XID] // 0x000000018968B1F0-0x000000018968B210
+	public bool CheckTreasureHuntNewRegionOpened() => default; // 0x00000001829E7E00-0x00000001829E8010
+	// [XID] // 0x0000000189692EF0-0x0000000189692F10
+	public bool CheckTreasureHuntFinishHunt() => default; // 0x00000001829E7580-0x00000001829E7770
+	// [XID] // 0x000000018969A150-0x000000018969A170
+	public bool CheckTreasureHuntBonusOpened(uint index) => default; // 0x00000001829E4CE0-0x00000001829E4DF0
+	// [XID] // 0x00000001896A19A0-0x00000001896A19C0
+	public void CheckTreasureHuntBonusBtnShow(uint index) {} // 0x00000001829E15E0-0x00000001829E16B0
+	// [XID] // 0x00000001896A8E80-0x00000001896A8EA0
+	public void CheckRemoveTreasureHuntRedPoint() {} // 0x00000001829E93B0-0x00000001829E9500
+	// [XID] // 0x00000001896AFF30-0x00000001896AFF50
+	public bool CheckAllAvatarPromoteRewardRPShow() => default; // 0x00000001829E1F70-0x00000001829E20D0
+	// [XID] // 0x00000001896B7860-0x00000001896B7880
+	public bool CheckAvatarPromoteRewardRPShow(ulong guid, bool shouldSetButtonRedPoint = false /* Metadata: 0x00AFEB7B */) => default; // 0x00000001829EBEB0-0x00000001829EC0B0
+	// [XID] // 0x00000001896BE9F0-0x00000001896BEA10
+	public bool CheckBreachMaterialRewardStarBtnRPShow(AvatarDataItem avatarData, uint starIndex) => default; // 0x00000001829E6F00-0x00000001829E70B0
+	// [XID] // 0x00000001896C62D0-0x00000001896C62F0
+	public bool CheckMallRPShow() => default; // 0x00000001829E2710-0x00000001829E2850
+	// [XID] // 0x00000001896CD8D0-0x00000001896CD8F0
+	public bool CheckMallRecommendRPShow() => default; // 0x00000001829E24E0-0x00000001829E25B0
+	// [XID] // 0x00000001896D4D80-0x00000001896D4DA0
+	public bool CheckMallResinCardRPShow() => default; // 0x00000001829E6260-0x00000001829E6370
+	// [XID] // 0x00000001896DC380-0x00000001896DC3A0
+	public void CheckLanternRiteMainQuestRPShow() {} // 0x00000001829E9110-0x00000001829E9210
+	// [XID] // 0x00000001896E3BF0-0x00000001896E3C10
+	public void CheckLanternRiteMiniQuestRPShow() {} // 0x00000001829EAC00-0x00000001829EAD00
+	// [XID] // 0x00000001896EAFA0-0x00000001896EAFC0
+	public void CheckLanternRiteChessRPShow() {} // 0x00000001829ED5B0-0x00000001829ED6B0
+	// [XID] // 0x00000001896F23D0-0x00000001896F23F0
+	public void CheckLanternRiteShopRPShow() {} // 0x00000001829ECA10-0x00000001829ECB10
+	// [XID] // 0x00000001896F9D10-0x00000001896F9D30
+	public void CheckMechanicusGearRPShow() {} // 0x00000001829EEE90-0x00000001829EEFD0
+	// [XID] // 0x00000001897014E0-0x0000000189701500
+	public void CheckLanternRiteContractRPShow() {} // 0x00000001829E6D30-0x00000001829E6E30
+	// [XID] // 0x0000000189708CE0-0x0000000189708D00
+	public bool CheckCoopLegendTabRPShow() => default; // 0x00000001829E2930-0x00000001829E2A20
+	// [XID] // 0x0000000189710580-0x00000001897105A0
+	public bool CheckCoopHasReward() => default; // 0x00000001829EFEB0-0x00000001829EFFA0
+	// [XID] // 0x0000000189717960-0x0000000189717980
+	public bool CheckCoopHasNewChapter() => default; // 0x00000001829EFAD0-0x00000001829EFBC0
+	// [XID] // 0x000000018971F430-0x000000018971F450
+	public bool CheckCoopLegendAvatarRPShow(uint avatarId) => default; // 0x00000001829E92D0-0x00000001829E93B0
+	// [XID] // 0x0000000189726A20-0x0000000189726A40
+	public bool IsCoopLegendAvatarRPShow(uint avatarId) => default; // 0x00000001829EAE90-0x00000001829EAFB0
+	// [XID] // 0x000000018972DF90-0x000000018972DFB0
+	public bool CheckCoopChapterRPShow(uint chapterId) => default; // 0x00000001829E1790-0x00000001829E18E0
+	// [XID] // 0x0000000189735630-0x0000000189735650
+	public bool CheckCoopChapterViewRPShow(uint chapterId) => default; // 0x00000001829EC8E0-0x00000001829ECA10
+	// [XID] // 0x000000018973D210-0x000000018973D230
+	public bool CheckMiniTomoActivityGuideQuestRPShow() => default; // 0x00000001829DFDE0-0x00000001829DFEC0
+	// [XID] // 0x00000001897446F0-0x0000000189744710
+	public bool CheckMiniTomoActivityEndQuestRPShow() => default; // 0x00000001829E2B80-0x00000001829E2C60
+	// [XID] // 0x000000018974C3B0-0x000000018974C3D0
+	public bool CheckMiniTomoActivitySubDetailRPShow() => default; // 0x00000001829E6450-0x00000001829E6540
+	// [XID] // 0x0000000189753640-0x0000000189753660
+	public bool CheckMiniTomoActivityDetailRPShow() => default; // 0x00000001829EFA00-0x00000001829EFAD0
+	// [XID] // 0x000000018975AB40-0x000000018975AB60
+	public bool CheckMiniTomoPointRewardRPShow(int dayIndex) => default; // 0x00000001829ED190-0x00000001829ED2D0
+	// [XID] // 0x0000000189762670-0x0000000189762690
+	private bool IsMiniTomoActivityDetailRPShow() => default; // 0x00000001829E5AC0-0x00000001829E5CF0
+	// [XID] // 0x0000000189769CD0-0x0000000189769CF0
+	private bool IsMiniTomoActivityTabRPShow() => default; // 0x00000001829E4670-0x00000001829E4750
+	// [XID] // 0x00000001897712C0-0x00000001897712E0
+	private bool IsMiniTomoQuestNeedView(bool checkGuide = true /* Metadata: 0x00AFEB7C */, bool checkEnd = true /* Metadata: 0x00AFEB7D */) => default; // 0x00000001829EBA30-0x00000001829EBDF0
+	// [IDTag] // 0x0000000189778B40-0x0000000189778B80
+	// [XID] // 0x0000000189778B40-0x0000000189778B80
+	private bool IsMiniTomoActivityRewardNeedTake() => default; // 0x00000001829ED3C0-0x00000001829ED5B0
+	// [IDTag] // 0x0000000189783270-0x00000001897832B0
+	// [XID] // 0x0000000189783270-0x00000001897832B0
+	private bool IsMiniTomoActivityRewardNeedTake(int dayIndex) => default; // 0x00000001829ED2D0-0x00000001829ED3C0
+	// [XID] // 0x000000018978D810-0x000000018978D830
+	public bool CheckActivityHomeworldGoto() => default; // 0x00000001829E4F10-0x00000001829E5050
+}
+

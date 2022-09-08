@@ -1,0 +1,27 @@
+﻿/*
+ * Generated code file by Il2CppInspector - http://www.djkaty.com - https://github.com/djkaty
+ */
+
+using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Security;
+
+// Image 60: Assembly-CSharp.dll - Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 10700-32500
+
+public enum ConfigSchedulePlatform // TypeDefIndex: 18947
+{
+	DEFAULT_HIGHT = 0,
+	DEFAULT_LOWEST = 1,
+	PC = 2,
+	PS4_HIGH = 3,
+	PS4_LOW = 4,
+	SWITCH = 5,
+	IOS_HIGH = 6,
+	IOS_MEDIUM = 7,
+	IOS_LOW = 8,
+	ANDROID_HIGH = 9,
+	ANDROID_MEDIUM = 10,
+	ANDROID_LOW = 11
+}
+

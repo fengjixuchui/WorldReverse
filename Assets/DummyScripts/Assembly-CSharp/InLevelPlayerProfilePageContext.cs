@@ -1,0 +1,271 @@
+﻿/*
+ * Generated code file by Il2CppInspector - http://www.djkaty.com - https://github.com/djkaty
+ */
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Security;
+using IFix.Core;
+using MoleMole;
+using UnityEngine.Events;
+
+// Image 60: Assembly-CSharp.dll - Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 10700-32500
+
+public sealed class InLevelPlayerProfilePageContext : BasePageContext // TypeDefIndex: 29929
+{
+	// Fields
+	private ProfileState curState; // 0x190
+	private MonoInLevelPlayerProfilePage _pageMono; // 0x198
+	private bool _isSummonPaimon; // 0x1A0
+	private bool _needSummonPaimon; // 0x1A1
+	private LCPaimon lcPaimon; // 0x1A8
+	private LogicCamera _curLogicCamera; // 0x1B0
+	private ProfileType _type; // 0x1B8
+	private ulong lastClickHandleTime; // 0x1C0
+	private const ulong clickIntervalTime = 500; // Metadata: 0x00B1028A
+	private LayoutVersion _lastLayoutVersion; // 0x1C8
+	private bool _cameraKeep; // 0x1CC
+	private UnityAction onCloseView; // 0x1D0
+	private int _prevConfirmFrame; // 0x1D8
+	private float _confirmStartTime; // 0x1DC
+	private List<PaimonEntryType> _validEntries; // 0x1E0
+	private List<MonoPlayerProfileMenuItem> _validEntryTrans; // 0x1E8
+	private int _selectedEntryIndex; // 0x1F0
+	private int _entryCountPerRow; // 0x1F4
+	private int _selectLeftEntryIndex; // 0x1F8
+	private int _selectEditBtnIndex; // 0x1FC
+	private bool _inLeftPanel; // 0x200
+	private bool _inEditPanel; // 0x201
+
+	// Nested types
+	public enum ProfileType // TypeDefIndex: 29930
+	{
+		Simple = 0,
+		Normal = 1
+	}
+
+	private enum ProfileState // TypeDefIndex: 29931
+	{
+		Move = 0,
+		Back = 1
+	}
+
+	public enum PaimonLeftEntryType // TypeDefIndex: 29932
+	{
+		Photograph = 0,
+		Bulletin = 1,
+		Mail = 2,
+		TimeAcceleration = 3,
+		Setting = 4
+	}
+
+	public enum PaimonEditBtnType // TypeDefIndex: 29933
+	{
+		EditProfile = 0,
+		HeadPortrait = 1,
+		NameCard = 2,
+		Name = 3,
+		Birthday = 4,
+		Signature = 5,
+		CopyUid = 6
+	}
+
+	// Constructors
+	public InLevelPlayerProfilePageContext() {} // Dummy constructor
+	public InLevelPlayerProfilePageContext(ProfileType type = ProfileType.Normal /* Metadata: 0x00B10286 */) {} // 0x0000000181FA34A0-0x0000000181FA3630
+
+	// Methods
+	// [XID] // 0x000000018982BC00-0x000000018982BC20
+	public override void SetupView() {} // 0x0000000181FA2B00-0x0000000181FA2FC0
+	// [XID] // 0x0000000189833170-0x0000000189833190
+	private void SetEntryBtnView() {} // 0x0000000181F9EE30-0x0000000181F9F3E0
+	// [XID] // 0x000000018983A620-0x000000018983A640
+	private void SetLeftBtnView() {} // 0x0000000181F9BDF0-0x0000000181F9BFC0
+	// [XID] // 0x0000000189841C00-0x0000000189841C20
+	private bool IsEntryActive(PaimonEntryType entryType) => default; // 0x0000000181F96E50-0x0000000181F97380
+	// [XID] // 0x0000000189849110-0x0000000189849130
+	public override void ClearView() {} // 0x0000000181F9AFF0-0x0000000181F9B100
+	// [XID] // 0x00000001898508D0-0x00000001898508F0
+	private void ResetPlayerInfo() {} // 0x0000000181F97D60-0x0000000181F988E0
+	// [XID] // 0x0000000189857C80-0x0000000189857CA0
+	protected override void BindViewCallbacks() {} // 0x0000000181F9A280-0x0000000181F9AAB0
+	// [XID] // 0x000000018985ED70-0x000000018985ED90
+	private bool IsClickInvalid() => default; // 0x0000000181F9F8A0-0x0000000181F9F9B0
+	// [XID] // 0x0000000189866570-0x0000000189866590
+	public override bool OnNotify(Notify ntf) => default; // 0x0000000181FA1EA0-0x0000000181FA2010
+	// [XID] // 0x000000018986DE70-0x000000018986DE90
+	private void BindEntryCallback(PaimonEntryType entryType, MonoPlayerProfileMenuItem item) {} // 0x0000000181F9D270-0x0000000181F9D4F0
+	// [XID] // 0x0000000189875240-0x0000000189875260
+	protected override void BindRedPoints() {} // 0x0000000181F99D40-0x0000000181F9A280
+	// [XID] // 0x000000018987CE30-0x000000018987CE50
+	private void BindEntryRedPoint(PaimonEntryType entryType, MonoPlayerProfileMenuItem item) {} // 0x0000000181F9C190-0x0000000181F9C310
+	// [XID] // 0x0000000189883DB0-0x0000000189883DD0
+	protected override void OnEnable() {} // 0x0000000181FA1AE0-0x0000000181FA1EA0
+	// [XID] // 0x000000018988B450-0x000000018988B470
+	private void RefreshNameCard() {} // 0x0000000181FA22B0-0x0000000181FA2460
+	// [XID] // 0x0000000189892BD0-0x0000000189892BF0
+	protected override void OnDisable() {} // 0x0000000181FA1A40-0x0000000181FA1AE0
+	// [XID] // 0x000000018989A270-0x000000018989A290
+	private void OnLogout() {} // 0x0000000181F9CD40-0x0000000181F9CE20
+	// [XID] // 0x00000001898A14B0-0x00000001898A14D0
+	private void LogoutWithConfirm() {} // 0x0000000181FA0140-0x0000000181FA02D0
+	// [XID] // 0x00000001898A8D20-0x00000001898A8D40
+	public override void ClosePage() {} // 0x0000000181F97AB0-0x0000000181F97D60
+	// [XID] // 0x00000001898B06A0-0x00000001898B06C0
+	private void FinalClosePage() {} // 0x0000000181F9C0E0-0x0000000181F9C190
+	// [XID] // 0x00000001898B7CB0-0x00000001898B7CD0
+	public void SummonPaimon(bool enable) {} // 0x0000000181F9AAB0-0x0000000181F9ACB0
+	// [XID] // 0x00000001898BF2E0-0x00000001898BF300
+	public override void UpdateView() {} // 0x0000000181FA2FC0-0x0000000181FA34A0
+	// [XID] // 0x00000001898C6C40-0x00000001898C6C60
+	public void MoveDialog() {} // 0x0000000181FA1570-0x0000000181FA1610
+	// [XID] // 0x00000001898CE200-0x00000001898CE220
+	private void MoveDialogNew() {} // 0x0000000181F98D70-0x0000000181F99D40
+	// [XID] // 0x00000001898D5C50-0x00000001898D5C70
+	public void BackMoveDialog() {} // 0x0000000181F988E0-0x0000000181F98D10
+	// [XID] // 0x00000001898DD960-0x00000001898DD980
+	public void OnTime() {} // 0x0000000181FA2010-0x0000000181FA22B0
+	// [XID] // 0x00000001898E5270-0x00000001898E5290
+	private void OpenMall() {} // 0x0000000181F9DFB0-0x0000000181F9E120
+	// [XID] // 0x00000001898EC9E0-0x00000001898ECA00
+	private void OpenActivity() {} // 0x0000000181F9FDE0-0x0000000181F9FFA0
+	// [XID] // 0x00000001898F43D0-0x00000001898F43F0
+	private void OpenBulletin() {} // 0x0000000181F9FC80-0x0000000181F9FDE0
+	// [XID] // 0x00000001898FBBC0-0x00000001898FBBE0
+	private void OpenHandBook() {} // 0x0000000181F9F9B0-0x0000000181F9FB50
+	// [XID] // 0x00000001899035B0-0x00000001899035D0
+	private void OpenFeedback() {} // 0x0000000181F9E780-0x0000000181F9E860
+	// [XID] // 0x000000018990AB00-0x000000018990AB20
+	private void OpenSetting() {} // 0x0000000181FA0B50-0x0000000181FA0C70
+	// [XID] // 0x00000001899127D0-0x00000001899127F0
+	private void OpenPhotograph() {} // 0x0000000181F9E450-0x0000000181F9E570
+	// [XID] // 0x000000018991A0C0-0x000000018991A0E0
+	private void OpenMail() {} // 0x0000000181F9E120-0x0000000181F9E250
+	// [XID] // 0x00000001899218C0-0x00000001899218E0
+	private void OpenGacha() {} // 0x0000000181F9B850-0x0000000181F9B970
+	// [XID] // 0x0000000189928FE0-0x0000000189929000
+	private void OpenAchievement() {} // 0x0000000181F9FB50-0x0000000181F9FC80
+	// [XID] // 0x0000000189930530-0x0000000189930550
+	private void OpenBattlePass() {} // 0x0000000181F9F680-0x0000000181F9F760
+	// [XID] // 0x0000000189937A00-0x0000000189937A20
+	private void OpenTeam() {} // 0x0000000181FA0DB0-0x0000000181FA0F40
+	// [XID] // 0x000000018993F510-0x000000018993F530
+	private void OpenAvatarPreview() {} // 0x0000000181F9DB00-0x0000000181F9DCB0
+	// [XID] // 0x0000000189946AA0-0x0000000189946AC0
+	private void OpenFriendPage() {} // 0x0000000181F9CE20-0x0000000181F9CF50
+	// [XID] // 0x000000018994E160-0x000000018994E180
+	private void OpenPlayerLevelPage() {} // 0x0000000181FA02D0-0x0000000181FA03F0
+	// [XID] // 0x0000000189955780-0x00000001899557A0
+	private void OpenCommunity() {} // 0x0000000181FA0C70-0x0000000181FA0DB0
+	// [XID] // 0x000000018995D2A0-0x000000018995D2C0
+	private void OpenCharacter() {} // 0x0000000181FA10A0-0x0000000181FA1240
+	// [XID] // 0x0000000189964950-0x0000000189964970
+	private void OpenBag() {} // 0x0000000181F97380-0x0000000181F97500
+	// [XID] // 0x000000018996BFF0-0x000000018996C010
+	private void OpenQuest() {} // 0x0000000181F97500-0x0000000181F97640
+	// [XID] // 0x0000000189973AC0-0x0000000189973AE0
+	private void OpenMultiplayer() {} // 0x0000000181F9ACB0-0x0000000181F9AE50
+	// [XID] // 0x000000018997B110-0x000000018997B130
+	private void OpenMap() {} // 0x0000000181FA0800-0x0000000181FA0A40
+	// [XID] // 0x0000000189982C20-0x0000000189982C40
+	private void OpenAdventureHandbook() {} // 0x0000000181F9D0F0-0x0000000181F9D270
+	// [XID] // 0x000000018998A410-0x000000018998A430
+	private void OpenCodex() {} // 0x0000000181FA2950-0x0000000181FA2B00
+	// [XID] // 0x0000000189991D00-0x0000000189991D20
+	private void OpenDerivativeMall() {} // 0x0000000181F9FFA0-0x0000000181FA0140
+	// [XID] // 0x0000000189999A30-0x0000000189999A50
+	private void DoOpenPhotograph() {} // 0x0000000181F9E960-0x0000000181F9EB10
+	// [XID] // 0x00000001899A10C0-0x00000001899A10E0
+	public override void Hide() {} // 0x0000000181F9E340-0x0000000181F9E3F0
+	// [XID] // 0x00000001899A8BD0-0x00000001899A8BF0
+	public override void DestroyForce() {} // 0x0000000181F9B4F0-0x0000000181F9B5A0
+	// [XID] // 0x00000001899B04D0-0x00000001899B04F0
+	public override bool HandleInputActionEvent(InputActionEvent actionEvent) => default; // 0x0000000181F9E250-0x0000000181F9E340
+	// [XID] // 0x00000001899B7800-0x00000001899B7820
+	public bool HandleEditPanelInputActionEvent(InputActionEvent actionEvent) => default; // 0x0000000181F9AE50-0x0000000181F9AFF0
+	// [XID] // 0x00000001899BF1A0-0x00000001899BF1C0
+	public bool HandleDefaultInputActionEvent(InputActionEvent actionEvent) => default; // 0x0000000181FA2460-0x0000000181FA27B0
+	// [XID] // 0x00000001899C6B60-0x00000001899C6B80
+	private void ConfirmLogout() {} // 0x0000000181F96C50-0x0000000181F96E50
+	// [XID] // 0x00000001899CE0E0-0x00000001899CE100
+	private void OnConfirmLogoutEnd() {} // 0x0000000181F9DD10-0x0000000181F9DE20
+	// [XID] // 0x00000001899D5880-0x00000001899D58A0
+	private bool IsFirstCol(int index) => default; // 0x0000000181F9ED70-0x0000000181F9EE30
+	// [XID] // 0x00000001899DCBD0-0x00000001899DCBF0
+	private void MoveToTheLeftPanel() {} // 0x0000000181F9E860-0x0000000181F9E960
+	// [XID] // 0x00000001899E4810-0x00000001899E4830
+	private void MoveToTheRightPanel() {} // 0x0000000181FA1440-0x0000000181FA1510
+	// [XID] // 0x00000001899EBC00-0x00000001899EBC20
+	private void OnFirstItemChoose() {} // 0x0000000181FA1710-0x0000000181FA17C0
+	// [XID] // 0x00000001899F36D0-0x00000001899F36F0
+	private void ShowNextTab(bool nextOrPrev) {} // 0x0000000181F97640-0x0000000181F978F0
+	// [XID] // 0x00000001899FAFF0-0x00000001899FB010
+	private void ShowNextEditBtn(bool nextOrPrev) {} // 0x0000000181F9B5A0-0x0000000181F9B850
+	// [XID] // 0x0000000189A02240-0x0000000189A02260
+	private void ShowBtnHighLight(int index, bool active) {} // 0x0000000181F9D4F0-0x0000000181F9D680
+	// [XID] // 0x0000000189A09A30-0x0000000189A09A50
+	private void ShowEditBtnHighLight(int index, bool active) {} // 0x0000000181F9DE20-0x0000000181F9DFB0
+	// [XID] // 0x0000000189A111D0-0x0000000189A111F0
+	private MonoUIContainer GetButtonByIndex(int index) => default; // 0x0000000181FA12E0-0x0000000181FA1440
+	// [XID] // 0x0000000189A18560-0x0000000189A18580
+	private MonoUIContainer GetEditButtonByIndex(int index) => default; // 0x0000000181F978F0-0x0000000181F97AB0
+	// [XID] // 0x0000000189A1FC80-0x0000000189A1FCA0
+	private void ToLeftMenuEntry() {} // 0x0000000181F9D680-0x0000000181F9D7C0
+	// [XID] // 0x0000000189A26FF0-0x0000000189A27010
+	private void ToRightMenuEntry() {} // 0x0000000181F9BFC0-0x0000000181F9C0E0
+	// [XID] // 0x0000000189A2E810-0x0000000189A2E830
+	private void ToDownMenuEntry() {} // 0x0000000181F9BAD0-0x0000000181F9BBF0
+	// [XID] // 0x0000000189A36160-0x0000000189A36180
+	private void ToUpMenuEntry() {} // 0x0000000181F9E600-0x0000000181F9E720
+	// [XID] // 0x0000000189A3D760-0x0000000189A3D780
+	private void SelectEntry(int index) {} // 0x0000000181F9C610-0x0000000181F9C8A0
+	// [XID] // 0x0000000189A44EA0-0x0000000189A44EC0
+	private void TriggerLeftMenu() {} // 0x0000000181F9C310-0x0000000181F9C470
+	// [XID] // 0x0000000189A4C640-0x0000000189A4C660
+	private void TriggerEditBtn() {} // 0x0000000181F9B970-0x0000000181F9BAD0
+	// [XID] // 0x0000000189A53DE0-0x0000000189A53E00
+	private void TriggerMenu() {} // 0x0000000181FA03F0-0x0000000181FA0800
+	// [XID] // 0x0000000189A5B810-0x0000000189A5B830
+	private void GetPlayerFriendList() {} // 0x0000000181F9B100-0x0000000181F9B220
+	// [XID] // 0x0000000189A62F00-0x0000000189A62F20
+	private void UpdateFriendRPShow() {} // 0x0000000181F9F3E0-0x0000000181F9F5D0
+	// [XID] // 0x0000000189A6AA20-0x0000000189A6AA40
+	private void OnIconBtnClick() {} // 0x0000000181F9EC70-0x0000000181F9ED70
+	// [XID] // 0x0000000189A72120-0x0000000189A72140
+	private void OnNameCardBtnClick() {} // 0x0000000181FA0F40-0x0000000181FA1040
+	// [XID] // 0x0000000189A79DC0-0x0000000189A79DE0
+	private void ShowEditPanel(bool show) {} // 0x0000000181F9C9F0-0x0000000181F9CD40
+	// [XID] // 0x0000000189A81220-0x0000000189A81240
+	private void OnEditBtnClick() {} // 0x0000000181FA1240-0x0000000181FA12E0
+	// [XID] // 0x0000000189A88C40-0x0000000189A88C60
+	private void OnEditReturnBtnClick() {} // 0x0000000181FA1610-0x0000000181FA16B0
+	// [XID] // 0x0000000189A90430-0x0000000189A90450
+	private void OnEditNameBtnClick() {} // 0x0000000181F9CFD0-0x0000000181F9D0F0
+	// [XID] // 0x0000000189A97BE0-0x0000000189A97C00
+	private void OnEditSignatureBtnClick() {} // 0x0000000181F9B350-0x0000000181F9B490
+	// [XID] // 0x0000000189A9EFB0-0x0000000189A9EFD0
+	private void OnEditHeadPortraitBtnClick() {} // 0x0000000181F9C470-0x0000000181F9C520
+	// [XID] // 0x0000000189AA6910-0x0000000189AA6930
+	private void OnEditNameCardBtnClick() {} // 0x0000000181F9F5D0-0x0000000181F9F680
+	// [XID] // 0x0000000189AADF60-0x0000000189AADF80
+	private void OnEditCopyUidBtnClick() {} // 0x0000000181FA1900-0x0000000181FA19B0
+	// [XID] // 0x0000000189AB58D0-0x0000000189AB58F0
+	private void OnWorldLvInfoBtnClick() {} // 0x0000000181F9C930-0x0000000181F9C9F0
+	// [XID] // 0x0000000189ABD2B0-0x0000000189ABD2D0
+	private void OnCopyBtnClick() {} // 0x0000000181F9EB10-0x0000000181F9EC70
+	// [XID] // 0x0000000189AC4CE0-0x0000000189AC4D00
+	private void OnEditBirthdayBtnClick() {} // 0x0000000181FA0A40-0x0000000181FA0B50
+	// [XID] // 0x0000000189ACC360-0x0000000189ACC380
+	private void OnEditProfileBtnClick() {} // 0x0000000181F9F760-0x0000000181F9F8A0
+	// [XID] // 0x0000000189AD3E60-0x0000000189AD3E80
+	private void RefreshHeadPortrait() {} // 0x0000000181F9B220-0x0000000181F9B350
+	// [XID] // 0x0000000189ADB960-0x0000000189ADB980
+	private void RefreshNickname() {} // 0x0000000181FA27B0-0x0000000181FA2950
+	// [XID] // 0x0000000189AE3280-0x0000000189AE32A0
+	private void RefreshSignature() {} // 0x0000000181F9BBF0-0x0000000181F9BDF0
+	// [XID] // 0x0000000189AEAC30-0x0000000189AEAC50
+	private void RefreshBirthday() {} // 0x0000000181F9D7C0-0x0000000181F9DAA0
+}
+

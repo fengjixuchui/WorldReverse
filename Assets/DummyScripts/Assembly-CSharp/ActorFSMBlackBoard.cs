@@ -1,0 +1,91 @@
+﻿/*
+ * Generated code file by Il2CppInspector - http://www.djkaty.com - https://github.com/djkaty
+ */
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Security;
+using IFix.Core;
+using MihoyoOptimization;
+using MoleMole;
+using UnityEngine;
+using XLua;
+
+// Image 60: Assembly-CSharp.dll - Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 10700-32500
+
+[RecycleType] // 0x00000001898422C0-0x00000001898422E0
+public class ActorFSMBlackBoard : IAutoAllocRecycle // TypeDefIndex: 19929
+{
+	// Fields
+	// [PooledField] // 0x00000001897FDA20-0x00000001897FDA40
+	private List<DailyAction> dailyActionList; // 0x10
+	public ActorFSMReactionParam ReactionParam; // 0x20
+	private ActorFSMStateID _lastFSMStateID; // 0x30
+	// [PooledField] // 0x00000001897FDA20-0x00000001897FDA40
+	private List<Vector3> moveTargetRoute; // 0x50
+	// [PooledField] // 0x00000001897FDA20-0x00000001897FDA40
+	private Dictionary<ActionPointType, float> actionWeightDic; // 0x58
+	private DummyActionPoint targetActionPoint; // 0x60
+	private NpcActor owner; // 0x68
+	public bool MoveTargetChanged; // 0x71
+
+	// Properties
+	public List<DailyAction> DailyActionList { /* [XID] */ /* 0x00000001896F40A0-0x00000001896F40C0 */ get => default; } // 0x00000001828D58B0-0x00000001828D5950 
+	public List<DummyActionPoint> ActiveActionPointList { /* [XID] */ /* 0x00000001896FB910-0x00000001896FB950 */ get; /* [XID] */ /* 0x0000000189705D20-0x0000000189705D60 */ set; } // 0x00000001828D52D0-0x00000001828D5330 0x00000001828D5330-0x00000001828D5390
+	public ActorFSMStateID LastFSMStateID { /* [XID] */ /* 0x0000000189710680-0x00000001897106A0 */ get => default; /* [XID] */ /* 0x0000000189717A60-0x0000000189717A80 */ set {} } // 0x00000001828D5BF0-0x00000001828D5C90 0x00000001828D5CF0-0x00000001828D5DA0
+	public bool IsDailyNPC { /* [XID] */ /* 0x000000018971F550-0x000000018971F590 */ get; /* [XID] */ /* 0x00000001897297F0-0x0000000189729830 */ set; } // 0x00000001828D5790-0x00000001828D57F0 0x00000001828D4F50-0x00000001828D4FB0
+	public bool HasDailyConfig { /* [XID] */ /* 0x0000000189734070-0x0000000189734090 */ get => default; } // 0x00000001828D4D80-0x00000001828D4E40 
+	public bool IsDataInited { /* [XID] */ /* 0x000000018973B810-0x000000018973B850 */ get; /* [XID] */ /* 0x00000001897460E0-0x0000000189746120 */ set; } // 0x00000001828D5850-0x00000001828D58B0 0x00000001828D5270-0x00000001828D52D0
+	public bool IsUsingSchedule { /* [XID] */ /* 0x0000000189750880-0x00000001897508C0 */ get; /* [XID] */ /* 0x000000018975AC60-0x000000018975ACA0 */ set; } // 0x00000001828D56D0-0x00000001828D5730 0x00000001828D4FB0-0x00000001828D5010
+	public ScriptBehaviourType scriptBHVType { /* [XID] */ /* 0x00000001897652C0-0x0000000189765300 */ get; /* [XID] */ /* 0x000000018976FBB0-0x000000018976FBF0 */ set; } // 0x00000001828D5DA0-0x00000001828D5E00 0x00000001828D4C80-0x00000001828D4CE0
+	public int ScriptSitPerformAnimID { /* [XID] */ /* 0x000000018977A2C0-0x000000018977A300 */ get; /* [XID] */ /* 0x0000000189784D00-0x0000000189784D40 */ set; } // 0x00000001828D5210-0x00000001828D5270 0x00000001828D5E00-0x00000001828D5E60
+	public float? ScriptStandAngle { /* [XID] */ /* 0x000000018978F0C0-0x000000018978F100 */ get; /* [XID] */ /* 0x00000001897996B0-0x00000001897996F0 */ set; } // 0x00000001828D4010-0x00000001828D4070 0x00000001828D5730-0x00000001828D5790
+	public ActorFSMTransition DesiredFSMTransition { /* [XID] */ /* 0x00000001897A4670-0x00000001897A46B0 */ get; /* [XID] */ /* 0x00000001897AF0B0-0x00000001897AF0F0 */ set; } // 0x00000001828D48E0-0x00000001828D4940 0x00000001828D57F0-0x00000001828D5850
+	public Dictionary<ActionPointType, float> ActionWeightDic { /* [XID] */ /* 0x00000001897B9910-0x00000001897B9930 */ get => default; } // 0x00000001828D5950-0x00000001828D59F0 
+	public bool DoRefreshFreestyle { /* [XID] */ /* 0x00000001897C9340-0x00000001897C9380 */ get; /* [XID] */ /* 0x00000001897D3880-0x00000001897D38C0 */ set; } // 0x00000001828D5C90-0x00000001828D5CF0 0x00000001828D4E40-0x00000001828D4EA0
+	public List<Vector3> MoveTargetRoute { /* [XID] */ /* 0x00000001897F36D0-0x00000001897F36F0 */ get => default; } // 0x00000001828D4660-0x00000001828D4700 
+	public Vector3 MoveTarget { /* [XID] */ /* 0x00000001897FB010-0x00000001897FB030 */ get => default; } // 0x00000001828D5010-0x00000001828D51B0 
+	public bool ShouldStayStill { /* [XID] */ /* 0x0000000189802490-0x00000001898024B0 */ get => default; } // 0x00000001828D4B20-0x00000001828D4C20 
+	public bool stayFreeStyle { /* [XID] */ /* 0x0000000189809920-0x0000000189809960 */ get; /* [XID] */ /* 0x0000000189813F20-0x0000000189813F60 */ set; } // 0x00000001828D51B0-0x00000001828D5210 0x00000001828D4C20-0x00000001828D4C80
+
+	// Constructors
+	public ActorFSMBlackBoard() {} // 0x00000001828D5F00-0x00000001828D5F70
+
+	// Methods
+	[BlackList] // 0x00000001896D4EA0-0x00000001896D4EE0
+	// [XID] // 0x00000001896D4EA0-0x00000001896D4EE0
+	public virtual void AutoAllocTypeFields() {} // 0x00000001828D4230-0x00000001828D4320
+	[BlackList] // 0x00000001896DF6C0-0x00000001896DF700
+	// [XID] // 0x00000001896DF6C0-0x00000001896DF700
+	public virtual void AutoRecycleTypeFields() {} // 0x00000001828D4320-0x00000001828D4660
+	[BlackList] // 0x00000001896E9BC0-0x00000001896E9C00
+	// [XID] // 0x00000001896E9BC0-0x00000001896E9C00
+	public virtual void ReturnToObjectPool() {} // 0x00000001828D5E60-0x00000001828D5F00
+	// [XID] // 0x00000001897C1910-0x00000001897C1930
+	public void Init(NpcActor owner) {} // 0x00000001828D4EA0-0x00000001828D4F50
+	// [IDTag] // 0x00000001897DDF70-0x00000001897DDFB0
+	// [XID] // 0x00000001897DDF70-0x00000001897DDFB0
+	private void UpdateMoveTarget(List<Vector3> posList) {} // 0x00000001828D4A50-0x00000001828D4B20
+	// [IDTag] // 0x00000001897E8990-0x00000001897E89D0
+	// [XID] // 0x00000001897E8990-0x00000001897E89D0
+	private void UpdateMoveTarget(Vector3 pos) {} // 0x00000001828D4940-0x00000001828D4A50
+	// [XID] // 0x000000018981EA30-0x000000018981EA50
+	public virtual void OnPoolAllocated() {} // 0x00000001828D5A90-0x00000001828D5BF0
+	// [XID] // 0x0000000189825F40-0x0000000189825F60
+	public virtual void OnBeforePoolRecycled() {} // 0x00000001828D59F0-0x00000001828D5A90
+	// [XID] // 0x000000018982D5C0-0x000000018982D5E0
+	public void AddDailyConfigData(ILuaActorDailyConfigData data) {} // 0x00000001828D5390-0x00000001828D55D0
+	// [XID] // 0x0000000189834DB0-0x0000000189834DD0
+	public void SetupReactionParam(ActorFSMReactionType type, int freestyle, BaseEntity target) {} // 0x00000001828D4700-0x00000001828D47E0
+	// [XID] // 0x000000018983C550-0x000000018983C570
+	public void SetTargetActionPoint(DummyActionPoint dummyActionPoint, List<Vector3> posRoute = null) {} // 0x00000001828D4070-0x00000001828D4230
+	// [XID] // 0x0000000189843AE0-0x0000000189843B00
+	public DummyActionPoint GetTargetActionPoint() => default; // 0x00000001828D4CE0-0x00000001828D4D80
+	// [XID] // 0x000000018984AF70-0x000000018984AF90
+	public void SetActionPointWeight(int actionPointType, float weight) {} // 0x00000001828D55D0-0x00000001828D56D0
+	// [XID] // 0x0000000189852210-0x0000000189852230
+	public float GetActionPointWeight(ActionPointType actionPointType) => default; // 0x00000001828D47E0-0x00000001828D48E0
+}
+

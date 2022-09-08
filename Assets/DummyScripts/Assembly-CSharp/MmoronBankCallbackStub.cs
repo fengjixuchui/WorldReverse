@@ -1,0 +1,38 @@
+﻿/*
+ * Generated code file by Il2CppInspector - http://www.djkaty.com - https://github.com/djkaty
+ */
+
+using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Security;
+using IFix.Core;
+using MoleMole;
+
+// Image 60: Assembly-CSharp.dll - Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 10700-32500
+
+public class MmoronBankCallbackStub : IReusable // TypeDefIndex: 11160
+{
+	// Properties
+	public IntPtr lowLevelPtr { /* [XID] */ /* 0x0000000189B2E920-0x0000000189B2E960 */ get; /* [XID] */ /* 0x0000000189B38E90-0x0000000189B38ED0 */ private set; } // 0x0000000182D6A4A0-0x0000000182D6A500 0x0000000182D69B30-0x0000000182D69B90
+	public uint bankId { /* [XID] */ /* 0x0000000189B43B50-0x0000000189B43B90 */ get; /* [XID] */ /* 0x0000000189B4E350-0x0000000189B4E390 */ private set; } // 0x0000000182D6A560-0x0000000182D6A5C0 0x0000000182D69CD0-0x0000000182D69D30
+	public AkResult loadResult { /* [XID] */ /* 0x000000018976ADD0-0x000000018976AE10 */ get; /* [XID] */ /* 0x0000000189B631A0-0x0000000189B631E0 */ private set; } // 0x0000000182D6A180-0x0000000182D6A1E0 0x0000000182D69D30-0x0000000182D69D90
+	public IntPtr cookiePtr { /* [XID] */ /* 0x0000000189B6D870-0x0000000189B6D8B0 */ get; /* [XID] */ /* 0x0000000189B77D80-0x0000000189B77DC0 */ private set; } // 0x0000000182D69F90-0x0000000182D69FF0 0x0000000182D6A500-0x0000000182D6A560
+	public bool didLoad { /* [XID] */ /* 0x0000000189B825D0-0x0000000189B82610 */ get; /* [XID] */ /* 0x0000000189B8C6F0-0x0000000189B8C730 */ private set; } // 0x0000000182D69B90-0x0000000182D69BF0 0x0000000182D69F30-0x0000000182D69F90
+
+	// Constructors
+	public MmoronBankCallbackStub() {} // 0x0000000182D6A5C0-0x0000000182D6A620
+
+	// Methods
+	// [XID] // 0x00000001896CE980-0x00000001896CE9A0
+	public void SetLowLevelPtr(IntPtr ptr) {} // 0x0000000182D69E50-0x0000000182D69F30
+	// [XID] // 0x0000000189B9E230-0x0000000189B9E250
+	public void ReadInValues() {} // 0x0000000182D6A1E0-0x0000000182D6A4A0
+	// [XID] // 0x0000000189BA5B90-0x0000000189BA5BB0
+	public void ClearValues() {} // 0x0000000182D69FF0-0x0000000182D6A180
+	// [XID] // 0x0000000189BACEC0-0x0000000189BACEE0
+	public void Recycle() {} // 0x0000000182D69D90-0x0000000182D69E50
+	// [XID] // 0x0000000189BB47B0-0x0000000189BB47D0
+	public void BeforeRecycle() {} // 0x0000000182D69BF0-0x0000000182D69CD0
+}
+

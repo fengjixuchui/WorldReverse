@@ -1,0 +1,194 @@
+﻿/*
+ * Generated code file by Il2CppInspector - http://www.djkaty.com - https://github.com/djkaty
+ */
+
+using System;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using IFix.Core;
+
+// Image 59: Assembly-CSharp-firstpass.dll - Assembly: Assembly-CSharp-firstpass, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null - Types 6705-10699
+
+namespace CTS
+{
+	public class CTSHeightMap // TypeDefIndex: 9124
+	{
+		// Fields
+		protected int m_widthX; // 0x10
+		protected int m_depthZ; // 0x14
+		protected float[,] m_heights; // 0x18
+		protected bool m_isPowerOf2; // 0x20
+		protected float m_widthInvX; // 0x24
+		protected float m_depthInvZ; // 0x28
+		protected float m_statMinVal; // 0x2C
+		protected float m_statMaxVal; // 0x30
+		protected double m_statSumVals; // 0x38
+		protected bool m_isDirty; // 0x40
+		protected byte[] m_metaData; // 0x48
+	
+		// Properties
+		public float this[int x, int z] { /* [XID] */ /* 0x000000018992FF50-0x000000018992FF90 */ /* [IDTag] */ /* 0x000000018992FF50-0x000000018992FF90 */ get => default; /* [XID] */ /* 0x000000018993AA30-0x000000018993AA70 */ /* [IDTag] */ /* 0x000000018993AA30-0x000000018993AA70 */ set {} } // 0x000000018642C920-0x000000018642CA40 0x000000018642CC90-0x000000018642CDC0
+		public float this[float x, float z] { /* [XID] */ /* 0x0000000189944D70-0x0000000189944DB0 */ /* [IDTag] */ /* 0x0000000189944D70-0x0000000189944DB0 */ get => default; /* [XID] */ /* 0x000000018994F3E0-0x000000018994F420 */ /* [IDTag] */ /* 0x000000018994F3E0-0x000000018994F420 */ set {} } // 0x000000018642CA40-0x000000018642CB20 0x000000018642CB20-0x000000018642CC90
+	
+		// Constructors
+		public CTSHeightMap() {} // 0x000000018642BF70-0x000000018642C010
+		public CTSHeightMap(int width, int depth) {} // 0x000000018642C410-0x000000018642C560
+		public CTSHeightMap(float[,] source) {} // 0x000000018642C770-0x000000018642C920
+		public CTSHeightMap(float[,,] source, int slice) {} // 0x000000018642C560-0x000000018642C770
+		public CTSHeightMap(int[,] source) {} // 0x000000018642C210-0x000000018642C410
+		public CTSHeightMap(CTSHeightMap source) {} // 0x000000018642C010-0x000000018642C210
+	
+		// Methods
+		// [XID] // 0x00000001898A2A60-0x00000001898A2A80
+		public int Width() => default; // 0x000000018642BED0-0x000000018642BF70
+		// [XID] // 0x00000001898A9FA0-0x00000001898A9FC0
+		public int Depth() => default; // 0x0000000186426F80-0x0000000186427020
+		// [XID] // 0x00000001899C7BD0-0x00000001899C7BF0
+		public float MinVal() => default; // 0x0000000186429BB0-0x0000000186429C60
+		// [XID] // 0x00000001899CF370-0x00000001899CF390
+		public float MaxVal() => default; // 0x0000000186429B00-0x0000000186429BB0
+		// [XID] // 0x00000001899D6850-0x00000001899D6870
+		public double SumVal() => default; // 0x000000018642BC00-0x000000018642BCB0
+		// [XID] // 0x00000001898C8060-0x00000001898C8080
+		public int GetBufferSize() => default; // 0x0000000186428450-0x0000000186428500
+		// [XID] // 0x00000001898CF890-0x00000001898CF8B0
+		public byte[] GetMetaData() => default; // 0x0000000186428A80-0x0000000186428B20
+		// [XID] // 0x00000001898D71D0-0x00000001898D71F0
+		public bool IsDirty() => default; // 0x00000001864298A0-0x0000000186429940
+		// [XID] // 0x00000001898DEF70-0x00000001898DEF90
+		public void SetDirty(bool dirty = true /* Metadata: 0x00AE5472 */) {} // 0x000000018642A830-0x000000018642A8E0
+		// [XID] // 0x00000001899ECD20-0x00000001899ECD40
+		public void ClearDirty() {} // 0x0000000186426A40-0x0000000186426AE0
+		// [XID] // 0x00000001899F4AE0-0x00000001899F4B00
+		public void SetMetaData(byte[] metadata) {} // 0x000000018642ACE0-0x000000018642ADF0
+		// [XID] // 0x00000001899FC0C0-0x00000001899FC0E0
+		public float[,] Heights() => default; // 0x00000001864296C0-0x0000000186429760
+		// [XID] // 0x0000000189A0AB50-0x0000000189A0AB70
+		public float[] Heights1D() => default; // 0x00000001864295B0-0x00000001864296C0
+		// [IDTag] // 0x0000000189904860-0x00000001899048A0
+		// [XID] // 0x0000000189904860-0x00000001899048A0
+		public void SetHeights(float[] heights) {} // 0x000000018642AA10-0x000000018642AB70
+		// [IDTag] // 0x000000018990F220-0x000000018990F260
+		// [XID] // 0x000000018990F220-0x000000018990F260
+		public void SetHeights(float[,] heights) {} // 0x000000018642AB70-0x000000018642ACE0
+		// [XID] // 0x00000001896E0130-0x00000001896E0150
+		public float GetSafeHeight(int x, int z) => default; // 0x0000000186428CA0-0x0000000186428DE0
+		// [XID] // 0x00000001899210B0-0x00000001899210D0
+		public void SetSafeHeight(int x, int z, float height) {} // 0x000000018642AF40-0x000000018642B090
+		// [XID] // 0x00000001897CFE10-0x00000001897CFE30
+		protected float GetInterpolatedHeight(float x, float z) => default; // 0x00000001864287B0-0x0000000186428A80
+		// [XID] // 0x0000000189959B10-0x0000000189959B30
+		public CTSHeightMap SetHeight(float height) => default; // 0x000000018642A8E0-0x000000018642AA10
+		// [XID] // 0x0000000189961580-0x00000001899615A0
+		public void GetHeightRange(ref float minHeight, ref float maxHeight) {} // 0x0000000186428670-0x00000001864287B0
+		// [IDTag] // 0x0000000189968B30-0x0000000189968B70
+		// [XID] // 0x0000000189968B30-0x0000000189968B70
+		public float GetSlope(int x, int z) => default; // 0x00000001864292D0-0x00000001864294C0
+		// [IDTag] // 0x0000000189973670-0x00000001899736B0
+		// [XID] // 0x0000000189973670-0x00000001899736B0
+		public float GetSlope(float x, float z) => default; // 0x0000000186429100-0x00000001864292D0
+		// [XID] // 0x0000000189630E80-0x0000000189630EA0
+		public float GetSlope_a(float x, float z) => default; // 0x0000000186428F10-0x0000000186429100
+		// [XID] // 0x0000000189859E30-0x0000000189859E50
+		public float GetBaseLevel() => default; // 0x00000001864281F0-0x0000000186428450
+		// [XID] // 0x000000018998CDC0-0x000000018998CDE0
+		public bool HasData() => default; // 0x00000001864294C0-0x00000001864295B0
+		// [XID] // 0x0000000189994A60-0x0000000189994A80
+		public float[] GetRow(int rowX) => default; // 0x0000000186428B20-0x0000000186428CA0
+		// [XID] // 0x0000000189885160-0x0000000189885180
+		public void SetRow(int rowX, float[] values) {} // 0x000000018642ADF0-0x000000018642AF40
+		// [XID] // 0x00000001898343A0-0x00000001898343C0
+		public float[] GetColumn(int columnZ) => default; // 0x0000000186428500-0x0000000186428670
+		// [XID] // 0x00000001899AB850-0x00000001899AB870
+		public void SetColumn(int columnZ, float[] values) {} // 0x000000018642A6E0-0x000000018642A830
+		// [XID] // 0x00000001899B30F0-0x00000001899B3110
+		public void Reset() {} // 0x000000018642A5D0-0x000000018642A6E0
+		// [XID] // 0x00000001899BA3E0-0x00000001899BA400
+		public void UpdateStats() {} // 0x000000018642BDB0-0x000000018642BED0
+		// [XID] // 0x00000001899C1E30-0x00000001899C1E50
+		public CTSHeightMap Smooth(int iterations) => default; // 0x000000018642B3B0-0x000000018642B5D0
+		// [XID] // 0x00000001899C9260-0x00000001899C9280
+		public CTSHeightMap SmoothRadius(int radius) => default; // 0x000000018642B090-0x000000018642B3B0
+		// [XID] // 0x0000000189A8CE80-0x0000000189A8CEA0
+		public CTSHeightMap GetSlopeMap() => default; // 0x0000000186428DE0-0x0000000186428F10
+		// [XID] // 0x0000000189A9BB60-0x0000000189A9BB80
+		public CTSHeightMap Copy(CTSHeightMap CTSHeightMap) => default; // 0x0000000186426E00-0x0000000186426F80
+		// [XID] // 0x0000000189AB9820-0x0000000189AB9840
+		public CTSHeightMap CopyClamped(CTSHeightMap CTSHeightMap, float min, float max) => default; // 0x0000000186426C40-0x0000000186426E00
+		// [XID] // 0x00000001899E7390-0x00000001899E73B0
+		public CTSHeightMap Duplicate() => default; // 0x0000000186427F30-0x0000000186428000
+		// [XID] // 0x0000000189B4FB70-0x0000000189B4FB90
+		public CTSHeightMap Invert() => default; // 0x0000000186429760-0x00000001864298A0
+		// [XID] // 0x00000001899F6090-0x00000001899F60B0
+		public CTSHeightMap Flip() => default; // 0x0000000186428000-0x00000001864281F0
+		// [XID] // 0x00000001899FD6F0-0x00000001899FD710
+		public CTSHeightMap Normalise() => default; // 0x000000018642A290-0x000000018642A450
+		// [IDTag] // 0x0000000189A04DA0-0x0000000189A04DE0
+		// [XID] // 0x0000000189A04DA0-0x0000000189A04DE0
+		public CTSHeightMap Add(float value) => default; // 0x0000000186426860-0x0000000186426970
+		// [IDTag] // 0x0000000189A0F320-0x0000000189A0F360
+		// [XID] // 0x0000000189A0F320-0x0000000189A0F360
+		public CTSHeightMap Add(CTSHeightMap CTSHeightMap) => default; // 0x00000001864266D0-0x0000000186426860
+		// [IDTag] // 0x0000000189A19960-0x0000000189A199A0
+		// [XID] // 0x0000000189A19960-0x0000000189A199A0
+		public CTSHeightMap AddClamped(float value, float min, float max) => default; // 0x0000000186426340-0x00000001864264D0
+		// [IDTag] // 0x0000000189A23F50-0x0000000189A23F90
+		// [XID] // 0x0000000189A23F50-0x0000000189A23F90
+		public CTSHeightMap AddClamped(CTSHeightMap CTSHeightMap, float min, float max) => default; // 0x00000001864264D0-0x00000001864266D0
+		// [IDTag] // 0x0000000189A2E2D0-0x0000000189A2E310
+		// [XID] // 0x0000000189A2E2D0-0x0000000189A2E310
+		public CTSHeightMap Subtract(float value) => default; // 0x000000018642BAF0-0x000000018642BC00
+		// [IDTag] // 0x0000000189A38CD0-0x0000000189A38D10
+		// [XID] // 0x0000000189A38CD0-0x0000000189A38D10
+		public CTSHeightMap Subtract(CTSHeightMap CTSHeightMap) => default; // 0x000000018642B960-0x000000018642BAF0
+		// [IDTag] // 0x0000000189A433C0-0x0000000189A43400
+		// [XID] // 0x0000000189A433C0-0x0000000189A43400
+		public CTSHeightMap SubtractClamped(float value, float min, float max) => default; // 0x000000018642B7D0-0x000000018642B960
+		// [IDTag] // 0x0000000189A4D9D0-0x0000000189A4DA10
+		// [XID] // 0x0000000189A4D9D0-0x0000000189A4DA10
+		public CTSHeightMap SubtractClamped(CTSHeightMap CTSHeightMap, float min, float max) => default; // 0x000000018642B5D0-0x000000018642B7D0
+		// [IDTag] // 0x0000000189A57F80-0x0000000189A57FC0
+		// [XID] // 0x0000000189A57F80-0x0000000189A57FC0
+		public CTSHeightMap Multiply(float value) => default; // 0x000000018642A180-0x000000018642A290
+		// [IDTag] // 0x0000000189A628A0-0x0000000189A628E0
+		// [XID] // 0x0000000189A628A0-0x0000000189A628E0
+		public CTSHeightMap Multiply(CTSHeightMap CTSHeightMap) => default; // 0x0000000186429FF0-0x000000018642A180
+		// [IDTag] // 0x0000000189A6D210-0x0000000189A6D250
+		// [XID] // 0x0000000189A6D210-0x0000000189A6D250
+		public CTSHeightMap MultiplyClamped(float value, float min, float max) => default; // 0x0000000186429C60-0x0000000186429DF0
+		// [IDTag] // 0x0000000189A77C00-0x0000000189A77C40
+		// [XID] // 0x0000000189A77C00-0x0000000189A77C40
+		public CTSHeightMap MultiplyClamped(CTSHeightMap CTSHeightMap, float min, float max) => default; // 0x0000000186429DF0-0x0000000186429FF0
+		// [IDTag] // 0x0000000189A82620-0x0000000189A82660
+		// [XID] // 0x0000000189A82620-0x0000000189A82660
+		public CTSHeightMap Divide(float value) => default; // 0x0000000186427540-0x0000000186427650
+		// [IDTag] // 0x0000000189A8CFC0-0x0000000189A8D000
+		// [XID] // 0x0000000189A8CFC0-0x0000000189A8D000
+		public CTSHeightMap Divide(CTSHeightMap CTSHeightMap) => default; // 0x00000001864273B0-0x0000000186427540
+		// [IDTag] // 0x0000000189A97770-0x0000000189A977B0
+		// [XID] // 0x0000000189A97770-0x0000000189A977B0
+		public CTSHeightMap DivideClamped(float value, float min, float max) => default; // 0x0000000186427020-0x00000001864271B0
+		// [IDTag] // 0x0000000189AA1970-0x0000000189AA19B0
+		// [XID] // 0x0000000189AA1970-0x0000000189AA19B0
+		public CTSHeightMap DivideClamped(CTSHeightMap CTSHeightMap, float min, float max) => default; // 0x00000001864271B0-0x00000001864273B0
+		// [XID] // 0x0000000189ADE460-0x0000000189ADE480
+		public float Sum() => default; // 0x000000018642BCB0-0x000000018642BDB0
+		// [XID] // 0x0000000189AB3BC0-0x0000000189AB3BE0
+		public float Average() => default; // 0x0000000186426970-0x0000000186426A40
+		// [XID] // 0x0000000189656650-0x0000000189656670
+		public CTSHeightMap Power(float exponent) => default; // 0x000000018642A450-0x000000018642A5D0
+		// [XID] // 0x0000000189674990-0x00000001896749B0
+		public CTSHeightMap Contrast(float contrast) => default; // 0x0000000186426AE0-0x0000000186426C40
+		// [XID] // 0x0000000189ACA6F0-0x0000000189ACA710
+		private bool Math_IsPowerOf2(int value) => default; // 0x0000000186429A40-0x0000000186429B00
+		// [XID] // 0x0000000189A48FB0-0x0000000189A48FD0
+		private float Math_Clamp(float min, float max, float value) => default; // 0x0000000186429940-0x0000000186429A40
+		// [XID] // 0x0000000189AD9B80-0x0000000189AD9BA0
+		public void DumpMap(float scaleValue, int precision, string spacer, bool flip) {} // 0x0000000186427920-0x0000000186427C60
+		// [XID] // 0x00000001899CAB20-0x00000001899CAB40
+		public void DumpRow(int rowX, float scaleValue, int precision, string spacer) {} // 0x0000000186427C60-0x0000000186427F30
+		// [XID] // 0x0000000189665450-0x0000000189665470
+		public void DumpColumn(int columnZ, float scaleValue, int precision, string spacer) {} // 0x0000000186427650-0x0000000186427920
+	}
+}

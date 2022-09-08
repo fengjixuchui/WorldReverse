@@ -1,0 +1,22 @@
+﻿/*
+ * Generated code file by Il2CppInspector - http://www.djkaty.com - https://github.com/djkaty
+ */
+
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Security;
+using IFix.Core;
+using MoleMole;
+
+// Image 60: Assembly-CSharp.dll - Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 10700-32500
+
+internal class OPAdf65a693e16c3b7b2b08b9416dea97eb : IObjectPoolAllocator<ConfigMusicConjunctiveCondition> // TypeDefIndex: 13013
+{
+	// Constructors
+	public OPAdf65a693e16c3b7b2b08b9416dea97eb() {} // 0x0000000182C9FA90-0x0000000182C9FAF0
+
+	// Methods
+	// [XID] // 0x0000000189A535B0-0x0000000189A535D0
+	public ConfigMusicConjunctiveCondition Allocate() => default; // 0x0000000182C9F9D0-0x0000000182C9FA90
+}
+
