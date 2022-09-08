@@ -70,10 +70,9 @@ public sealed class Home : GameWorld // TypeDefIndex: 19919
         Singleton<LuaManager>.Instance.StopMemoryLeakCheck();
         yield return null;
 
-        var ui = Singleton<UIManager>.Instance;
-        ui.InitUICamera();
+        Singleton<UIManager>.Instance.InitUICamera();
         Singleton<InputManager>.Instance.InitOnSceneLoaded();
-        ui.Init(GlobalVars.WorldType.Home);
+        Singleton<UIManager>.Instance.Init(GlobalVars.WorldType.Home);
     }// 0x0000000183605CC0-0x0000000183605DC0
     [DebuggerHidden] // 0x0000000189AA3E40-0x0000000189AA3E80
                      // [XID] // 0x0000000189AA3E40-0x0000000189AA3E80
