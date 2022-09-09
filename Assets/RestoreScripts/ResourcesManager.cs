@@ -160,8 +160,11 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         }
     } // 0x0000000181F18060-0x0000000181F18710
       // [XID] // 0x00000001899BC5F0-0x00000001899BC610
-    public override void LateTick() { } // 0x0000000181F17110-0x0000000181F171D0
-                                        // [XID] // 0x00000001899C3F40-0x00000001899C3F60
+    public override void LateTick()
+    {
+        MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().LateTick();
+    } // 0x0000000181F17110-0x0000000181F171D0
+      // [XID] // 0x00000001899C3F40-0x00000001899C3F60
     public bool StartFromBundleDownload() => default; // 0x0000000181F13EC0-0x0000000181F13F70
                                                       // [XID] // 0x000000018982B7E0-0x000000018982B800
     public void LoadStreamingIndex(bool onlyStreaming = false /* Metadata: 0x00AFF3E9 */) { } // 0x0000000181F150D0-0x0000000181F15220
