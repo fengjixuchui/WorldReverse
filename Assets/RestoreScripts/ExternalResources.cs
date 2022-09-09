@@ -101,8 +101,14 @@ namespace MoleMole
                 }
             } // 0x0000000189BFFB40-0x0000000189BFFC10
               // [XID] // 0x000000018977F5C0-0x000000018977F5E0
-            public virtual void LateTick() { } // 0x0000000189BFED40-0x0000000189BFEE10
-                                               // [XID] // 0x00000001897ACB00-0x00000001897ACB20
+            public virtual void LateTick()
+            {
+                if (provider != null)
+                {
+                    provider.LateTick();
+                }
+            } // 0x0000000189BFED40-0x0000000189BFEE10
+              // [XID] // 0x00000001897ACB00-0x00000001897ACB20
             public void UnloadDataBundle() { } // 0x0000000189BFFDB0-0x0000000189BFFE70
                                                // [XID] // 0x000000018993F080-0x000000018993F0A0
             public void Deallocate(GameObject obj, uint handle, bool usePool, bool deActive) { } // 0x0000000189BFE720-0x0000000189BFE860
@@ -248,8 +254,11 @@ namespace MoleMole
           // [XID] // 0x0000000189A5A650-0x0000000189A5A670
         public void Deallocate(GameObject obj, uint handle, bool usePool, bool deActive) { } // 0x00000001858F8B30-0x00000001858F8C40
                                                                                              // [XID] // 0x00000001897E2100-0x00000001897E2120
-        public void LateTick() { } // 0x00000001858F92E0-0x00000001858F93A0
-                                   // [XID] // 0x00000001897E9900-0x00000001897E9920
+        public void LateTick()
+        {
+            _runtime.LateTick();
+        } // 0x00000001858F92E0-0x00000001858F93A0
+          // [XID] // 0x00000001897E9900-0x00000001897E9920
         public void DropUnstartedLoads() { } // 0x00000001858F8DF0-0x00000001858F8EB0
                                              // [XID] // 0x00000001897F1540-0x00000001897F1560
         public void UnloadDataBundle() { } // 0x00000001858FA150-0x00000001858FA200
