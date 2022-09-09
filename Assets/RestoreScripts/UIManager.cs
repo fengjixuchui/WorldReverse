@@ -300,8 +300,38 @@ public sealed class UIManager : GlobalManager // TypeDefIndex: 21353
     public override void InitByLocalData() { } // 0x00000001812AC0D0-0x00000001812AC180
                                                // [IDTag] // 0x0000000189763C00-0x0000000189763C40
                                                // [XID] // 0x0000000189763C00-0x0000000189763C40
-    public void Init(GlobalVars.WorldType worldType, bool isReInit = false /* Metadata: 0x00AFF4CC */) { } // 0x00000001812A6D60-0x00000001812A6F80
-                                                                                                           // [XID] // 0x000000018976E100-0x000000018976E120
+    public void Init(GlobalVars.WorldType worldType, bool isReInit = false /* Metadata: 0x00AFF4CC */)
+    {
+        InitUICamera();
+        BasePageContext content = null;
+        switch (worldType)
+        {
+            case GlobalVars.WorldType.Home:
+                content = new LoginMainPageContext();
+                ShowPage(content, true, UIShowPriority.Init);
+                break;
+            case GlobalVars.WorldType.RagdollScene:
+            case GlobalVars.WorldType.MoveTestScene:
+            case GlobalVars.WorldType.DevLevel:
+                content = new InLevelMainPageContext();
+                ShowPage(content, true, UIShowPriority.Init);
+                break;
+            case GlobalVars.WorldType.BundleDownload:
+                content = new BundleDownloadPageContext();
+                ShowPage(content, true, UIShowPriority.Init);
+                break;
+        }
+        ResetInput();
+        if (Singleton<InputManager>.Instance != null)
+            Singleton<InputManager>.Instance.InitOnSceneLoaded();
+        _reinitClearing = false;
+        FireCachedInteeAppearNotify();
+        UnlockUI(UIShowPriority.Init, true);
+        UpdateByCameraChange();
+        CheckMallOnInit(isReInit);
+        FireAllNotifyInCachedNotifyList();
+    } // 0x00000001812A6D60-0x00000001812A6F80
+      // [XID] // 0x000000018976E100-0x000000018976E120
     public override void Tick() { } // 0x00000001812B7B50-0x00000001812B7EA0
                                     // [XID] // 0x0000000189775940-0x0000000189775960
     public override void LateTick() { } // 0x00000001812B0C10-0x00000001812B0DA0
