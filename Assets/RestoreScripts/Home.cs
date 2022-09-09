@@ -14,7 +14,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // Image 60: Assembly-CSharp.dll - Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 10700-32500
-
+/// <summary>
+/// 已完成-主世界(背景有们的世界)
+/// 2022/09/09
+/// </summary>
 public sealed class Home : GameWorld // TypeDefIndex: 19919
 {
     // Fields
@@ -41,8 +44,14 @@ public sealed class Home : GameWorld // TypeDefIndex: 19919
         ManagerController.CreateInLevelManager<EnviroManager>();
     } // 0x0000000183606890-0x00000001836069A0
       // [XID] // 0x0000000189A8A820-0x0000000189A8A840
-    public void DestroyHomeManager() { } // 0x00000001836065E0-0x00000001836066F0
-                                         // [XID] // 0x0000000189A92100-0x0000000189A92120
+    public void DestroyHomeManager()
+    {
+        ManagerController.DestroyInLevelManager<EnviroManager>();
+        ManagerController.DestroyInLevelManager<EffectManager>();
+        ManagerController.DestroyInLevelManager<LevelTimeManager>();
+        Singleton<BundleDownloadWorld>.Instance.Destroy();
+    } // 0x00000001836065E0-0x00000001836066F0
+      // [XID] // 0x0000000189A92100-0x0000000189A92120
     private void LoadScene()
     {
         SceneManager.LoadScene(scenePath);
@@ -102,12 +111,34 @@ public sealed class Home : GameWorld // TypeDefIndex: 19919
      // [XID] // 0x0000000189AAE530-0x0000000189AAE550
     public override void FixedTick() { } // 0x0000000183606540-0x00000001836065E0
                                          // [XID] // 0x0000000189AB5D80-0x0000000189AB5DA0
-    public override void Tick() { } // 0x0000000183606290-0x0000000183606410
-                                    // [XID] // 0x0000000189ABD8F0-0x0000000189ABD910
+    public override void Tick()
+    {
+        Singleton<LevelTimeManager>.Instance.Tick();
+        Singleton<EffectManager>.Instance.Tick();
+        Singleton<BundleDownloadWorld>.Instance.Tick();
+    } // 0x0000000183606290-0x0000000183606410
+      // [XID] // 0x0000000189ABD8F0-0x0000000189ABD910
     public override void LateTick() { } // 0x00000001836066F0-0x0000000183606790
                                         // [XID] // 0x0000000189AC53B0-0x0000000189AC53D0
-    public override void AfterLateUpdatePostSchedule() { } // 0x0000000183606410-0x0000000183606540
-                                                           // [XID] // 0x0000000189ACC820-0x0000000189ACC840
-    public override void Destroy() { } // 0x0000000183605E20-0x0000000183605FB0
+    public override void AfterLateUpdatePostSchedule()
+    {
+        Singleton<EffectManager>.Instance.LateTick();
+        Singleton<EnviroManager>.Instance.LateTick();
+    } // 0x0000000183606410-0x0000000183606540
+      // [XID] // 0x0000000189ACC820-0x0000000189ACC840
+    public override void Destroy()
+    {
+        if (curCoroutine != null)
+        {
+            Singleton<CoroutineManager>.Instance.StopCoroutine(curCoroutine);
+            curCoroutine = null;
+        }
+        DestroyHomeManager();
+        ManagerController.CheckInLevelManagersEmpty();
+        BaseModule.ClearModuleOnLevelDestroy();
+        ManagerController.ClearGlobalManagersOnLevelDestroy();
+        GraphicsSettingData.Reset();
+        GC.Collect();
+    } // 0x0000000183605E20-0x0000000183605FB0
 }
 
