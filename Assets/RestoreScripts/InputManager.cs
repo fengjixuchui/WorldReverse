@@ -323,8 +323,22 @@ public sealed class InputManager : GlobalManager, INotifyInterface // TypeDefInd
                                     // [XID] // 0x000000018971DC20-0x000000018971DC40
     private void UploadSaveData() { } // 0x0000000182F36EF0-0x0000000182F372D0
                                       // [XID] // 0x0000000189725100-0x0000000189725120
-    private void InitEasyTouch() { } // 0x0000000182F380F0-0x0000000182F38280
-                                     // [XID] // 0x000000018972C7E0-0x000000018972C800
+    private void InitEasyTouch()
+    {
+        var easytouch = GameObject.Find("Easytouch");
+        if (easytouch)
+        {
+            _easyTouch = easytouch.GetComponent<EasyTouch>();
+        }
+        if (_easyTouch)
+        {
+            if (Application.platform == RuntimePlatform.PS4 || Application.platform == RuntimePlatform.PS5)
+                _easyTouch.enable = false;
+            else
+                _easyTouch.enable = true;
+        }
+    } // 0x0000000182F380F0-0x0000000182F38280
+      // [XID] // 0x000000018972C7E0-0x000000018972C800
     private bool GetEasyTouchEnabled() => default; // 0x0000000182F29B10-0x0000000182F29CA0
                                                    // [XID] // 0x0000000189733EF0-0x0000000189733F10
     private void SetEasyTouchEnabled(bool enabled) { } // 0x0000000182F2BF40-0x0000000182F2C0E0
