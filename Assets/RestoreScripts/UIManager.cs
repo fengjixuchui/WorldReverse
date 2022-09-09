@@ -332,10 +332,28 @@ public sealed class UIManager : GlobalManager // TypeDefIndex: 21353
         FireAllNotifyInCachedNotifyList();
     } // 0x00000001812A6D60-0x00000001812A6F80
       // [XID] // 0x000000018976E100-0x000000018976E120
-    public override void Tick() { } // 0x00000001812B7B50-0x00000001812B7EA0
-                                    // [XID] // 0x0000000189775940-0x0000000189775960
-    public override void LateTick() { } // 0x00000001812B0C10-0x00000001812B0DA0
-                                        // [XID] // 0x000000018977D1C0-0x000000018977D1E0
+    public override void Tick()
+    {
+        foreach (var context in _tickContextList)
+        {
+            context.Tick();
+        }
+        if (uiCamera && _needRefreshUICameraEnable)
+        {
+            uiCamera.enabled = _isUICameraEnableStack.value;
+            _needRefreshUICameraEnable = false;
+        }
+        CheckAndBlockTouch();
+    } // 0x00000001812B7B50-0x00000001812B7EA0
+      // [XID] // 0x0000000189775940-0x0000000189775960
+    public override void LateTick()
+    {
+        foreach (var context in _lateTickContextList)
+        {
+            context.LateTick();
+        }
+    } // 0x00000001812B0C10-0x00000001812B0DA0
+      // [XID] // 0x000000018977D1C0-0x000000018977D1E0
     public override void Destroy() { } // 0x00000001812A41B0-0x00000001812A42F0
                                        // [XID] // 0x0000000189784B80-0x0000000189784BA0
     public override void ClearOnLevelDestroy() { } // 0x00000001812A2C00-0x00000001812A2F20
