@@ -63,7 +63,7 @@ namespace MoleMole
             public string activeJobAndJobQueueInfo { /* [XID] */ /* 0x0000000189B378A0-0x0000000189B378C0 */ get; } // 0x0000000189BFFEF0-0x0000000189BFFFC0 
             public abstract bool useAssetBundles { get; set; }
             public virtual bool idle { /* [XID] */ /* 0x0000000189771870-0x0000000189771890 */ get; } // 0x0000000189C00640-0x0000000189C00700 
-            public ExternalResourceProvider provider { /* [XID] */ /* 0x00000001898F8A30-0x00000001898F8A50 */ get; } // 0x0000000189C00700-0x0000000189C007A0 
+            public ExternalResourceProvider provider { /* [XID] */ /* 0x00000001898F8A30-0x00000001898F8A50 */ get => _provider; } // 0x0000000189C00700-0x0000000189C007A0 
 
             // Constructors
             public Runtime() { } // 0x0000000189BFFE70-0x0000000189BFFEF0
@@ -93,8 +93,14 @@ namespace MoleMole
                                                // [XID] // 0x0000000189921230-0x0000000189921250
             public virtual bool LoadResourceIndex(string indexFilePath, bool onlyStreaming) => default; // 0x0000000189BFF060-0x0000000189BFF170
                                                                                                         // [XID] // 0x0000000189705190-0x00000001897051B0
-            public virtual void Tick() { } // 0x0000000189BFFB40-0x0000000189BFFC10
-                                           // [XID] // 0x000000018977F5C0-0x000000018977F5E0
+            public virtual void Tick()
+            {
+                if (provider != null)
+                {
+                    provider.Tick();
+                }
+            } // 0x0000000189BFFB40-0x0000000189BFFC10
+              // [XID] // 0x000000018977F5C0-0x000000018977F5E0
             public virtual void LateTick() { } // 0x0000000189BFED40-0x0000000189BFEE10
                                                // [XID] // 0x00000001897ACB00-0x00000001897ACB20
             public void UnloadDataBundle() { } // 0x0000000189BFFDB0-0x0000000189BFFE70
