@@ -245,8 +245,15 @@ public sealed class InputManager : GlobalManager, INotifyInterface // TypeDefInd
       // [XID] // 0x0000000189AF5910-0x0000000189AF5930
     public void OnSceneLoaded() { } // 0x0000000182F28780-0x0000000182F28820
                                     // [XID] // 0x0000000189AFCD30-0x0000000189AFCD50
-    public override void LateTick() { } // 0x0000000182F33990-0x0000000182F33B90
-                                        // [XID] // 0x0000000189B044A0-0x0000000189B044C0
+    public override void LateTick()
+    {
+        if (eventSystemInput != null)
+        {
+            eventSystemInput.ClearOnFrameEnd();
+        }
+        ClearHandledEvents();
+    } // 0x0000000182F33990-0x0000000182F33B90
+      // [XID] // 0x0000000189B044A0-0x0000000189B044C0
     public Sprite GetCurrControllerElementIcon(InputActionType inputAction) => default; // 0x0000000182F33130-0x0000000182F33280
                                                                                         // [XID] // 0x0000000189B0BD10-0x0000000189B0BD30
     public bool IsConfirmBackInvert() => default; // 0x0000000182F323A0-0x0000000182F324E0
