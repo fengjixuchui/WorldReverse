@@ -235,8 +235,11 @@ namespace MoleMole
                                // [XID] // 0x00000001897CB6A0-0x00000001897CB6C0
         public bool LoadResourceIndex(string indexFilePath, bool onlyStreaming) => default; // 0x00000001858F95C0-0x00000001858F96B0
                                                                                             // [XID] // 0x00000001896EEC60-0x00000001896EEC80
-        public void Tick() { } // 0x00000001858F9F10-0x00000001858F9FD0
-                               // [XID] // 0x0000000189A5A650-0x0000000189A5A670
+        public void Tick()
+        {
+            _runtime.Tick();
+        } // 0x00000001858F9F10-0x00000001858F9FD0
+          // [XID] // 0x0000000189A5A650-0x0000000189A5A670
         public void Deallocate(GameObject obj, uint handle, bool usePool, bool deActive) { } // 0x00000001858F8B30-0x00000001858F8C40
                                                                                              // [XID] // 0x00000001897E2100-0x00000001897E2120
         public void LateTick() { } // 0x00000001858F92E0-0x00000001858F93A0
