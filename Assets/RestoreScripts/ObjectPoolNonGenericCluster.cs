@@ -52,8 +52,18 @@ namespace MoleMole
          // [XID] // 0x0000000189AB3C80-0x0000000189AB3CA0
         private void Init() { } // 0x0000000186C312B0-0x0000000186C31350
                                 // [XID] // 0x0000000189ABB8F0-0x0000000189ABB910
-        public void Tick() { } // 0x0000000186C31560-0x0000000186C31740
-                               // [XID] // 0x0000000189AC3090-0x0000000189AC30B0
+        public void Tick()
+        {
+            foreach (var obj in _addList)
+            {
+                AddObjectPool(obj as System.Type);
+            }
+            if (_addSet != null)
+            {
+                _addSet.Clear();
+            }
+        } // 0x0000000186C31560-0x0000000186C31740
+          // [XID] // 0x0000000189AC3090-0x0000000189AC30B0
         public void AddObjectPool(System.Type t)
         {
             if (!_objectPoolCluster.Contains(t))
