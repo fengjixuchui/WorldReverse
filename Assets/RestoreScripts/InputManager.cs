@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Security;
 using HedgehogTeam.EasyTouch;
 using IFix.Core;
+using miHoYoTools;
 using MoleMole;
 using Rewired;
 using UnityEngine;
@@ -218,8 +219,30 @@ public sealed class InputManager : GlobalManager, INotifyInterface // TypeDefInd
                                                  // [XID] // 0x0000000189AE6820-0x0000000189AE6840
     public override void Destroy() { } // 0x0000000182F2C0E0-0x0000000182F2C280
                                        // [XID] // 0x0000000189AEE180-0x0000000189AEE1A0
-    public override void Tick() { } // 0x0000000182F38570-0x0000000182F388C0
-                                    // [XID] // 0x0000000189AF5910-0x0000000189AF5930
+    public override void Tick()
+    {
+        DispatchInputEvent();
+        if (eventSystem)
+        {
+            eventSystem.Tick();
+        }
+        UpdateMoveStatus();
+        CheckDebugTrigger();
+        if (enableDebugLog)
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Joystick1Button1))
+            {
+                UnityEngine.Debug.LogWarning("Joystick Button Down!);
+            }
+        }
+        CloudInput.CheckInput();
+        if (inputPlugin != null)
+        {
+            inputPlugin.Tick();
+        }
+        CheckIfJoystickDisconnectWhenInJoystickMode();
+    } // 0x0000000182F38570-0x0000000182F388C0
+      // [XID] // 0x0000000189AF5910-0x0000000189AF5930
     public void OnSceneLoaded() { } // 0x0000000182F28780-0x0000000182F28820
                                     // [XID] // 0x0000000189AFCD30-0x0000000189AFCD50
     public override void LateTick() { } // 0x0000000182F33990-0x0000000182F33B90
