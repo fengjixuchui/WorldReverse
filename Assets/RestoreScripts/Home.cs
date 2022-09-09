@@ -76,8 +76,30 @@ public sealed class Home : GameWorld // TypeDefIndex: 19919
     }// 0x0000000183605CC0-0x0000000183605DC0
     [DebuggerHidden] // 0x0000000189AA3E40-0x0000000189AA3E80
                      // [XID] // 0x0000000189AA3E40-0x0000000189AA3E80
-    private IEnumerator OnSceneLoadedAynsc() => default; // 0x0000000183606790-0x0000000183606890
-                                                         // [XID] // 0x0000000189AAE530-0x0000000189AAE550
+    private IEnumerator OnSceneLoadedAynsc()
+    {
+        var notify = Notify.CreateNotify(NotifyTypes.LoadingScene);
+        Singleton<NotifyManager>.Instance.FireNotify(notify);
+        yield return null;
+
+        //自定义引擎代码
+        //DeformationManager.ClearAll();
+        GraphicsSettingData.ApplyCameraSettingConfig(StageType.World);
+        Singleton<UIManager>.Instance.InitUICamera();
+        Singleton<NotifyManager>.Instance.FireNotify(notify);
+        yield return null;
+
+        Singleton<InputManager>.Instance.InitOnSceneLoaded();
+        Singleton<UIManager>.Instance.Init(GlobalVars.WorldType.Home);
+        GamePlayDirector.Instance.curLevelConfig = null;
+        Singleton<NotifyManager>.Instance.FireNotify(notify);
+        yield return null;
+
+        Singleton<LuaManager>.Instance.PrintMemoryLeakReport(10);
+        Singleton<LuaManager>.Instance.StopMemoryLeakCheck();
+        Singleton<NotifyManager>.Instance.FireNotify(notify);
+    }// 0x0000000183606790-0x0000000183606890
+     // [XID] // 0x0000000189AAE530-0x0000000189AAE550
     public override void FixedTick() { } // 0x0000000183606540-0x00000001836065E0
                                          // [XID] // 0x0000000189AB5D80-0x0000000189AB5DA0
     public override void Tick() { } // 0x0000000183606290-0x0000000183606410
