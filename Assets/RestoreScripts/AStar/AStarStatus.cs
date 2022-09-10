@@ -11,10 +11,10 @@ using System.Security;
 
 public enum AStarStatus // TypeDefIndex: 31371
 {
-	NotStarted = 0,
-	Searching = 1,
-	Empty = 2,
-	Partial = 3,
-	Complete = 4
+    NotStarted = 0,
+    Searching = 1,
+    Empty = 2,
+    Partial = 3,
+    Complete = 4
 }
 
