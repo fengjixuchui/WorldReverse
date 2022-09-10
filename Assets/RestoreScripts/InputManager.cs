@@ -232,7 +232,7 @@ public sealed class InputManager : GlobalManager, INotifyInterface // TypeDefInd
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.Joystick1Button1))
             {
-                UnityEngine.Debug.LogWarning("Joystick Button Down!);
+                UnityEngine.Debug.LogWarning("Joystick Button Down!");
             }
         }
         CloudInput.CheckInput();
