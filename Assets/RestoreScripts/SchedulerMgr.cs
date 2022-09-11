@@ -158,8 +158,12 @@ namespace miHoYoThread
             }
         } // 0x0000000187638680-0x00000001876388C0
           // [XID] // 0x00000001899CB790-0x00000001899CB7B0
-        public void SpawnScheduleTask(ISchedulerTask task) { } // 0x0000000187638420-0x0000000187638530
-                                                               // [XID] // 0x0000000189673D60-0x0000000189673D80
+        public void SpawnScheduleTask(ISchedulerTask task)
+        {
+            int index = task.CompareTo(task);
+            _schedulers[index].SpawnScheduleTask(task);
+        } // 0x0000000187638420-0x0000000187638530
+          // [XID] // 0x0000000189673D60-0x0000000189673D80
         public void UnSpawnScheduleTask(ISchedulerTask task) { } // 0x00000001876389D0-0x0000000187638AE0
                                                                  // [XID] // 0x000000018967B580-0x000000018967B5A0
         public void SchedulePause(int schedulerType) { } // 0x0000000187637F60-0x0000000187638050
