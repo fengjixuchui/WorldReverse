@@ -96,8 +96,11 @@ namespace miHoYoThread
             }
         } // 0x0000000187636CE0-0x0000000187636D90
           // [XID] // 0x000000018964E280-0x000000018964E2A0
-        public void Finish() { } // 0x00000001876373D0-0x0000000187637470
-                                 // [XID] // 0x0000000189ACE2D0-0x0000000189ACE2F0
+        public void Finish()
+        {
+            _isStarting = false;
+        } // 0x00000001876373D0-0x0000000187637470
+          // [XID] // 0x0000000189ACE2D0-0x0000000189ACE2F0
         public virtual void Init() { } // 0x00000001876376A0-0x0000000187637850
                                        // [XID] // 0x0000000189A61380-0x0000000189A613A0
         protected void CheckRunner() { } // 0x0000000187636C00-0x0000000187636CE0
