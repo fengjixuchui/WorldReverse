@@ -42,8 +42,14 @@ namespace miHoYoThread
             _inst.Init();
         } // 0x0000000187636D90-0x0000000187636EC0
           // [XID] // 0x00000001895FBCF0-0x00000001895FBD10
-        public static void SwitchThread(bool value) { } // 0x00000001876388C0-0x00000001876389D0
-                                                        // [XID] // 0x0000000189603580-0x00000001896035A0
+        public static void SwitchThread(bool value)
+        {
+            if (_inst != null)
+            {
+                _inst.SwitchMultiThread(value);
+            }
+        } // 0x00000001876388C0-0x00000001876389D0
+          // [XID] // 0x0000000189603580-0x00000001896035A0
         public static void PreDispose() { } // 0x0000000187637850-0x0000000187637950
                                             // [XID] // 0x000000018974B830-0x000000018974B850
         public static void Dispose() { } // 0x00000001876370B0-0x00000001876371F0
