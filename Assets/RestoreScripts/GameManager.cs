@@ -44,19 +44,15 @@ namespace MoleMole
         private SchedulerGlobalMgr _schedulerGlobalMgr; // 0x60
 
         // Properties
-        public bool isToGoBackHome { /* [XID] */ /* 0x000000018962DC50-0x000000018962DC70 */ get => default; } // 0x0000000181F86B50-0x0000000181F86BF0 
-        public bool isToGoBundleDownload { /* [XID] */ /* 0x0000000189635850-0x0000000189635870 */ get => default; } // 0x0000000181F86BF0-0x0000000181F86C90 
-        public SchedulerMgr schedulerMgr { /* [XID] */ /* 0x0000000189735650-0x0000000189735670 */ get => default; } // 0x0000000181F86D30-0x0000000181F86DD0 
-        public SchedulerGlobalMgr schedulerGlobalMgr { /* [XID] */ /* 0x000000018973D230-0x000000018973D250 */ get => default; } // 0x0000000181F86C90-0x0000000181F86D30 
-
-        // Constructors
-        public GameManager() { } // 0x0000000181F86AC0-0x0000000181F86B50
-        static GameManager() { } // 0x0000000181F86A60-0x0000000181F86AC0
+        public bool isToGoBackHome { /* [XID] */ /* 0x000000018962DC50-0x000000018962DC70 */ get => _isToGoBackHome; } // 0x0000000181F86B50-0x0000000181F86BF0 
+        public bool isToGoBundleDownload { /* [XID] */ /* 0x0000000189635850-0x0000000189635870 */ get => _isToGoBundleDownload; } // 0x0000000181F86BF0-0x0000000181F86C90 
+        public SchedulerMgr schedulerMgr { /* [XID] */ /* 0x0000000189735650-0x0000000189735670 */ get => _schedulerMgr; } // 0x0000000181F86D30-0x0000000181F86DD0 
+        public SchedulerGlobalMgr schedulerGlobalMgr { /* [XID] */ /* 0x000000018973D230-0x000000018973D250 */ get => _schedulerGlobalMgr; } // 0x0000000181F86C90-0x0000000181F86D30 
 
         // Methods
         // [XID] // 0x00000001895EA8C0-0x00000001895EA8E0
-        public GameWorld GetCurGameWorld() => default; // 0x0000000181F83C30-0x0000000181F83CD0
-                                                       // [XID] // 0x00000001895F1DD0-0x00000001895F1DF0
+        public GameWorld GetCurGameWorld() => _curGameWorld; // 0x0000000181F83C30-0x0000000181F83CD0
+                                                             // [XID] // 0x00000001895F1DD0-0x00000001895F1DF0
         private void Awake()
         {
             ObjectPoolUtility.isMainThread = true;
