@@ -105,7 +105,7 @@ namespace miHoYoThread
         {
             _consts = new SchedulerConsts();
             _schedulers = new IScheduler[9];
-            for (int i = 0; i < _schedulers.Length, i++)
+            for (int i = 0; i < _schedulers.Length; i++)
             {
                 _schedulers[i] = Scheduler.Create((SchedulerType)i, _consts.SchedulerPriority(i));
             }
