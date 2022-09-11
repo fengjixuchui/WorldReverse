@@ -184,8 +184,18 @@ namespace miHoYoThread
                                                           // [XID] // 0x0000000189A68510-0x0000000189A68530
         public virtual void ScheduleBackgroundResume() { } // 0x00000001876379F0-0x0000000187637A90
                                                            // [XID] // 0x0000000189699910-0x0000000189699930
-        public void ScheduleEntry(int schedulerType, bool lockScene) { } // 0x0000000187637B30-0x0000000187637C90
-                                                                         // [XID] // 0x00000001896A0F30-0x00000001896A0F50
+        public void ScheduleEntry(int schedulerType, bool lockScene)
+        {
+            if (_isStarted)
+            {
+                string name = _consts.SchedulerTypeEntryName(schedulerType);
+                UnityEngine.Profiling.Profiler.BeginSample(name);
+                CheckRunner();
+                _schedulers[schedulerType].ScheduleEntry(lockScene);
+                UnityEngine.Profiling.Profiler.EndSample();
+            }
+        } // 0x0000000187637B30-0x0000000187637C90
+          // [XID] // 0x00000001896A0F30-0x00000001896A0F50
         public void ScheduleMainThreadEntry(int schedulerType) { } // 0x0000000187637E30-0x0000000187637F60
                                                                    // [XID] // 0x00000001896A8390-0x00000001896A83B0
         public void ScheduleWaitAllFinished(int schedulerType) { } // 0x00000001876381E0-0x0000000187638310
