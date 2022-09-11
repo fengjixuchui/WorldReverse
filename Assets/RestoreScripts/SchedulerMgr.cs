@@ -58,8 +58,16 @@ namespace miHoYoThread
             }
         } // 0x0000000187637850-0x0000000187637950
           // [XID] // 0x000000018974B830-0x000000018974B850
-        public static void Dispose() { } // 0x00000001876370B0-0x00000001876371F0
-                                         // [XID] // 0x00000001896123E0-0x0000000189612400
+        public static void Dispose()
+        {
+            if (_inst != null)
+            {
+                _inst.Finish();
+                _inst.Destroy();
+                _inst = null;
+            }
+        } // 0x00000001876370B0-0x00000001876371F0
+          // [XID] // 0x00000001896123E0-0x0000000189612400
         public IRunnerPool GetRunnerPool() => default; // 0x0000000187637600-0x00000001876376A0
                                                        // [XID] // 0x0000000189619D30-0x0000000189619D50
         public IGraph GetGraph(int schedulerType) => default; // 0x0000000187637510-0x0000000187637600
