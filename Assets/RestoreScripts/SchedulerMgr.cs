@@ -248,7 +248,28 @@ namespace miHoYoThread
                                              // [XID] // 0x00000001896C5930-0x00000001896C5950
         public void ScheduleWaitAllBackgroundFinished() { } // 0x0000000187638140-0x00000001876381E0
                                                             // [XID] // 0x00000001898D25B0-0x00000001898D25D0
-        public virtual void Destroy() { } // 0x0000000187636EC0-0x00000001876370B0
+        public virtual void Destroy()
+        {
+            Finish();
+            CheckStarted();
+            if (_multiThreadPool != null)
+            {
+                _multiThreadPool.Destroy();
+                _multiThreadPool = null;
+            }
+            if (_mainThreadPool != null)
+            {
+                _mainThreadPool.Destroy();
+                _mainThreadPool = null;
+            }
+            _runnerPool.Destroy();
+            _runnerPool = null;
+            for (int i = 0; i < _schedulers.Length; i++)
+            {
+                _schedulers[i].Destroy();
+                _schedulers[i] = null;
+            }
+        } // 0x0000000187636EC0-0x00000001876370B0
         [Preserve] // 0x00000001896D43A0-0x00000001896D43E0
                    // [XID] // 0x00000001896D43A0-0x00000001896D43E0
         public virtual string Dump() => default; // 0x00000001876371F0-0x00000001876373D0
