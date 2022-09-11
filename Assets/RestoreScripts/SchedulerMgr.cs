@@ -229,8 +229,21 @@ namespace miHoYoThread
             }
         } // 0x0000000187638310-0x0000000187638420
           // [XID] // 0x0000000189673A60-0x0000000189673A80
-        public void ScheduleFlush(int schedulerType, bool lockScene) { } // 0x0000000187637C90-0x0000000187637E30
-                                                                         // [XID] // 0x0000000189A862D0-0x0000000189A862F0
+        public void ScheduleFlush(int schedulerType, bool lockScene)
+        {
+            if (_isStarted)
+            {
+                string name = _consts.SchedulerTypeFlushName(schedulerType);
+                UnityEngine.Profiling.Profiler.BeginSample(name);
+                _schedulers[schedulerType].ScheduleFlush(lockScene);
+                UnityEngine.Profiling.Profiler.EndSample();
+            }
+            else
+            {
+                _schedulers[schedulerType].ScheduleCheckAllFinished(lockScene);
+            }
+        } // 0x0000000187637C90-0x0000000187637E30
+          // [XID] // 0x0000000189A862D0-0x0000000189A862F0
         public void ScheduleBackground() { } // 0x0000000187637A90-0x0000000187637B30
                                              // [XID] // 0x00000001896C5930-0x00000001896C5950
         public void ScheduleWaitAllBackgroundFinished() { } // 0x0000000187638140-0x00000001876381E0
