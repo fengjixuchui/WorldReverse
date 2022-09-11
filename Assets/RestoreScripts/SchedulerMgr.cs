@@ -79,8 +79,11 @@ namespace miHoYoThread
             _multiThread = value;
         } // 0x00000001876385D0-0x0000000187638680
           // [XID] // 0x0000000189954FC0-0x0000000189954FE0
-        public void Start() { } // 0x0000000187638530-0x00000001876385D0
-                                // [XID] // 0x0000000189646A40-0x0000000189646A60
+        public void Start()
+        {
+            _isStarting = true;
+        } // 0x0000000187638530-0x00000001876385D0
+          // [XID] // 0x0000000189646A40-0x0000000189646A60
         public void CheckStarted()
         {
             if (_isStarting)
