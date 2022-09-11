@@ -101,8 +101,17 @@ namespace miHoYoThread
             _isStarting = false;
         } // 0x00000001876373D0-0x0000000187637470
           // [XID] // 0x0000000189ACE2D0-0x0000000189ACE2F0
-        public virtual void Init() { } // 0x00000001876376A0-0x0000000187637850
-                                       // [XID] // 0x0000000189A61380-0x0000000189A613A0
+        public virtual void Init()
+        {
+            _consts = new SchedulerConsts();
+            _schedulers = new IScheduler[9];
+            for (int i = 0; i < _schedulers.Length, i++)
+            {
+                _schedulers[i] = Scheduler.Create((SchedulerType)i, _consts.SchedulerPriority(i));
+            }
+            SwitchRunner(PoolType.MULTI_THREAD, Environment.ProcessorCount - 1);
+        } // 0x00000001876376A0-0x0000000187637850
+          // [XID] // 0x0000000189A61380-0x0000000189A613A0
         protected void CheckRunner() { } // 0x0000000187636C00-0x0000000187636CE0
                                          // [XID] // 0x0000000189664910-0x0000000189664930
         public virtual void SwitchRunner(PoolType poolType, int threadNum) { } // 0x0000000187638680-0x00000001876388C0
