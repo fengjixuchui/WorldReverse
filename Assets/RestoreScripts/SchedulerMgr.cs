@@ -202,7 +202,6 @@ namespace miHoYoThread
             {
                 string name = _consts.SchedulerTypeMainEntryName(schedulerType);
                 UnityEngine.Profiling.Profiler.BeginSample(name);
-                CheckRunner();
                 _schedulers[schedulerType].ScheduleMainThreadEntry();
                 UnityEngine.Profiling.Profiler.EndSample();
             }
@@ -214,7 +213,6 @@ namespace miHoYoThread
             {
                 string name = _consts.SchedulerTypeWaitName(schedulerType);
                 UnityEngine.Profiling.Profiler.BeginSample(name);
-                CheckRunner();
                 _schedulers[schedulerType].ScheduleWaitAllFinished();
                 UnityEngine.Profiling.Profiler.EndSample();
             }
