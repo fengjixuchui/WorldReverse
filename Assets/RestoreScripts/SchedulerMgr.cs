@@ -18,24 +18,20 @@ namespace miHoYoThread
         // Fields
         private static SchedulerMgr _inst; // 0x00
         protected SchedulerConsts _consts; // 0x10
-        protected PoolType _poolType; // 0x18
+        protected PoolType _poolType = PoolType.INVALID; // 0x18
         protected IRunnerPool _multiThreadPool; // 0x20
         protected IRunnerPool _mainThreadPool; // 0x28
         protected IRunnerPool _runnerPool; // 0x30
         protected IScheduler[] _schedulers; // 0x38
-        protected bool _multiThread; // 0x40
+        protected bool _multiThread = true; // 0x40
         protected bool _isStarting; // 0x41
         protected bool _isFinishing; // 0x42
         protected bool _isStarted; // 0x43
 
         // Properties
-        public static SchedulerMgr Inst { /* [XID] */ /* 0x00000001898F00A0-0x00000001898F00C0 */ get => default; } // 0x0000000187638BC0-0x0000000187638C90 
-        public bool IsMultiThread { /* [XID] */ /* 0x0000000189628A40-0x0000000189628A60 */ get => default; } // 0x0000000187638C90-0x0000000187638D30 
-        public bool isStarted { /* [XID] */ /* 0x0000000189638000-0x0000000189638020 */ get => default; } // 0x0000000187638D30-0x0000000187638DD0 
-
-        // Constructors
-        public SchedulerMgr() { } // 0x0000000187638B40-0x0000000187638BC0
-        static SchedulerMgr() { } // 0x0000000187638AE0-0x0000000187638B40
+        public static SchedulerMgr Inst { /* [XID] */ /* 0x00000001898F00A0-0x00000001898F00C0 */ get => _inst; } // 0x0000000187638BC0-0x0000000187638C90 
+        public bool IsMultiThread { /* [XID] */ /* 0x0000000189628A40-0x0000000189628A60 */ get => _multiThread; } // 0x0000000187638C90-0x0000000187638D30 
+        public bool isStarted { /* [XID] */ /* 0x0000000189638000-0x0000000189638020 */ get => _isStarted; } // 0x0000000187638D30-0x0000000187638DD0 
 
         // Methods
         // [XID] // 0x00000001895ECE60-0x00000001895ECE80
