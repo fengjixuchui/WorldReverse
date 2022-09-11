@@ -220,8 +220,17 @@ namespace miHoYoThread
             }
         } // 0x00000001876381E0-0x0000000187638310
           // [XID] // 0x0000000189A77010-0x0000000189A77030
-        public void ScheduleWaitAllTypeFinished() { } // 0x0000000187638310-0x0000000187638420
-                                                      // [XID] // 0x0000000189673A60-0x0000000189673A80
+        public void ScheduleWaitAllTypeFinished()
+        {
+            for (int i = 0; i < _schedulers.Length; i++)
+            {
+                if (_schedulers[i] != null)
+                {
+                    _schedulers[i].ScheduleWaitAllFinished();
+                }
+            }
+        } // 0x0000000187638310-0x0000000187638420
+          // [XID] // 0x0000000189673A60-0x0000000189673A80
         public void ScheduleFlush(int schedulerType, bool lockScene) { } // 0x0000000187637C90-0x0000000187637E30
                                                                          // [XID] // 0x0000000189A862D0-0x0000000189A862F0
         public void ScheduleBackground() { } // 0x0000000187637A90-0x0000000187637B30
