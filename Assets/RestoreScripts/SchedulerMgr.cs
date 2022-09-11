@@ -124,8 +124,40 @@ namespace miHoYoThread
             }
         } // 0x0000000187636C00-0x0000000187636CE0
           // [XID] // 0x0000000189664910-0x0000000189664930
-        public virtual void SwitchRunner(PoolType poolType, int threadNum) { } // 0x0000000187638680-0x00000001876388C0
-                                                                               // [XID] // 0x00000001899CB790-0x00000001899CB7B0
+        public virtual void SwitchRunner(PoolType poolType, int threadNum)
+        {
+            if (_poolType != poolType)
+            {
+                if (poolType == PoolType.MULTI_THREAD)
+                {
+                    if (_multiThreadPool != null)
+                    {
+                        _multiThreadPool = RunnerFactory.CreateMultiThreadRunnerPool(threadNum);
+                    }
+                    _runnerPool = _multiThreadPool;
+                    foreach (var scheduler in _schedulers)
+                    {
+                        scheduler.SwitchRunner(_runnerPool);
+                        scheduler.SwitchMultiThread(true);
+                    }
+                }
+                else if (poolType == PoolType.MAIN_THREAD)
+                {
+                    if (_mainThreadPool == null)
+                    {
+                        _mainThreadPool = RunnerFactory.CreateMainThreadRunnerPool();
+                    }
+                    _runnerPool = _multiThreadPool;
+                    foreach (var scheduler in _schedulers)
+                    {
+                        scheduler.SwitchRunner(_runnerPool);
+                        scheduler.SwitchMultiThread(false);
+                    }
+                }
+                _poolType = poolType;
+            }
+        } // 0x0000000187638680-0x00000001876388C0
+          // [XID] // 0x00000001899CB790-0x00000001899CB7B0
         public void SpawnScheduleTask(ISchedulerTask task) { } // 0x0000000187638420-0x0000000187638530
                                                                // [XID] // 0x0000000189673D60-0x0000000189673D80
         public void UnSpawnScheduleTask(ISchedulerTask task) { } // 0x00000001876389D0-0x0000000187638AE0
