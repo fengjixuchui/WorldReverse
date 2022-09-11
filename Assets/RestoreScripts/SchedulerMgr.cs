@@ -112,8 +112,18 @@ namespace miHoYoThread
             SwitchRunner(PoolType.MULTI_THREAD, Environment.ProcessorCount - 1);
         } // 0x00000001876376A0-0x0000000187637850
           // [XID] // 0x0000000189A61380-0x0000000189A613A0
-        protected void CheckRunner() { } // 0x0000000187636C00-0x0000000187636CE0
-                                         // [XID] // 0x0000000189664910-0x0000000189664930
+        protected void CheckRunner()
+        {
+            if (_multiThread)
+            {
+                SwitchRunner(PoolType.MULTI_THREAD, Environment.ProcessorCount - 1);
+            }
+            else
+            {
+                SwitchRunner(PoolType.MAIN_THREAD, 0);
+            }
+        } // 0x0000000187636C00-0x0000000187636CE0
+          // [XID] // 0x0000000189664910-0x0000000189664930
         public virtual void SwitchRunner(PoolType poolType, int threadNum) { } // 0x0000000187638680-0x00000001876388C0
                                                                                // [XID] // 0x00000001899CB790-0x00000001899CB7B0
         public void SpawnScheduleTask(ISchedulerTask task) { } // 0x0000000187638420-0x0000000187638530
