@@ -175,8 +175,11 @@ namespace miHoYoThread
             _schedulers[schedulerType].Pause();
         } // 0x0000000187637F60-0x0000000187638050
           // [XID] // 0x0000000189682CD0-0x0000000189682CF0
-        public void ScheduleResume(int schedulerType) { } // 0x0000000187638050-0x0000000187638140
-                                                          // [XID] // 0x0000000189A58DA0-0x0000000189A58DC0
+        public void ScheduleResume(int schedulerType)
+        {
+            _schedulers[schedulerType].Resume();
+        } // 0x0000000187638050-0x0000000187638140
+          // [XID] // 0x0000000189A58DA0-0x0000000189A58DC0
         public virtual void ScheduleBackgroundPause() { } // 0x0000000187637950-0x00000001876379F0
                                                           // [XID] // 0x0000000189A68510-0x0000000189A68530
         public virtual void ScheduleBackgroundResume() { } // 0x00000001876379F0-0x0000000187637A90
