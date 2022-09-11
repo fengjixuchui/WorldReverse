@@ -70,8 +70,8 @@ namespace miHoYoThread
           // [XID] // 0x00000001896123E0-0x0000000189612400
         public IRunnerPool GetRunnerPool() => _runnerPool; // 0x0000000187637600-0x00000001876376A0
                                                            // [XID] // 0x0000000189619D30-0x0000000189619D50
-        public IGraph GetGraph(int schedulerType) => default; // 0x0000000187637510-0x0000000187637600
-                                                              // [XID] // 0x00000001896211D0-0x00000001896211F0
+        public IGraph GetGraph(int schedulerType) => (IGraph)_schedulers[schedulerType]; // 0x0000000187637510-0x0000000187637600
+                                                                                         // [XID] // 0x00000001896211D0-0x00000001896211F0
         public IGraph GetBackgroundGraph() => default; // 0x0000000187637470-0x0000000187637510
                                                        // [XID] // 0x00000001896302F0-0x0000000189630310
         public void SwitchMultiThread(bool value) { } // 0x00000001876385D0-0x0000000187638680
