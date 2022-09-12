@@ -269,7 +269,6 @@ namespace miHoYoThread
             for (int i = 0; i < _schedulers.Length; i++)
             {
                 _schedulers[i].Destroy();
-                _schedulers[i] = null;
             }
         } // 0x0000000187636EC0-0x00000001876370B0
         [Preserve] // 0x00000001896D43A0-0x00000001896D43E0
