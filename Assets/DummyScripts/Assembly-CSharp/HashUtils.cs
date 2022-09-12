@@ -16,8 +16,8 @@ using XLua;
 public static class HashUtils // TypeDefIndex: 14781
 {
 	// Fields
-	private static float[] _mainThreadfloatArr; // 0x00
-	private static float[] _workThreadFloatArr; // 0x08
+	private static float[] _mainThreadfloatArr = new float[1]; // 0x00
+	private static float[] _workThreadFloatArr = new float[1]; // 0x08
 	private static StringHashOntoHelper _mainThreadStringHashHelper; // 0x10
 	private static StringHashOntoHelper _workThreadStringHashHelper; // 0x18
 
@@ -37,10 +37,20 @@ public static class HashUtils // TypeDefIndex: 14781
 
 	// Methods
 	// [XID] // 0x00000001897153D0-0x00000001897153F0
-	public static void TryHashObject(object obj, ref int lastHash) {} // 0x00000001810074A0-0x0000000181007570
+	public static void TryHashObject(object obj, ref int lastHash) 
+	{
+		IHashable hashable = obj as IHashable;
+		if (hashable != null)
+		{
+			hashable.ObjectContentHashOnto(ref lastHash);
+		}
+	} // 0x00000001810074A0-0x0000000181007570
 	// [IDTag] // 0x000000018971CE90-0x000000018971CED0
 	// [XID] // 0x000000018971CE90-0x000000018971CED0
-	public static void ContentHashOnto(int value, ref int lastHash) {} // 0x0000000180FE21D0-0x0000000180FE2280
+	public static void ContentHashOnto(int value, ref int lastHash) 
+	{
+		lastHash ^= value;
+	} // 0x0000000180FE21D0-0x0000000180FE2280
 	// [IDTag] // 0x0000000189727460-0x00000001897274A0
 	// [XID] // 0x0000000189727460-0x00000001897274A0
 	public static void ContentHashOnto(uint value, ref int lastHash) {} // 0x0000000180FF46F0-0x0000000180FF47A0
@@ -61,18 +71,64 @@ public static class HashUtils // TypeDefIndex: 14781
 	private static void ContentHashOnto(float value, float[] floatArr, ref int lastHash) {} // 0x0000000180FE6C60-0x0000000180FE6DB0
 	// [IDTag] // 0x0000000189A0C450-0x0000000189A0C490
 	// [XID] // 0x0000000189A0C450-0x0000000189A0C490
-	public static void ContentHashOnto(float value, ref int lastHash) {} // 0x0000000180FF70E0-0x0000000180FF72D0
+	public static void ContentHashOnto(float value, ref int lastHash) 
+	{
+		_mainThreadfloatArr[0] = value;
+		lastHash ^= Buffer.GetByte(_mainThreadfloatArr, 0);
+		lastHash ^= Buffer.GetByte(_mainThreadfloatArr, 1) << 8;
+		lastHash ^= Buffer.GetByte(_mainThreadfloatArr, 2) << 16;
+		lastHash ^= Buffer.GetByte(_mainThreadfloatArr, 3) << 24;
+	} // 0x0000000180FF70E0-0x0000000180FF72D0
 	// [IDTag] // 0x00000001897704F0-0x0000000189770530
 	// [XID] // 0x00000001897704F0-0x0000000189770530
-	public static void ContentHashOnto(string value, ref int lastHash) {} // 0x0000000180FFBFB0-0x0000000180FFC530
+	public static void ContentHashOnto(string value, ref int lastHash) 
+	{
+		if (value == null)
+		{
+			return;
+		}
+		for (int i = 0; i < value.Length; i++)
+		{
+			char c = value[i];
+			lastHash ^= c << (i % 2 & 31 & 31);
+		}
+	} // 0x0000000180FFBFB0-0x0000000180FFC530
 	// [IDTag] // 0x000000018977AC10-0x000000018977AC50
 	// [XID] // 0x000000018977AC10-0x000000018977AC50
-	public static void ContentHashOnto(bool value, ref int lastHash) {} // 0x0000000180FEC8D0-0x0000000180FEC980
+	public static void ContentHashOnto(bool value, ref int lastHash) 
+	{
+		lastHash ^= ((!value) ? 0 : 1);
+	} // 0x0000000180FEC8D0-0x0000000180FEC980
 	// [IDTag] // 0x00000001897854C0-0x0000000189785500
 	// [XID] // 0x00000001897854C0-0x0000000189785500
-	public static void ContentHashOnto(IHashable value, ref int lastHash) {} // 0x0000000181006090-0x0000000181006150
+	public static void ContentHashOnto(IHashable value, ref int lastHash) 
+	{
+		value.ObjectContentHashOnto(ref lastHash);
+	} // 0x0000000181006090-0x0000000181006150
 	// [XID] // 0x000000018978FA10-0x000000018978FA30
-	public static void ContentHashOntoFallback(object obj, ref int lastHash) {} // 0x0000000180FD89D0-0x0000000180FD8C90
+	public static void ContentHashOntoFallback(object obj, ref int lastHash) 
+	{
+		if (obj is int)
+		{
+			ContentHashOnto((int)obj, ref lastHash);
+		}
+		else if (obj is bool)
+		{
+			ContentHashOnto((bool)obj, ref lastHash);
+		}
+		else if (obj is float)
+		{
+			ContentHashOnto((float)obj, ref lastHash);
+		}
+		else if (obj is string)
+		{
+			ContentHashOnto((string)obj, ref lastHash);
+		}
+		else if (obj is IHashable)
+		{
+			ContentHashOnto((IHashable)obj, ref lastHash);
+		}
+	} // 0x0000000180FD89D0-0x0000000180FD8C90
 	// [IDTag] // 0x00000001897971B0-0x00000001897971F0
 	// [XID] // 0x00000001897971B0-0x00000001897971F0
 	public static void ContentHashOnto(SimpleSafeInt8[] array, ref int lastHash) {} // 0x00000001810040E0-0x0000000181004240
