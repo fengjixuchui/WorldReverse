@@ -234,8 +234,11 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().LoadResourceIndex(indexPath, onlyStreaming);
     } // 0x0000000181F150D0-0x0000000181F15220
       // [XID] // 0x00000001899D2B90-0x00000001899D2BB0
-    public void RefreshBlockFile() { } // 0x0000000181F17CE0-0x0000000181F17DA0
-                                       // [XID] // 0x00000001899DA1E0-0x00000001899DA200
+    public void RefreshBlockFile()
+    {
+        MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().RefreshBlockFile();
+    } // 0x0000000181F17CE0-0x0000000181F17DA0
+      // [XID] // 0x00000001899DA1E0-0x00000001899DA200
     public void MarkAssetUpdated() { } // 0x0000000181F13560-0x0000000181F13640
     [DebuggerHidden] // 0x00000001899E1CB0-0x00000001899E1D00
                      // [IDTag] // 0x00000001899E1CB0-0x00000001899E1D00
