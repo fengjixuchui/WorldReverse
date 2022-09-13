@@ -157,8 +157,12 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         }
     } // 0x0000000181F16380-0x0000000181F16810
       // [XID] // 0x00000001899A6010-0x00000001899A6030
-    public override void Destroy() { } // 0x0000000181F13CF0-0x0000000181F13DC0
-                                       // [XID] // 0x00000001899AD620-0x00000001899AD640
+    public override void Destroy()
+    {
+        UnloadShaders();
+        MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().Destroy();
+    } // 0x0000000181F13CF0-0x0000000181F13DC0
+      // [XID] // 0x00000001899AD620-0x00000001899AD640
     public override void ClearOnLevelDestroy() { } // 0x0000000181F13640-0x0000000181F136E0
                                                    // [XID] // 0x00000001899B4E80-0x00000001899B4EA0
     public override void Tick()
