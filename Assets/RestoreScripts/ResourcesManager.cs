@@ -239,7 +239,13 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().RefreshBlockFile();
     } // 0x0000000181F17CE0-0x0000000181F17DA0
       // [XID] // 0x00000001899DA1E0-0x00000001899DA200
-    public void MarkAssetUpdated() { } // 0x0000000181F13560-0x0000000181F13640
+    public void MarkAssetUpdated()
+    {
+        // 自定义引擎代码
+        //Application.BeginRuntimeFileUpdate();
+        _asset_updated = true;
+        downloadSucc = false;
+    } // 0x0000000181F13560-0x0000000181F13640
     [DebuggerHidden] // 0x00000001899E1CB0-0x00000001899E1D00
                      // [IDTag] // 0x00000001899E1CB0-0x00000001899E1D00
                      // [XID] // 0x00000001899E1CB0-0x00000001899E1D00
