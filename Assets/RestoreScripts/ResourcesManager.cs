@@ -394,8 +394,8 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().SwitchUnlimitedMode(true);
     } // 0x0000000181F136E0-0x0000000181F137D0
       // [XID] // 0x0000000189A4FA40-0x0000000189A4FA60
-    public ExternalResources GetExternalResources() => default; // 0x0000000181F17C30-0x0000000181F17CE0
-                                                                // [XID] // 0x0000000189689160-0x0000000189689180
+    public ExternalResources GetExternalResources() => MoleMole.Lazy<ExternalResources>.Get<ExternalResources>(); // 0x0000000181F17C30-0x0000000181F17CE0
+                                                                                                                  // [XID] // 0x0000000189689160-0x0000000189689180
     private int ReadInRevision(string filePath) => default; // 0x0000000181F17DA0-0x0000000181F17FA0
                                                             // [XID] // 0x0000000189A5EBF0-0x0000000189A5EC10
     private void WarmupShaderVariantCollection(string line) { } // 0x0000000181F14F80-0x0000000181F150D0
