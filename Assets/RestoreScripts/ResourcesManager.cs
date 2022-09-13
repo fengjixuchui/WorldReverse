@@ -289,7 +289,20 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
                // [XID] // 0x00000001899FC960-0x00000001899FC9B0
     public override string Dump(string tag) => default; // 0x0000000181F13DC0-0x0000000181F13EC0
                                                         // [XID] // 0x0000000189A09DC0-0x0000000189A09DE0
-    public void AssetClear() { } // 0x0000000181F16EF0-0x0000000181F170B0
+    public void AssetClear()
+    {
+        MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().UnloadBundle();
+        CommonMiscs.ClearObject();
+        IconUtils.UnloadAllSpriteAtlas();
+        //自定义引擎代码
+        //Application.EndRuntimeFileUpdate();
+        ManagerController.ReloadGlobalManagers();
+        if (downloadSucc)
+        {
+            SchedulerConfigUtils.LoadScheduleConfig();
+        }
+        _asset_updated = false;
+    } // 0x0000000181F16EF0-0x0000000181F170B0
     [DebuggerHidden] // 0x0000000189A11640-0x0000000189A11680
                      // [XID] // 0x0000000189A11640-0x0000000189A11680
     public IEnumerator BlockWarmUp(Action<float> progressCB = null) => default; // 0x0000000181F13240-0x0000000181F13350
