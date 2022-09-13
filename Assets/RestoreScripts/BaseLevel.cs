@@ -187,8 +187,16 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
         }
     } // 0x00000001814EAFF0-0x00000001814EB140
       // [XID] // 0x0000000189AEC7E0-0x0000000189AEC800
-    public void PrepareBeforeLoad(bool isPrepare, bool asyncLoad, bool isTrans) { } // 0x00000001814E7BF0-0x00000001814E7DA0
-                                                                                    // [XID] // 0x0000000189AF41F0-0x0000000189AF4210
+    public void PrepareBeforeLoad(bool isPrepare, bool asyncLoad, bool isTrans)
+    {
+        MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().SwitchUnlimitedMode(true);
+        ClearLevelCoroutine();
+        if (isPrepare)
+            levelState = LevelState.Preparing;
+        SuperDebug.Log("PrepareBeforeLoad" + isPrepare);
+        SetAsyncLoadEntity(false);
+    } // 0x00000001814E7BF0-0x00000001814E7DA0
+      // [XID] // 0x0000000189AF41F0-0x0000000189AF4210
     public void OnPlayerEnterSceneFinish(uint token, bool isReconnecting) { } // 0x00000001814EBAC0-0x00000001814EBC80
                                                                               // [XID] // 0x0000000189AFB9C0-0x0000000189AFB9E0
     public void OnPlayerTransmitFinish(uint token) { } // 0x00000001814E83D0-0x00000001814E86A0
