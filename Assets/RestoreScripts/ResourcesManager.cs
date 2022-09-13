@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text;
@@ -131,8 +132,31 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
                                                                                                 // [XID] // 0x0000000189993BB0-0x0000000189993BF0
     public static void Dump() { } // 0x0000000181F15220-0x0000000181F16320
                                   // [XID] // 0x000000018999E610-0x000000018999E630
-    public override void Init() { } // 0x0000000181F16380-0x0000000181F16810
-                                    // [XID] // 0x00000001899A6010-0x00000001899A6030
+    public override void Init()
+    {
+        PrefabLoadJob.onLoadFinish = OnPrefabLoadFinish;
+        AssetLoadJob.onLoadFinish = onAssetLoadFinish;
+        SeperateBundleLoadJob.onLoadFinish = onBundleLoadFinish;
+        MarkSilenceUpdateBlock();
+        StartReportFileWrite();
+        // 自定义引擎代码
+        //UnityEngine.ObjectInstanceCache.defaultDeactiveAfterAsyncInstantiate = GlobalVars.defaultDeactiveAfterInstantiate;
+        _asset_updated = false;
+        AssetBundleSettings.Load();
+        MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().Init();
+        string indexPath = Path.Combine(ResourceConstants.externalBlockDirectory, "00/31049740.blk");
+        if (File.Exists(indexPath))
+        {
+            LoadExternalIndex();
+            ReadInExternalResourceRevision();
+        }
+        else
+        {
+            LoadStreamingIndex(false);
+            ReadInStreamingResourceRevision();
+        }
+    } // 0x0000000181F16380-0x0000000181F16810
+      // [XID] // 0x00000001899A6010-0x00000001899A6030
     public override void Destroy() { } // 0x0000000181F13CF0-0x0000000181F13DC0
                                        // [XID] // 0x00000001899AD620-0x00000001899AD640
     public override void ClearOnLevelDestroy() { } // 0x0000000181F13640-0x0000000181F136E0
