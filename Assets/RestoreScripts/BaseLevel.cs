@@ -197,8 +197,16 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
         SetAsyncLoadEntity(false);
     } // 0x00000001814E7BF0-0x00000001814E7DA0
       // [XID] // 0x0000000189AF41F0-0x0000000189AF4210
-    public void OnPlayerEnterSceneFinish(uint token, bool isReconnecting) { } // 0x00000001814EBAC0-0x00000001814EBC80
-                                                                              // [XID] // 0x0000000189AFB9C0-0x0000000189AFB9E0
+    public void OnPlayerEnterSceneFinish(uint token, bool isReconnecting)
+    {
+        levelState = LevelState.SceneInitFinish;
+        Singleton<NetworkManager>.Instance.RequestSceneInitFinish(token, isReconnecting);
+        Singleton<LoadingManager>.Instance.EnterSceneInitFinish(token);
+        HandleTransmitRequest();
+        SetAsyncLoadEntity(false);
+        Singleton<QuestModule>.Instance.TryUpdateWaitingQuest(false);
+    } // 0x00000001814EBAC0-0x00000001814EBC80
+      // [XID] // 0x0000000189AFB9C0-0x0000000189AFB9E0
     public void OnPlayerTransmitFinish(uint token) { } // 0x00000001814E83D0-0x00000001814E86A0
                                                        // [XID] // 0x0000000189B03070-0x0000000189B03090
     public override void Init(uint token)
