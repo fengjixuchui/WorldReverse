@@ -438,8 +438,54 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         }
     } // 0x0000000181F14510-0x0000000181F14670
       // [XID] // 0x0000000189A6DA40-0x0000000189A6DA60
-    private void WarmupExternalShaderVariantCollection(string path) { } // 0x0000000181F13830-0x0000000181F13C90
-                                                                        // [XID] // 0x0000000189A75190-0x0000000189A751B0
+    private void WarmupExternalShaderVariantCollection(string path)
+    {
+        if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.WindowsPlayer)
+        {
+            if (!string.IsNullOrEmpty(path))
+            {
+                if (path.Contains(Application.platform.ToString()))
+                {
+                    var shader = MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().RequestResource<ShaderVariantCollection>(path, out uint handle);
+                    if (shader)
+                    {
+                        _svcHandles.Add(handle);
+                        if (path.EndsWith("@warmup"))
+                        {
+                            shader.WarmUp();
+                        }
+                        UnityEngine.Debug.Log("Warmup shaders" + path);
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(path))
+            {
+                if (path.EndsWith("@warmup"))
+                {
+                    var shader = MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().RequestResource<ShaderVariantCollection>(path, out uint handle);
+
+                    if (shader)
+                    {
+                        _svcHandles.Add(handle);
+                        if (path.EndsWith("@warmup"))
+                        {
+                            shader.WarmUp();
+                        }
+                    }
+                    else
+                    {
+                        UnityEngine.Debug.LogError("failed to load svc" + path);
+                    }
+                }
+
+            }
+
+        }
+    } // 0x0000000181F13830-0x0000000181F13C90
+      // [XID] // 0x0000000189A75190-0x0000000189A751B0
     private void ExtractShaderVariantCollectionInfo(string line, out string path, out bool isExternal)
     {
         path = default;
