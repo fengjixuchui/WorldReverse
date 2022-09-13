@@ -411,8 +411,18 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         return revision;
     }
     // [XID] // 0x0000000189A5EBF0-0x0000000189A5EC10
-    private void WarmupShaderVariantCollection(string line) { } // 0x0000000181F14F80-0x0000000181F150D0
-                                                                // [XID] // 0x0000000189A662F0-0x0000000189A66310
+    private void WarmupShaderVariantCollection(string line)
+    {
+        ExtractShaderVariantCollectionInfo(line, out var path, out var isExternal);
+        if (!string.IsNullOrEmpty(path))
+        {
+            if (isExternal)
+                WarmupExternalShaderVariantCollection(path);
+            else
+                WarmupInternalShaderVariantCollection(path);
+        }
+    } // 0x0000000181F14F80-0x0000000181F150D0
+      // [XID] // 0x0000000189A662F0-0x0000000189A66310
     private void WarmupInternalShaderVariantCollection(string path) { } // 0x0000000181F14510-0x0000000181F14670
                                                                         // [XID] // 0x0000000189A6DA40-0x0000000189A6DA60
     private void WarmupExternalShaderVariantCollection(string path) { } // 0x0000000181F13830-0x0000000181F13C90
