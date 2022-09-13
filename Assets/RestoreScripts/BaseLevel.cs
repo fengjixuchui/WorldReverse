@@ -207,8 +207,24 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
         Singleton<QuestModule>.Instance.TryUpdateWaitingQuest(false);
     } // 0x00000001814EBAC0-0x00000001814EBC80
       // [XID] // 0x0000000189AFB9C0-0x0000000189AFB9E0
-    public void OnPlayerTransmitFinish(uint token) { } // 0x00000001814E83D0-0x00000001814E86A0
-                                                       // [XID] // 0x0000000189B03070-0x0000000189B03090
+    public void OnPlayerTransmitFinish(uint token)
+    {
+        levelState = LevelState.Ready;
+        SetAsyncLoadEntity(false);
+        Singleton<NotifyManager>.Instance.FireNotify(Notify.CreateNotify(NotifyTypes.OnTransmitEnd));
+        Singleton<QuestModule>.Instance.TryUpdateWaitingQuest(false);
+        if (GameManager.Instance.isOnlineMode)
+        {
+            Singleton<NetworkManager>.Instance.RequestSceneInitFinish(token, false);
+            Singleton<NetworkManager>.Instance.RequestEnterSceneDone(token);
+        }
+        else
+        {
+            Singleton<LevelModule>.Instance.curLevel.FinishLoadScene(token, false, true);
+        }
+        HandleTransmitRequest();
+    } // 0x00000001814E83D0-0x00000001814E86A0
+      // [XID] // 0x0000000189B03070-0x0000000189B03090
     public override void Init(uint token)
     {
         ClearConfig();
