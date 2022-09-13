@@ -264,8 +264,27 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
     [DebuggerHidden] // 0x00000001899EEFF0-0x00000001899EF040
                      // [IDTag] // 0x00000001899EEFF0-0x00000001899EF040
                      // [XID] // 0x00000001899EEFF0-0x00000001899EF040
-    public IEnumerator PreToLoadSceneIter(Action callback) => default; // 0x0000000181F16960-0x0000000181F16A80
-                                                                       // [IDTag] // 0x00000001899FC960-0x00000001899FC9B0
+    public IEnumerator PreToLoadSceneIter(Action callback)
+    {
+        if (assetUpdated)
+        {
+            Singleton<UIManager>.Instance.MaskPage(true);
+            yield return null;
+        }
+        else
+        {
+            callback();
+            yield break;
+        }
+        AssetClear();
+        if (downloadSucc)
+        {
+            GlobalDataManager.RefreshData();
+        }
+        yield return null;
+        callback();
+    } // 0x0000000181F16960-0x0000000181F16A80
+      // [IDTag] // 0x00000001899FC960-0x00000001899FC9B0
     [Preserve] // 0x00000001899FC960-0x00000001899FC9B0
                // [XID] // 0x00000001899FC960-0x00000001899FC9B0
     public override string Dump(string tag) => default; // 0x0000000181F13DC0-0x0000000181F13EC0
