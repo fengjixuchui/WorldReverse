@@ -20,20 +20,20 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
 {
     // Fields
     private const float QUIET_DOWN_TIME_OUT = 10f; // Metadata: 0x00AFF3EA
-    private readonly List<uint> _svcHandles; // 0x10
+    private readonly List<uint> _svcHandles = new List<uint>(); // 0x10
     private QuietDownCallback _quietDownCallback; // 0x18
     private bool _asset_updated; // 0x20
     private float _quietDownTimeOutDue; // 0x24
     public static Action<List<string>> dumpAllLoadedAsset; // 0x00
-    private static LRUList<loadJob> _assetLoadList; // 0x08
-    private static LRUList<loadJob> _instantiateList; // 0x10
-    private static LRUList<loadJob> _bundleLoadList; // 0x18
+    private static LRUList<loadJob> _assetLoadList = new LRUList<loadJob>(10000); // 0x08
+    private static LRUList<loadJob> _instantiateList = new LRUList<loadJob>(10000); // 0x10
+    private static LRUList<loadJob> _bundleLoadList = new LRUList<loadJob>(10000); // 0x18
 
     // Properties
     public bool ForceLoadIndex { /* [XID] */ /* 0x0000000189902090-0x00000001899020D0 */ get; /* [XID] */ /* 0x000000018990C9F0-0x000000018990CA30 */ private set; } // 0x0000000181F17420-0x0000000181F17480 0x0000000181F16320-0x0000000181F16380
     public bool downloadSucc { /* [XID] */ /* 0x00000001899174A0-0x00000001899174E0 */ get; /* [XID] */ /* 0x0000000189921CA0-0x0000000189921CE0 */ set; } // 0x0000000181F16E90-0x0000000181F16EF0 0x0000000181F14340-0x0000000181F143A0
-    public bool assetUpdated { /* [XID] */ /* 0x000000018992C140-0x000000018992C160 */ get => default; } // 0x0000000181F134C0-0x0000000181F13560 
-    public List<string> allLoadedAsset { /* [XID] */ /* 0x00000001899335A0-0x00000001899335C0 */ get => default; } // 0x0000000181F17950-0x0000000181F17A10 
+    public bool assetUpdated { /* [XID] */ /* 0x000000018992C140-0x000000018992C160 */ get => _asset_updated; } // 0x0000000181F134C0-0x0000000181F13560 
+    public List<string> allLoadedAsset { /* [XID] */ /* 0x00000001899335A0-0x00000001899335C0 */ get => MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().allLoadedAsset; } // 0x0000000181F17950-0x0000000181F17A10 
     public int streamingResourceRevision { get; /* [XID] */ /* 0x0000000189942380-0x00000001899423C0 */ private set; } // 0x0000000181F137D0-0x0000000181F13830 0x0000000181F170B0-0x0000000181F17110
     public int externalResourceRevision { get; /* [XID] */ /* 0x0000000189954330-0x0000000189954370 */ private set; } // 0x0000000181F16E30-0x0000000181F16E90 0x0000000181F131E0-0x0000000181F13240
 
@@ -75,10 +75,6 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
     }
 
     public delegate void QuietDownCallback(); // TypeDefIndex: 21277; 0x0000000181F1FAB0-0x0000000181F1FC10
-
-    // Constructors
-    public ResourcesManager() { } // 0x0000000181F18810-0x0000000181F188E0
-    static ResourcesManager() { } // 0x0000000181F18710-0x0000000181F18810
 
     // Methods
     // [XID] // 0x000000018995ED90-0x000000018995EDB0
