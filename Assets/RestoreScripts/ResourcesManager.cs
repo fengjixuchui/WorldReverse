@@ -334,8 +334,45 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         externalResourceRevision = ReadInRevision(ResourceConstants.externalAssetRevisionFile);
     } // 0x0000000181F146F0-0x0000000181F147E0
       // [XID] // 0x0000000189A317D0-0x0000000189A317F0
-    public void WarmupShaders() { } // 0x0000000181F17480-0x0000000181F17810
-                                    // [XID] // 0x0000000189A39330-0x0000000189A39350
+    public void WarmupShaders()
+    {
+        if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.OSXEditor)
+            return;
+        string svcCatalogFile;
+        if (AssetBundleSettings.enableDownload)
+        {
+            svcCatalogFile = ResourceConstants.svcCatalogFile;
+        }
+        else
+        {
+            svcCatalogFile = ResourceConstants.streamingSvcCatalogFile;
+        }
+        if (!FileUtility.IsFileExists(svcCatalogFile))
+        {
+            if (!AssetBundleSettings.enableDownload)
+            {
+                SuperDebug.LogError("Can not found svc catalog file " + svcCatalogFile);
+                return;
+            }
+        }
+
+        if (!FileUtility.IsFileExists(ResourceConstants.streamingSvcCatalogFile))
+        {
+            if (!AssetBundleSettings.enableDownload)
+            {
+                SuperDebug.LogError("Can not found svcCatalogFile " + ResourceConstants.svcCatalogFile + " and streamingSvcCatalogFile {1}" + ResourceConstants.streamingSvcCatalogFile);
+                return;
+            }
+        }
+        MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().ShaderBlockWarmUp();
+        var text = File.OpenText(ResourceConstants.streamingSvcCatalogFile);
+        while (text.EndOfStream)
+        {
+            WarmupShaderVariantCollection(text.ReadLine());
+        }
+        text.Dispose();
+    } // 0x0000000181F17480-0x0000000181F17810
+      // [XID] // 0x0000000189A39330-0x0000000189A39350
     public void UnloadShaders() { } // 0x0000000181F17810-0x0000000181F17950
                                     // [XID] // 0x0000000189A40AD0-0x0000000189A40AF0
     public void DropUnstartedLoads() { } // 0x0000000181F14280-0x0000000181F14340
