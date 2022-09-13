@@ -97,42 +97,86 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
 
     // Methods
     // [XID] // 0x0000000189A4E410-0x0000000189A4E430
-    public bool IsLoadObjectAsync() => default; // 0x00000001814E9B80-0x00000001814E9C20
-                                                // [XID] // 0x0000000189A55C40-0x0000000189A55C60
-    public bool IsDungeon() => default; // 0x00000001814F1300-0x00000001814F13B0
-                                        // [XID] // 0x0000000189832B50-0x0000000189832B70
-    public bool IsRoom() => default; // 0x00000001814F0BC0-0x00000001814F0C70
-                                     // [XID] // 0x0000000189A64D80-0x0000000189A64DA0
-    public bool IsBigWorld() => default; // 0x00000001814F00A0-0x00000001814F0150
-                                         // [XID] // 0x0000000189A6C500-0x0000000189A6C520
-    public bool IsHomeworld() => default; // 0x00000001814EF640-0x00000001814EF710
-                                          // [XID] // 0x0000000189A73CB0-0x0000000189A73CD0
-    public bool IsHomeInternel() => default; // 0x00000001814E82C0-0x00000001814E8370
-                                             // [XID] // 0x0000000189A7B7C0-0x0000000189A7B7E0
-    public bool HasMapData() => default; // 0x00000001814E9D90-0x00000001814E9E80
-                                         // [XID] // 0x0000000189A83000-0x0000000189A83020
-    public StageType GetStageType() => default; // 0x00000001814ED4D0-0x00000001814ED580
-                                                // [XID] // 0x0000000189A8A840-0x0000000189A8A860
-    public DungeonPlayType GetDungeonPlayType() => default; // 0x00000001814F0C70-0x00000001814F0D80
-                                                            // [XID] // 0x0000000189A92120-0x0000000189A92140
-    public bool InActivityDungeon() => default; // 0x00000001814EE2C0-0x00000001814EE3D0
-                                                // [XID] // 0x0000000189A99B00-0x0000000189A99B20
-    public bool InElementChallengeDungeon() => default; // 0x00000001814EDDE0-0x00000001814EDEF0
-                                                        // [XID] // 0x0000000189AA0AC0-0x0000000189AA0AE0
-    public bool InTheatreMechanicusDungeon() => default; // 0x00000001814F0AB0-0x00000001814F0BC0
-                                                         // [XID] // 0x0000000189AB7510-0x0000000189AB7530
-    public float GetProgress() => default; // 0x00000001814E7B40-0x00000001814E7BF0
-                                           // [XID] // 0x0000000189ABEFD0-0x0000000189ABEFF0
-    public bool IsPreparing() => default; // 0x00000001814EFCF0-0x00000001814EFDB0
-                                          // [XID] // 0x0000000189AC6A50-0x0000000189AC6A70
-    public bool IsReady() => default; // 0x00000001814E9EE0-0x00000001814E9F90
-                                      // [XID] // 0x0000000189ACE250-0x0000000189ACE270
-    public bool IsDestroied() => default; // 0x00000001814F1180-0x00000001814F1230
-                                          // [XID] // 0x0000000189AEA540-0x0000000189AEA560
-    public bool IsSceneInitFinishAndReady() => default; // 0x00000001814E7FA0-0x00000001814E8060
-                                                        // [XID] // 0x0000000189ADD8D0-0x0000000189ADD8F0
-    public bool IsCoroutineStop() => default; // 0x00000001814E7EF0-0x00000001814E7FA0
-                                              // [XID] // 0x0000000189AE51A0-0x0000000189AE51C0
+    public bool IsLoadObjectAsync() => _loadEntityAsync; // 0x00000001814E9B80-0x00000001814E9C20
+                                                         // [XID] // 0x0000000189A55C40-0x0000000189A55C60
+    public bool IsDungeon() => levelCreateData.stageType == StageType.Dungeon; // 0x00000001814F1300-0x00000001814F13B0
+                                                                               // [XID] // 0x0000000189832B50-0x0000000189832B70
+    public bool IsRoom() => levelCreateData.stageType == StageType.Room; // 0x00000001814F0BC0-0x00000001814F0C70
+                                                                         // [XID] // 0x0000000189A64D80-0x0000000189A64DA0
+    public bool IsBigWorld() => levelCreateData.stageType == StageType.World; // 0x00000001814F00A0-0x00000001814F0150
+                                                                              // [XID] // 0x0000000189A6C500-0x0000000189A6C520
+    public bool IsHomeworld() => levelCreateData.stageType == StageType.HomeworldExternal || levelCreateData.stageType == StageType.HomeworldInternal; // 0x00000001814EF640-0x00000001814EF710
+                                                                                                                                                       // [XID] // 0x0000000189A73CB0-0x0000000189A73CD0
+    public bool IsHomeInternel() => levelCreateData.stageType == StageType.HomeworldInternal; // 0x00000001814E82C0-0x00000001814E8370
+                                                                                              // [XID] // 0x0000000189A7B7C0-0x0000000189A7B7E0
+    public bool HasMapData() => levelCreateData.mapInfoData; // 0x00000001814E9D90-0x00000001814E9E80
+                                                             // [XID] // 0x0000000189A83000-0x0000000189A83020
+    public StageType GetStageType() => levelCreateData.stageType; // 0x00000001814ED4D0-0x00000001814ED580
+                                                                  // [XID] // 0x0000000189A8A840-0x0000000189A8A860
+    public DungeonPlayType GetDungeonPlayType()
+    {
+        if (IsDungeon())
+        {
+            var data = DungeonExcelConfigLoader.GetData(Singleton<PlayerModule>.Instance.curDungeonID);
+            if (data != null)
+            {
+                return data.playType;
+            }
+        }
+        return DungeonPlayType.DUNGEON_PLAY_TYPE_NONE;
+    } // 0x00000001814F0C70-0x00000001814F0D80
+      // [XID] // 0x0000000189A92120-0x0000000189A92140
+    public bool InActivityDungeon()
+    {
+        if (IsDungeon())
+        {
+            var data = DungeonExcelConfigLoader.GetData(Singleton<PlayerModule>.Instance.curDungeonID);
+            if (data != null)
+            {
+                return data.type == DungeonType.DUNGEON_ACTIVITY;
+            }
+        }
+        return false;
+    } // 0x00000001814EE2C0-0x00000001814EE3D0
+      // [XID] // 0x0000000189A99B00-0x0000000189A99B20
+    public bool InElementChallengeDungeon()
+    {
+        if (IsDungeon())
+        {
+            var data = DungeonExcelConfigLoader.GetData(Singleton<PlayerModule>.Instance.curDungeonID);
+            if (data != null)
+            {
+                return data.type == DungeonType.DUNGEON_ELEMENT_CHALLENGE;
+            }
+        }
+        return false;
+    }// 0x00000001814EDDE0-0x00000001814EDEF0
+     // [XID] // 0x0000000189AA0AC0-0x0000000189AA0AE0
+    public bool InTheatreMechanicusDungeon()
+    {
+        if (IsDungeon())
+        {
+            var data = DungeonExcelConfigLoader.GetData(Singleton<PlayerModule>.Instance.curDungeonID);
+            if (data != null)
+            {
+                return data.type == DungeonType.DUNGEON_THEATRE_MECHANICUS;
+            }
+        }
+        return false;
+    } // 0x00000001814F0AB0-0x00000001814F0BC0
+      // [XID] // 0x0000000189AB7510-0x0000000189AB7530
+    public float GetProgress() => curProgress; // 0x00000001814E7B40-0x00000001814E7BF0
+                                               // [XID] // 0x0000000189ABEFD0-0x0000000189ABEFF0
+    public bool IsPreparing() => false; // 0x00000001814EFCF0-0x00000001814EFDB0
+                                        // [XID] // 0x0000000189AC6A50-0x0000000189AC6A70
+    public bool IsReady() => levelState == LevelState.Ready; // 0x00000001814E9EE0-0x00000001814E9F90
+                                                             // [XID] // 0x0000000189ACE250-0x0000000189ACE270
+    public bool IsDestroied() => levelState == LevelState.Destroied; // 0x00000001814F1180-0x00000001814F1230
+                                                                     // [XID] // 0x0000000189AEA540-0x0000000189AEA560
+    public bool IsSceneInitFinishAndReady() => levelState == LevelState.SceneInitFinish || levelState == LevelState.Ready; // 0x00000001814E7FA0-0x00000001814E8060
+                                                                                                                           // [XID] // 0x0000000189ADD8D0-0x0000000189ADD8F0
+    public bool IsCoroutineStop() => curCoroutine == null; // 0x00000001814E7EF0-0x00000001814E7FA0
+                                                           // [XID] // 0x0000000189AE51A0-0x0000000189AE51C0
     private void SetAsyncLoadEntity(bool isAsync) { } // 0x00000001814EAFF0-0x00000001814EB140
                                                       // [XID] // 0x0000000189AEC7E0-0x0000000189AEC800
     public void PrepareBeforeLoad(bool isPrepare, bool asyncLoad, bool isTrans) { } // 0x00000001814E7BF0-0x00000001814E7DA0
