@@ -500,14 +500,52 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         }
     } // 0x0000000181F16810-0x0000000181F16960
       // [XID] // 0x0000000189A7CDF0-0x0000000189A7CE10
-    public static void UnloadBlock(int languageCode, int id) { } // 0x0000000181F16BA0-0x0000000181F16E30
-                                                                 // [XID] // 0x0000000189A846C0-0x0000000189A846E0
-    public static void MarkSilenceUpdateBlock() { } // 0x0000000181F17B30-0x0000000181F17C30
-                                                    // [XID] // 0x0000000189BC05C0-0x0000000189BC05E0
-    public static void UnloadSilenceUpdateBlock() { } // 0x0000000181F14010-0x0000000181F14130
-                                                      // [XID] // 0x0000000189AF0AB0-0x0000000189AF0AD0
-    public static void StartReportFileWrite() { } // 0x0000000181F147E0-0x0000000181F149B0
-                                                  // [XID] // 0x0000000189A9AFC0-0x0000000189A9AFE0
-    public static void StopReportFileWrite() { } // 0x0000000181F13F70-0x0000000181F14010
+    public static void UnloadBlock(int languageCode, int id)
+    {
+        object[] block = new object[4];
+        block[0] = ResourceConstants.externalBlockDirectory;
+        block[1] = languageCode;
+        block[2] = id;
+        block[3] = ".blk";
+        // 自定义引擎代码
+        //Application.SetDirectReadFilePath(string.Format("{0}/{1:D2}/{2:D8}{3}", block);
+    } // 0x0000000181F16BA0-0x0000000181F16E30
+      // [XID] // 0x0000000189A846C0-0x0000000189A846E0
+    public static void MarkSilenceUpdateBlock()
+    {
+        UnloadBlock(0, 29342328);
+        UnloadBlock(0, 33067900);
+        UnloadBlock(0, 25060239);
+        UnloadBlock(0, 32070509);
+    } // 0x0000000181F17B30-0x0000000181F17C30
+      // [XID] // 0x0000000189BC05C0-0x0000000189BC05E0
+    public static void UnloadSilenceUpdateBlock()
+    {
+        if (AssetBundleExternalResourceProvider.instance != null)
+        {
+            AssetBundleExternalResourceProvider.instance.UnloadBundle(29342328);
+            AssetBundleExternalResourceProvider.instance.UnloadBundle(33067900);
+            AssetBundleExternalResourceProvider.instance.UnloadBundle(25060239);
+            AssetBundleExternalResourceProvider.instance.UnloadBundle(32070509);
+            AssetBundleExternalResourceProvider.instance.RefreshBlockFile();
+        }
+    } // 0x0000000181F14010-0x0000000181F14130
+      // [XID] // 0x0000000189AF0AB0-0x0000000189AF0AD0
+    public static void StartReportFileWrite()
+    {
+        string[] reportFile = new string[3];
+        reportFile[0] = ResourceConstants.internalBlockDirectory;
+        reportFile[1] = ResourceConstants.externalBlockDirectory;
+        //自定义引擎代码
+        //reportFile[2] = Application.GetReportLocalFileIl2cppMetaDataDir();
+        //Application.reportLocalFileWriteFilter(reportFile);
+    } // 0x0000000181F147E0-0x0000000181F149B0
+      // [XID] // 0x0000000189A9AFC0-0x0000000189A9AFE0
+    public static void StopReportFileWrite()
+    {
+        //自定义引擎代码
+        //Application.reportLocalFileWrite = false;
+        //Application.reportLocalFileWriteFilter = false;
+    } // 0x0000000181F13F70-0x0000000181F14010
 }
 
