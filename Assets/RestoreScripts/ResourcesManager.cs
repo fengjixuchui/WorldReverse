@@ -490,6 +490,14 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
     {
         path = default;
         isExternal = default;
+        if (line != null)
+        {
+            if (line.Length >= 3)
+            {
+                path = line.Substring(0, line.Length - 2);
+                isExternal = line[line.Length - 1] == '1';
+            }
+        }
     } // 0x0000000181F16810-0x0000000181F16960
       // [XID] // 0x0000000189A7CDF0-0x0000000189A7CE10
     public static void UnloadBlock(int languageCode, int id) { } // 0x0000000181F16BA0-0x0000000181F16E30
