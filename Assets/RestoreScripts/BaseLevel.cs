@@ -24,19 +24,19 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
     public string sceneDataName; // 0x38
     protected float curProgress; // 0x40
     protected Coroutine curCoroutine; // 0x48
-    private bool _loadEntityAsync; // 0x50
+    private bool _loadEntityAsync = true; // 0x50
     private const float nonStreamEntitySliceframeWatchScale = 4f; // Metadata: 0x00AFD062
     private bool _isNewScene; // 0x51
-    public static float intervalLoadMill; // 0x00
+    public static float intervalLoadMill = 33f; // 0x00
     private LevelState _levelState; // 0x54
     public static Dictionary<int, float> LoadStatePerc; // 0x08
     private float _startTime; // 0x58
     private bool wait; // 0x5C
     public static bool isLoading; // 0x10
-    private List<TransmitRequest> _transmitRequests; // 0x60
+    private List<TransmitRequest> _transmitRequests = new List<TransmitRequest>(); // 0x60
 
     // Properties
-    public LevelState levelState { /* [XID] */ /* 0x0000000189AA4C50-0x0000000189AA4C70 */ get; /* [XID] */ /* 0x0000000189AAFE10-0x0000000189AAFE30 */ set; } // 0x00000001814F10E0-0x00000001814F1180 0x00000001814EA1C0-0x00000001814EA270
+    public LevelState levelState { /* [XID] */ /* 0x0000000189AA4C50-0x0000000189AA4C70 */ get => _levelState; /* [XID] */ /* 0x0000000189AAFE10-0x0000000189AAFE30 */ set { _levelState = value; } } // 0x00000001814F10E0-0x00000001814F1180 0x00000001814EA1C0-0x00000001814EA270
 
     // Nested types
     public enum LevelState // TypeDefIndex: 19898
@@ -72,8 +72,28 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
     {
         _loadEntityAsync = true;
     } // Dummy constructor
-    public BaseLevel(string dataName, string overloadDefaultWeatherProfile = null) { } // 0x00000001814F15D0-0x00000001814F1690
-    static BaseLevel() { } // 0x00000001814F13B0-0x00000001814F15D0
+    public BaseLevel(string dataName, string overloadDefaultWeatherProfile = null)
+    {
+        sceneDataName = dataName;
+        _overloadDefaultWeatherProfile = overloadDefaultWeatherProfile;
+    } // 0x00000001814F15D0-0x00000001814F1690
+    static BaseLevel()
+    {
+        LoadStatePerc = new Dictionary<int, float>();
+        LoadStatePerc.Add(0, 0f);
+        LoadStatePerc.Add(1, 0.1f);
+        LoadStatePerc.Add(2, 0.2f);
+        LoadStatePerc.Add(3, 0.25f);
+        LoadStatePerc.Add(4, 0.28f);
+        LoadStatePerc.Add(5, 0.3f);
+        LoadStatePerc.Add(6, 0.65f);
+        LoadStatePerc.Add(7, 0.9f);
+        LoadStatePerc.Add(8, 0.92f);
+        LoadStatePerc.Add(9, 0.94f);
+        LoadStatePerc.Add(10, 0.96f);
+        LoadStatePerc.Add(11, 0.98f);
+        LoadStatePerc.Add(12, 1f);
+    } // 0x00000001814F13B0-0x00000001814F15D0
 
     // Methods
     // [XID] // 0x0000000189A4E410-0x0000000189A4E430
