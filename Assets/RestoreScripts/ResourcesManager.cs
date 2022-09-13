@@ -93,8 +93,17 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         _assetLoadList.Clear();
     } // 0x0000000181F12F40-0x0000000181F13070
       // [XID] // 0x0000000189975570-0x0000000189975590
-    private static void OnPrefabLoadFinish(string path, float time) { } // 0x0000000181F13350-0x0000000181F134C0
-                                                                        // [XID] // 0x000000018997C710-0x000000018997C730
+    private static void OnPrefabLoadFinish(string path, float time)
+    {
+        if (!ExternalResourceProvider.unlimited)
+        {
+            loadJob job = new();
+            job.name = path;
+            job.time = time;
+            _instantiateList.Add(job);
+        }
+    } // 0x0000000181F13350-0x0000000181F134C0
+      // [XID] // 0x000000018997C710-0x000000018997C730
     private static void onAssetLoadFinish(string path, float time) { } // 0x0000000181F143A0-0x0000000181F14510
                                                                        // [XID] // 0x0000000189984450-0x0000000189984470
     private static void onBundleLoadFinish(string path, float time) { } // 0x0000000181F13070-0x0000000181F131E0
