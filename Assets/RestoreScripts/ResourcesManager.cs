@@ -382,8 +382,11 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         _svcHandles.Clear();
     } // 0x0000000181F17810-0x0000000181F17950
       // [XID] // 0x0000000189A40AD0-0x0000000189A40AF0
-    public void DropUnstartedLoads() { } // 0x0000000181F14280-0x0000000181F14340
-                                         // [XID] // 0x0000000189A48170-0x0000000189A48190
+    public void DropUnstartedLoads()
+    {
+        MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().DropUnstartedLoads();
+    } // 0x0000000181F14280-0x0000000181F14340
+      // [XID] // 0x0000000189A48170-0x0000000189A48190
     public void RegisterQuietDownCallback(QuietDownCallback callback)
     {
         _quietDownCallback = callback;
