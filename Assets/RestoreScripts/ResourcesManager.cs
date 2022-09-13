@@ -115,8 +115,17 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         }
     } // 0x0000000181F143A0-0x0000000181F14510
       // [XID] // 0x0000000189984450-0x0000000189984470
-    private static void onBundleLoadFinish(string path, float time) { } // 0x0000000181F13070-0x0000000181F131E0
-                                                                        // [XID] // 0x000000018998BEF0-0x000000018998BF10
+    private static void onBundleLoadFinish(string path, float time)
+    {
+        if (!ExternalResourceProvider.unlimited)
+        {
+            loadJob job = new();
+            job.name = path;
+            job.time = time;
+            _bundleLoadList.Add(job);
+        }
+    } // 0x0000000181F13070-0x0000000181F131E0
+      // [XID] // 0x000000018998BEF0-0x000000018998BF10
     private static int Sort(loadJob a, loadJob b) => default; // 0x0000000181F17A10-0x0000000181F17B30
                                                               // [IDTag] // 0x0000000189993BB0-0x0000000189993BF0
                                                               // [XID] // 0x0000000189993BB0-0x0000000189993BF0
