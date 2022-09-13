@@ -126,9 +126,9 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         }
     } // 0x0000000181F13070-0x0000000181F131E0
       // [XID] // 0x000000018998BEF0-0x000000018998BF10
-    private static int Sort(loadJob a, loadJob b) => default; // 0x0000000181F17A10-0x0000000181F17B30
-                                                              // [IDTag] // 0x0000000189993BB0-0x0000000189993BF0
-                                                              // [XID] // 0x0000000189993BB0-0x0000000189993BF0
+    private static int Sort(loadJob a, loadJob b) => Mathf.CeilToInt((b.time - a.time) * 100f); // 0x0000000181F17A10-0x0000000181F17B30
+                                                                                                // [IDTag] // 0x0000000189993BB0-0x0000000189993BF0
+                                                                                                // [XID] // 0x0000000189993BB0-0x0000000189993BF0
     public static void Dump() { } // 0x0000000181F15220-0x0000000181F16320
                                   // [XID] // 0x000000018999E610-0x000000018999E630
     public override void Init() { } // 0x0000000181F16380-0x0000000181F16810
