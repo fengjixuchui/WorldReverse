@@ -423,8 +423,21 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         }
     } // 0x0000000181F14F80-0x0000000181F150D0
       // [XID] // 0x0000000189A662F0-0x0000000189A66310
-    private void WarmupInternalShaderVariantCollection(string path) { } // 0x0000000181F14510-0x0000000181F14670
-                                                                        // [XID] // 0x0000000189A6DA40-0x0000000189A6DA60
+    private void WarmupInternalShaderVariantCollection(string path)
+    {
+        if (!string.IsNullOrEmpty(path))
+        {
+            if (path.EndsWith("@warmup"))
+            {
+                var shaderVariantCollection = Resources.Load<ShaderVariantCollection>(path);
+                if (shaderVariantCollection)
+                {
+                    shaderVariantCollection.WarmUp();
+                }
+            }
+        }
+    } // 0x0000000181F14510-0x0000000181F14670
+      // [XID] // 0x0000000189A6DA40-0x0000000189A6DA60
     private void WarmupExternalShaderVariantCollection(string path) { } // 0x0000000181F13830-0x0000000181F13C90
                                                                         // [XID] // 0x0000000189A75190-0x0000000189A751B0
     private void ExtractShaderVariantCollectionInfo(string line, out string path, out bool isExternal)
