@@ -16,7 +16,10 @@ using UnityEngine;
 using UnityEngine.Scripting;
 
 // Image 60: Assembly-CSharp.dll - Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null - Types 10700-32500
-
+/// <summary>
+/// 已完成-资源读取管理器 负责加载和管理所有资产文件
+/// 2022/09/13
+/// </summary>
 public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
 {
     // Fields
