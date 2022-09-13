@@ -315,7 +315,7 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
             LoadStreamingIndex();
             return true;
         }
-        if (MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().LoadResourceIndex(indexPath))
+        if (MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().LoadResourceIndex(indexPath, false))
             return true;
         UnityEngine.Debug.LogError("External Asset Index Load Error,Read Streaming Instead");
         SuperDebug.VeryImportantError("External Asset Index Load Error,Read Streaming Instead", ErrorLevel.High, ErrorCategory.Resource);
