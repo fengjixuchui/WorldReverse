@@ -78,10 +78,14 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
 
     // Methods
     // [XID] // 0x000000018995ED90-0x000000018995EDB0
-    public override void ReloadRes() { } // 0x0000000181F17FA0-0x0000000181F18060
-                                         // [XID] // 0x00000001899665F0-0x0000000189966610
-    public void AndroidWarmUp() { } // 0x0000000181F149B0-0x0000000181F14F80
-                                    // [XID] // 0x000000018996D9D0-0x000000018996D9F0
+    public override void ReloadRes()
+    {
+        _svcHandles.Clear();
+        WarmupShaders();
+    } // 0x0000000181F17FA0-0x0000000181F18060
+      // [XID] // 0x00000001899665F0-0x0000000189966610
+    public void AndroidWarmUp() { /* 无关 */} // 0x0000000181F149B0-0x0000000181F14F80
+                                            // [XID] // 0x000000018996D9D0-0x000000018996D9F0
     public static void Refresh() { } // 0x0000000181F12F40-0x0000000181F13070
                                      // [XID] // 0x0000000189975570-0x0000000189975590
     private static void OnPrefabLoadFinish(string path, float time) { } // 0x0000000181F13350-0x0000000181F134C0
