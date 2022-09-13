@@ -307,8 +307,23 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
                      // [XID] // 0x0000000189A11640-0x0000000189A11680
     public IEnumerator BlockWarmUp(Action<float> progressCB = null) => MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().BlockWarmUp(progressCB); // 0x0000000181F13240-0x0000000181F13350
                                                                                                                                                           // [XID] // 0x0000000189A1B790-0x0000000189A1B7B0
-    public bool LoadExternalIndex() => default; // 0x0000000181F171D0-0x0000000181F17420
-                                                // [XID] // 0x0000000189A231A0-0x0000000189A231C0
+    public bool LoadExternalIndex()
+    {
+        string indexPath = Path.Combine(ResourceConstants.externalBlockDirectory, "00/31049740.blk");
+        if (File.Exists(indexPath))
+        {
+            LoadStreamingIndex();
+            return true;
+        }
+        if (MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().LoadResourceIndex(indexPath))
+            return true;
+        UnityEngine.Debug.LogError("External Asset Index Load Error,Read Streaming Instead");
+        SuperDebug.VeryImportantError("External Asset Index Load Error,Read Streaming Instead", ErrorLevel.High, ErrorCategory.Resource);
+        PersistDirUtil.ClearStateFilesInPersistDir();
+        LoadStreamingIndex(true);
+        return false;
+    }// 0x0000000181F171D0-0x0000000181F17420
+     // [XID] // 0x0000000189A231A0-0x0000000189A231C0
     public void ReadInStreamingResourceRevision() { } // 0x0000000181F14130-0x0000000181F14220
                                                       // [XID] // 0x0000000189A2A360-0x0000000189A2A380
     public void ReadInExternalResourceRevision() { } // 0x0000000181F146F0-0x0000000181F147E0
