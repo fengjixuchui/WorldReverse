@@ -329,8 +329,11 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
         streamingResourceRevision = ReadInRevision(ResourceConstants.streamingAssetRevisionFile);
     } // 0x0000000181F14130-0x0000000181F14220
       // [XID] // 0x0000000189A2A360-0x0000000189A2A380
-    public void ReadInExternalResourceRevision() { } // 0x0000000181F146F0-0x0000000181F147E0
-                                                     // [XID] // 0x0000000189A317D0-0x0000000189A317F0
+    public void ReadInExternalResourceRevision()
+    {
+        externalResourceRevision = ReadInRevision(ResourceConstants.externalAssetRevisionFile);
+    } // 0x0000000181F146F0-0x0000000181F147E0
+      // [XID] // 0x0000000189A317D0-0x0000000189A317F0
     public void WarmupShaders() { } // 0x0000000181F17480-0x0000000181F17810
                                     // [XID] // 0x0000000189A39330-0x0000000189A39350
     public void UnloadShaders() { } // 0x0000000181F17810-0x0000000181F17950
