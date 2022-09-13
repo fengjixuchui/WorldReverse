@@ -396,8 +396,21 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
       // [XID] // 0x0000000189A4FA40-0x0000000189A4FA60
     public ExternalResources GetExternalResources() => MoleMole.Lazy<ExternalResources>.Get<ExternalResources>(); // 0x0000000181F17C30-0x0000000181F17CE0
                                                                                                                   // [XID] // 0x0000000189689160-0x0000000189689180
-    private int ReadInRevision(string filePath) => default; // 0x0000000181F17DA0-0x0000000181F17FA0
-                                                            // [XID] // 0x0000000189A5EBF0-0x0000000189A5EC10
+    private int ReadInRevision(string filePath)  // 0x0000000181F17DA0-0x0000000181F17FA0
+    {
+        int revision = 0;
+        if (File.Exists(filePath))
+        {
+            var text = File.OpenText(filePath);
+            if (!text.EndOfStream)
+            {
+                int.TryParse(text.ReadLine(), out revision);
+            }
+            text.Dispose();
+        }
+        return revision;
+    }
+    // [XID] // 0x0000000189A5EBF0-0x0000000189A5EC10
     private void WarmupShaderVariantCollection(string line) { } // 0x0000000181F14F80-0x0000000181F150D0
                                                                 // [XID] // 0x0000000189A662F0-0x0000000189A66310
     private void WarmupInternalShaderVariantCollection(string path) { } // 0x0000000181F14510-0x0000000181F14670
