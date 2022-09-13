@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text;
@@ -20,20 +21,20 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
 {
     // Fields
     private const float QUIET_DOWN_TIME_OUT = 10f; // Metadata: 0x00AFF3EA
-    private readonly List<uint> _svcHandles; // 0x10
+    private readonly List<uint> _svcHandles = new List<uint>(); // 0x10
     private QuietDownCallback _quietDownCallback; // 0x18
     private bool _asset_updated; // 0x20
     private float _quietDownTimeOutDue; // 0x24
     public static Action<List<string>> dumpAllLoadedAsset; // 0x00
-    private static LRUList<loadJob> _assetLoadList; // 0x08
-    private static LRUList<loadJob> _instantiateList; // 0x10
-    private static LRUList<loadJob> _bundleLoadList; // 0x18
+    private static LRUList<loadJob> _assetLoadList = new LRUList<loadJob>(10000); // 0x08
+    private static LRUList<loadJob> _instantiateList = new LRUList<loadJob>(10000); // 0x10
+    private static LRUList<loadJob> _bundleLoadList = new LRUList<loadJob>(10000); // 0x18
 
     // Properties
     public bool ForceLoadIndex { /* [XID] */ /* 0x0000000189902090-0x00000001899020D0 */ get; /* [XID] */ /* 0x000000018990C9F0-0x000000018990CA30 */ private set; } // 0x0000000181F17420-0x0000000181F17480 0x0000000181F16320-0x0000000181F16380
     public bool downloadSucc { /* [XID] */ /* 0x00000001899174A0-0x00000001899174E0 */ get; /* [XID] */ /* 0x0000000189921CA0-0x0000000189921CE0 */ set; } // 0x0000000181F16E90-0x0000000181F16EF0 0x0000000181F14340-0x0000000181F143A0
-    public bool assetUpdated { /* [XID] */ /* 0x000000018992C140-0x000000018992C160 */ get => default; } // 0x0000000181F134C0-0x0000000181F13560 
-    public List<string> allLoadedAsset { /* [XID] */ /* 0x00000001899335A0-0x00000001899335C0 */ get => default; } // 0x0000000181F17950-0x0000000181F17A10 
+    public bool assetUpdated { /* [XID] */ /* 0x000000018992C140-0x000000018992C160 */ get => _asset_updated; } // 0x0000000181F134C0-0x0000000181F13560 
+    public List<string> allLoadedAsset { /* [XID] */ /* 0x00000001899335A0-0x00000001899335C0 */ get => MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().allLoadedAsset; } // 0x0000000181F17950-0x0000000181F17A10 
     public int streamingResourceRevision { get; /* [XID] */ /* 0x0000000189942380-0x00000001899423C0 */ private set; } // 0x0000000181F137D0-0x0000000181F13830 0x0000000181F170B0-0x0000000181F17110
     public int externalResourceRevision { get; /* [XID] */ /* 0x0000000189954330-0x0000000189954370 */ private set; } // 0x0000000181F16E30-0x0000000181F16E90 0x0000000181F131E0-0x0000000181F13240
 
@@ -76,33 +77,92 @@ public sealed class ResourcesManager : GlobalManager // TypeDefIndex: 21274
 
     public delegate void QuietDownCallback(); // TypeDefIndex: 21277; 0x0000000181F1FAB0-0x0000000181F1FC10
 
-    // Constructors
-    public ResourcesManager() { } // 0x0000000181F18810-0x0000000181F188E0
-    static ResourcesManager() { } // 0x0000000181F18710-0x0000000181F18810
-
     // Methods
     // [XID] // 0x000000018995ED90-0x000000018995EDB0
-    public override void ReloadRes() { } // 0x0000000181F17FA0-0x0000000181F18060
-                                         // [XID] // 0x00000001899665F0-0x0000000189966610
-    public void AndroidWarmUp() { } // 0x0000000181F149B0-0x0000000181F14F80
-                                    // [XID] // 0x000000018996D9D0-0x000000018996D9F0
-    public static void Refresh() { } // 0x0000000181F12F40-0x0000000181F13070
-                                     // [XID] // 0x0000000189975570-0x0000000189975590
-    private static void OnPrefabLoadFinish(string path, float time) { } // 0x0000000181F13350-0x0000000181F134C0
-                                                                        // [XID] // 0x000000018997C710-0x000000018997C730
-    private static void onAssetLoadFinish(string path, float time) { } // 0x0000000181F143A0-0x0000000181F14510
-                                                                       // [XID] // 0x0000000189984450-0x0000000189984470
-    private static void onBundleLoadFinish(string path, float time) { } // 0x0000000181F13070-0x0000000181F131E0
-                                                                        // [XID] // 0x000000018998BEF0-0x000000018998BF10
-    private static int Sort(loadJob a, loadJob b) => default; // 0x0000000181F17A10-0x0000000181F17B30
-                                                              // [IDTag] // 0x0000000189993BB0-0x0000000189993BF0
-                                                              // [XID] // 0x0000000189993BB0-0x0000000189993BF0
+    public override void ReloadRes()
+    {
+        _svcHandles.Clear();
+        WarmupShaders();
+    } // 0x0000000181F17FA0-0x0000000181F18060
+      // [XID] // 0x00000001899665F0-0x0000000189966610
+    public void AndroidWarmUp() { /* 无关 */} // 0x0000000181F149B0-0x0000000181F14F80
+                                            // [XID] // 0x000000018996D9D0-0x000000018996D9F0
+    public static void Refresh()
+    {
+        _instantiateList.Clear();
+        _bundleLoadList.Clear();
+        _assetLoadList.Clear();
+    } // 0x0000000181F12F40-0x0000000181F13070
+      // [XID] // 0x0000000189975570-0x0000000189975590
+    private static void OnPrefabLoadFinish(string path, float time)
+    {
+        if (!ExternalResourceProvider.unlimited)
+        {
+            loadJob job = new();
+            job.name = path;
+            job.time = time;
+            _instantiateList.Add(job);
+        }
+    } // 0x0000000181F13350-0x0000000181F134C0
+      // [XID] // 0x000000018997C710-0x000000018997C730
+    private static void onAssetLoadFinish(string path, float time)
+    {
+        if (!ExternalResourceProvider.unlimited)
+        {
+            loadJob job = new();
+            job.name = path;
+            job.time = time;
+            _assetLoadList.Add(job);
+        }
+    } // 0x0000000181F143A0-0x0000000181F14510
+      // [XID] // 0x0000000189984450-0x0000000189984470
+    private static void onBundleLoadFinish(string path, float time)
+    {
+        if (!ExternalResourceProvider.unlimited)
+        {
+            loadJob job = new();
+            job.name = path;
+            job.time = time;
+            _bundleLoadList.Add(job);
+        }
+    } // 0x0000000181F13070-0x0000000181F131E0
+      // [XID] // 0x000000018998BEF0-0x000000018998BF10
+    private static int Sort(loadJob a, loadJob b) => Mathf.CeilToInt((b.time - a.time) * 100f); // 0x0000000181F17A10-0x0000000181F17B30
+                                                                                                // [IDTag] // 0x0000000189993BB0-0x0000000189993BF0
+                                                                                                // [XID] // 0x0000000189993BB0-0x0000000189993BF0
     public static void Dump() { } // 0x0000000181F15220-0x0000000181F16320
                                   // [XID] // 0x000000018999E610-0x000000018999E630
-    public override void Init() { } // 0x0000000181F16380-0x0000000181F16810
-                                    // [XID] // 0x00000001899A6010-0x00000001899A6030
-    public override void Destroy() { } // 0x0000000181F13CF0-0x0000000181F13DC0
-                                       // [XID] // 0x00000001899AD620-0x00000001899AD640
+    public override void Init()
+    {
+        PrefabLoadJob.onLoadFinish = OnPrefabLoadFinish;
+        AssetLoadJob.onLoadFinish = onAssetLoadFinish;
+        SeperateBundleLoadJob.onLoadFinish = onBundleLoadFinish;
+        MarkSilenceUpdateBlock();
+        StartReportFileWrite();
+        // 自定义引擎代码
+        //UnityEngine.ObjectInstanceCache.defaultDeactiveAfterAsyncInstantiate = GlobalVars.defaultDeactiveAfterInstantiate;
+        _asset_updated = false;
+        AssetBundleSettings.Load();
+        MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().Init();
+        string indexPath = Path.Combine(ResourceConstants.externalBlockDirectory, "00/31049740.blk");
+        if (File.Exists(indexPath))
+        {
+            LoadExternalIndex();
+            ReadInExternalResourceRevision();
+        }
+        else
+        {
+            LoadStreamingIndex(false);
+            ReadInStreamingResourceRevision();
+        }
+    } // 0x0000000181F16380-0x0000000181F16810
+      // [XID] // 0x00000001899A6010-0x00000001899A6030
+    public override void Destroy()
+    {
+        UnloadShaders();
+        MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().Destroy();
+    } // 0x0000000181F13CF0-0x0000000181F13DC0
+      // [XID] // 0x00000001899AD620-0x00000001899AD640
     public override void ClearOnLevelDestroy() { } // 0x0000000181F13640-0x0000000181F136E0
                                                    // [XID] // 0x00000001899B4E80-0x00000001899B4EA0
     public override void Tick()
