@@ -177,8 +177,16 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
                                                                                                                            // [XID] // 0x0000000189ADD8D0-0x0000000189ADD8F0
     public bool IsCoroutineStop() => curCoroutine == null; // 0x00000001814E7EF0-0x00000001814E7FA0
                                                            // [XID] // 0x0000000189AE51A0-0x0000000189AE51C0
-    private void SetAsyncLoadEntity(bool isAsync) { } // 0x00000001814EAFF0-0x00000001814EB140
-                                                      // [XID] // 0x0000000189AEC7E0-0x0000000189AEC800
+    private void SetAsyncLoadEntity(bool isAsync)
+    {
+        _loadEntityAsync = isAsync;
+        var tmp = Singleton<LevelModule>.Instance.sliceFramePacketHandlerMgr;
+        if (tmp != null)
+        {
+            tmp.OnNeedForceSyncHandleAllPacket = !isAsync;
+        }
+    } // 0x00000001814EAFF0-0x00000001814EB140
+      // [XID] // 0x0000000189AEC7E0-0x0000000189AEC800
     public void PrepareBeforeLoad(bool isPrepare, bool asyncLoad, bool isTrans) { } // 0x00000001814E7BF0-0x00000001814E7DA0
                                                                                     // [XID] // 0x0000000189AF41F0-0x0000000189AF4210
     public void OnPlayerEnterSceneFinish(uint token, bool isReconnecting) { } // 0x00000001814EBAC0-0x00000001814EBC80
