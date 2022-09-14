@@ -302,8 +302,36 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
         }
     } // 0x00000001814EF4B0-0x00000001814EF5A0
       // [XID] // 0x0000000189B2F2B0-0x0000000189B2F2D0
-    public override void Destroy() { } // 0x00000001814E9710-0x00000001814E9B80
-                                       // [XID] // 0x0000000189B36C10-0x0000000189B36C30
+    public override void Destroy()
+    {
+        ClearTransmitRequest();
+        SchedulerMgr.Dispose();
+        ClearLevelCoroutine();
+        Singleton<LuaShellManager>.Instance.OnLevelEnd(this);
+        Singleton<SecurityModule>.Instance.StopReportCoroutine();
+        Singleton<LuaShellManager>.Instance.OnLevelEnd(this);
+        var evtStageDestroying = EventHelper.Allocate<EvtStageDestroying>();
+        evtStageDestroying.Init();
+        Singleton<EventManager>.Instance.FireEvent(evtStageDestroying);
+        Singleton<SECTR_Manager>.Instance.HandleAllRequestBeforeDestroy();
+        levelState = LevelState.Destroied;
+        Singleton<MiHoYoGameData>.Instance.SaveIfNeeded(true);
+        DestroyInLevelManagers();
+        InLevelData.Clear();
+        ManagerController.CheckInLevelManagersEmpty();
+        BaseModule.ClearModuleOnLevelDestroy();
+        ManagerController.ClearGlobalManagersOnLevelDestroy();
+        ClearLevelCache();
+        GraphicsSettingData.Reset();
+        if (configHandle != 0)
+        {
+            CommonMiscs.DismissExternal(configHandle);
+            configHandle = 0;
+        }
+        ActorUtils.ForceGC();
+        ClearConfig();
+    } // 0x00000001814E9710-0x00000001814E9B80
+      // [XID] // 0x0000000189B36C10-0x0000000189B36C30
     public static void ClearConfig() { } // 0x00000001814EDEF0-0x00000001814EE070
     [DebuggerHidden] // 0x0000000189B3E3D0-0x0000000189B3E410
                      // [XID] // 0x0000000189B3E3D0-0x0000000189B3E410
