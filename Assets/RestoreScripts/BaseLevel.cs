@@ -545,7 +545,21 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
     } // 0x00000001814EE6A0-0x00000001814EED10
     [DebuggerHidden] // 0x0000000189B66FC0-0x0000000189B67000
                      // [XID] // 0x0000000189B66FC0-0x0000000189B67000
-    protected virtual IEnumerator PreloadRes() => default; // 0x00000001814F09E0-0x00000001814F0AB0
+    protected virtual IEnumerator PreloadRes()  // 0x00000001814F09E0-0x00000001814F0AB0
+    {
+        float startTime = Time.realtimeSinceStartup;
+        if (GlobalVars.forcePreloadAllEffects)
+        {
+            yield return EffectManager.PreloadAllRes(OnLoadAllEffectsProgress);
+        }
+        yield return Singleton<EffectManager>.Instance.PreloadCommonEffect(OnLoadAllEffectsProgress);
+        yield return Singleton<EffectManager>.Instance.PreloadCommonEffect(OnLoadCommonEffectsProgress);
+        yield return IconUtils.PreloadCommonIcon();
+        yield return Singleton<UIManager>.Instance.PreloadRes(OnLoadUIProgress);
+        MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().StartBatchLoad();
+        MoleMole.Lazy<ExternalResources>.Get<ExternalResources>().CollectBatchLoad(null);
+        SuperDebug.Log("Preload All Res Finish + time =" + (Time.realtimeSinceStartup - startTime));
+    }
     [DebuggerHidden] // 0x0000000189B71550-0x0000000189B71590
                      // [XID] // 0x0000000189B71550-0x0000000189B71590
     protected virtual IEnumerator LoadStage() => default; // 0x00000001814EE1F0-0x00000001814EE2C0
