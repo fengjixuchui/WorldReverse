@@ -276,8 +276,23 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
       // [XID] // 0x0000000189B191D0-0x0000000189B191F0
     public override void LateTick() { } // 0x00000001814EF5A0-0x00000001814EF640
                                         // [XID] // 0x0000000189B20890-0x0000000189B208B0
-    private void OnFrameEnd() { } // 0x00000001814E95B0-0x00000001814E9710
-                                  // [XID] // 0x0000000189B27F10-0x0000000189B27F30
+    private void OnFrameEnd()
+    {
+        if (Singleton<EntityManager>.Instance != null)
+        {
+            if (Singleton<EntityManager>.Instance.levelEntity != null)
+            {
+                Singleton<EntityManager>.Instance.levelEntity.GetLCLevelComponent().OnFrameEnd();
+                if (GlobalVars.DebugAIDiagnosisMode)
+                {
+                    var AIManager = Singleton<EntityManager>.Instance.levelEntity.GetLogicComponent<LCAIManager>(LCBaseComponentTypeIDs.LCAIManager);
+                    if (AIManager != null)
+                        AIManager.RecordBehaviorsOnFrameEnd();
+                }
+            }
+        }
+    } // 0x00000001814E95B0-0x00000001814E9710
+      // [XID] // 0x0000000189B27F10-0x0000000189B27F30
     private void ClearLevelCoroutine() { } // 0x00000001814EF4B0-0x00000001814EF5A0
                                            // [XID] // 0x0000000189B2F2B0-0x0000000189B2F2D0
     public override void Destroy() { } // 0x00000001814E9710-0x00000001814E9B80
