@@ -385,8 +385,13 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
         SuperDebug.LogFormat("after LoadStage cost = {0}", loadCost);
     }// 0x00000001814EFBB0-0x00000001814EFC90
      // [XID] // 0x0000000189B49000-0x0000000189B49020
-    protected void LoadScene() { } // 0x00000001814E9F90-0x00000001814EA060
-                                   // [XID] // 0x0000000189B50600-0x0000000189B50620
+    protected void LoadScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(scenePath);
+        // 自定义引擎代码
+        //MeshCollider.autoUnloadColliderMeshRenderData = levelCreateData.autoUnloadColliderMeshRenderData;
+    } // 0x00000001814E9F90-0x00000001814EA060
+      // [XID] // 0x0000000189B50600-0x0000000189B50620
     protected void OnSceneLoadedPreInit() { } // 0x00000001814F0690-0x00000001814F0980
                                               // [XID] // 0x0000000189B57F10-0x0000000189B57F30
     protected void OnSceneLoadedInit()
