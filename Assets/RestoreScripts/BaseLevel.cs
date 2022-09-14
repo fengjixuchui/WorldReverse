@@ -332,7 +332,15 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
         ClearConfig();
     } // 0x00000001814E9710-0x00000001814E9B80
       // [XID] // 0x0000000189B36C10-0x0000000189B36C30
-    public static void ClearConfig() { } // 0x00000001814EDEF0-0x00000001814EE070
+    public static void ClearConfig()
+    {
+        AbilityData.CheckClear();
+        GadgetData.CheckClear();
+        AvatarData.CheckClear();
+        MonsterData.CheckClear();
+        ObjectPoolManager.ClearAllPool();
+        SCameraShotTask.ClearOnLevelDestroy();
+    } // 0x00000001814EDEF0-0x00000001814EE070
     [DebuggerHidden] // 0x0000000189B3E3D0-0x0000000189B3E410
                      // [XID] // 0x0000000189B3E3D0-0x0000000189B3E410
     protected virtual IEnumerator PreInitIter(uint token)
