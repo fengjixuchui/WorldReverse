@@ -254,10 +254,26 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
         }
     } // 0x00000001814EB2D0-0x00000001814EB750
       // [XID] // 0x0000000189B0A7E0-0x0000000189B0A800
-    public override void FixedTick() { } // 0x00000001814EC980-0x00000001814ECAB0
-                                         // [XID] // 0x0000000189B11EC0-0x0000000189B11EE0
-    public override void Tick() { } // 0x00000001814EB750-0x00000001814EB9E0
-                                    // [XID] // 0x0000000189B191D0-0x0000000189B191F0
+    public override void FixedTick()
+    {
+        if (IsPreparing() || IsReady())
+        {
+            Singleton<EntityManager>.Instance.FixedTick();
+        }
+    } // 0x00000001814EC980-0x00000001814ECAB0
+      // [XID] // 0x0000000189B11EC0-0x0000000189B11EE0
+    public override void Tick()
+    {
+        if (ExternalResourceProvider.unlimited)
+        {
+            if (IsReady())
+            {
+                Singleton<LuaShellManager>.Instance.UpdateLevelTick();
+            }
+        }
+
+    } // 0x00000001814EB750-0x00000001814EB9E0
+      // [XID] // 0x0000000189B191D0-0x0000000189B191F0
     public override void LateTick() { } // 0x00000001814EF5A0-0x00000001814EF640
                                         // [XID] // 0x0000000189B20890-0x0000000189B208B0
     private void OnFrameEnd() { } // 0x00000001814E95B0-0x00000001814E9710
