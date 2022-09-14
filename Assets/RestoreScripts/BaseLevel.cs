@@ -562,7 +562,16 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
     }
     [DebuggerHidden] // 0x0000000189B71550-0x0000000189B71590
                      // [XID] // 0x0000000189B71550-0x0000000189B71590
-    protected virtual IEnumerator LoadStage() => default; // 0x00000001814EE1F0-0x00000001814EE2C0
+    protected virtual IEnumerator LoadStage()
+    {
+        yield return Singleton<LoadingManager>.Instance.PlayerTeleport(Singleton<PlayerModule>.Instance.initPos, LoadingLevelProgress);
+        if (GameManager.Instance.isOnlineMode) yield break;
+        while (AssetBundleExternalResourceProvider.Instance.IsBatchCollect || !AssetBundleExternalResourceProvider.Instance.idle)
+        {
+            AssetBundleExternalResourceProvider.Instance.StartBatchLoad();
+            yield return null;
+        }
+    }// 0x00000001814EE1F0-0x00000001814EE2C0
     [DebuggerHidden] // 0x0000000189B7B830-0x0000000189B7B870
                      // [XID] // 0x0000000189B7B830-0x0000000189B7B870
     protected virtual IEnumerator WaitAudioFinish() => default; // 0x00000001814EEF50-0x00000001814EF010
