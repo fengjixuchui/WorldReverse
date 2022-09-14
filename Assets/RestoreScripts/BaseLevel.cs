@@ -392,8 +392,23 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
         //MeshCollider.autoUnloadColliderMeshRenderData = levelCreateData.autoUnloadColliderMeshRenderData;
     } // 0x00000001814E9F90-0x00000001814EA060
       // [XID] // 0x0000000189B50600-0x0000000189B50620
-    protected void OnSceneLoadedPreInit() { } // 0x00000001814F0690-0x00000001814F0980
-                                              // [XID] // 0x0000000189B57F10-0x0000000189B57F30
+    protected void OnSceneLoadedPreInit()
+    {
+        float startTime = Time.realtimeSinceStartup;
+        //自定义引擎代码
+        //UnityEngine.DeformationManager.ClearAll();
+        Singleton<MiHoYoSDKManager>.Instance.GetProductList();
+        InLevelData.Init();
+        AvatarData.Init();
+        MonsterData.Init();
+        DetermineSliceFrameBeforeCreateModuleInLevelManager();
+        BaseModule.InitModuleOnLevelInit();
+        CreateInLevelManagers();
+        Singleton<InputManager>.Instance.InitOnSceneLoaded();
+        EntityFactory.CreateLevelEntity();
+        SuperDebug.Log("OnSceneLoadedPreInit cost = " + (Time.realtimeSinceStartup - startTime));
+    } // 0x00000001814F0690-0x00000001814F0980
+      // [XID] // 0x0000000189B57F10-0x0000000189B57F30
     protected void OnSceneLoadedInit()
     {
         float prevRealtimeSinceStartup = Time.realtimeSinceStartup;
