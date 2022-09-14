@@ -293,8 +293,15 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
         }
     } // 0x00000001814E95B0-0x00000001814E9710
       // [XID] // 0x0000000189B27F10-0x0000000189B27F30
-    private void ClearLevelCoroutine() { } // 0x00000001814EF4B0-0x00000001814EF5A0
-                                           // [XID] // 0x0000000189B2F2B0-0x0000000189B2F2D0
+    private void ClearLevelCoroutine()
+    {
+        if (curCoroutine != null)
+        {
+            Singleton<CoroutineManager>.Instance.StopCoroutine(curCoroutine);
+            curCoroutine = null;
+        }
+    } // 0x00000001814EF4B0-0x00000001814EF5A0
+      // [XID] // 0x0000000189B2F2B0-0x0000000189B2F2D0
     public override void Destroy() { } // 0x00000001814E9710-0x00000001814E9B80
                                        // [XID] // 0x0000000189B36C10-0x0000000189B36C30
     public static void ClearConfig() { } // 0x00000001814EDEF0-0x00000001814EE070
