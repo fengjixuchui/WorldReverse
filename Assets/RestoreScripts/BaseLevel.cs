@@ -574,8 +574,19 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
     }// 0x00000001814EE1F0-0x00000001814EE2C0
     [DebuggerHidden] // 0x0000000189B7B830-0x0000000189B7B870
                      // [XID] // 0x0000000189B7B830-0x0000000189B7B870
-    protected virtual IEnumerator WaitAudioFinish() => default; // 0x00000001814EEF50-0x00000001814EF010
-                                                                // [XID] // 0x0000000189B86290-0x0000000189B862B0
+    protected virtual IEnumerator WaitAudioFinish()  // 0x00000001814EEF50-0x00000001814EF010
+    {
+        float startTime = Time.realtimeSinceStartup;
+        while ((Time.realtimeSinceStartup - startTime) < 20f)
+        {
+            if (!InLevelData.PauseGameLevelLoading)
+            {
+                yield break;
+            }
+            yield return null;
+        }
+    }
+    // [XID] // 0x0000000189B86290-0x0000000189B862B0
     public void LevelCreateLuaTeamAndAvatars(uint token, uint teamEntityId = 0 /* Metadata: 0x00AFD05A */, AbilitySyncStateInfo teamAbilityInfo = null) { } // 0x00000001814EC040-0x00000001814EC2F0
     [DebuggerHidden] // 0x0000000189B8D350-0x0000000189B8D390
                      // [XID] // 0x0000000189B8D350-0x0000000189B8D390
