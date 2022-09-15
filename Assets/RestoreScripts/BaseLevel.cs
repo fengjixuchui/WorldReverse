@@ -587,7 +587,19 @@ public abstract class BaseLevel : GameWorld // TypeDefIndex: 19897
         }
     }
     // [XID] // 0x0000000189B86290-0x0000000189B862B0
-    public void LevelCreateLuaTeamAndAvatars(uint token, uint teamEntityId = 0 /* Metadata: 0x00AFD05A */, AbilitySyncStateInfo teamAbilityInfo = null) { } // 0x00000001814EC040-0x00000001814EC2F0
+    public void LevelCreateLuaTeamAndAvatars(uint token, uint teamEntityId = 0 /* Metadata: 0x00AFD05A */, AbilitySyncStateInfo teamAbilityInfo = null)
+    {
+        if (!IsLevelReconnect(token))
+        {
+            Singleton<ActorManager>.Instance.InitLuaGlobal();
+        }
+        CreateTeamEntity(teamEntityId, InLevelData.peerId, teamAbilityInfo, true);
+        var tiemList = Singleton<TeamManager>.Instance.curTeamList;
+        Singleton<MultiplayerModule>.Instance.MapGUIDListToInLevelDataPeerId(tiemList);
+        ClearLevelCoroutine();
+        curCoroutine = Singleton<CoroutineManager>.Instance.StartCoroutine(PreLoadAllAvatars(token));
+        Singleton<MarkManager>.Instance.InitAvataArea();
+    } // 0x00000001814EC040-0x00000001814EC2F0
     [DebuggerHidden] // 0x0000000189B8D350-0x0000000189B8D390
                      // [XID] // 0x0000000189B8D350-0x0000000189B8D390
     protected virtual IEnumerator PreLoadAllAvatars(uint token) => default; // 0x00000001814EB9E0-0x00000001814EBAC0
